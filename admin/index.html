@@ -133,8 +133,8 @@ canvas{width:100%!important;height:100%!important;}
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <img src="/assets/logo.png" alt="YesMyIP">
-    <h2>Command Center</h2>
-    <p>Enter your access code</p>
+    <h2 data-t="cmdcenter">Command Center</h2>
+    <p data-t="entercode">Enter your access code</p>
     <input type="text" class="login-input" id="userInput" placeholder="Username" style="letter-spacing:0;margin-bottom:8px;font-family:'Outfit',sans-serif;" autocomplete="off">
     <div class="pw-wrap" style="margin-bottom:16px;">
       <input type="password" class="login-input" id="passInput" placeholder="Password" maxlength="30" autocomplete="off" style="margin-bottom:0;">
@@ -155,47 +155,52 @@ canvas{width:100%!important;height:100%!important;}
       <div class="topbar-title">Command <span>Center</span></div>
     </div>
     <div class="topbar-right">
-      <div class="topbar-badge"><div class="live-dot"></div> Live</div>
+      <div class="topbar-badge"><div class="live-dot"></div> <span data-t="live">Live</span></div>
+      <div style="display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;">
+        <button onclick="setLang('en')" class="lang-sel" id="lang-en" style="background:var(--cyan);color:#000;border:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;cursor:pointer;">EN</button>
+        <button onclick="setLang('es')" class="lang-sel" id="lang-es" style="background:none;color:var(--t2);border:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;cursor:pointer;">ES</button>
+        <button onclick="setLang('fr')" class="lang-sel" id="lang-fr" style="background:none;color:var(--t2);border:none;font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;cursor:pointer;">FR</button>
+      </div>
       <div class="topbar-time" id="clock"></div>
       <span id="currentUser" style="font-size:12px;color:var(--cyan);font-weight:600;"></span>
-      <button class="logout-btn" onclick="openSettings()" style="border-color:var(--cyan);color:var(--cyan);">⚙ Settings</button>
-      <button class="logout-btn" onclick="logout()">Log Out</button>
+      <button class="logout-btn" onclick="openSettings()" style="border-color:var(--cyan);color:var(--cyan);">⚙ <span data-t="settings">Settings</span></button>
+      <button class="logout-btn" onclick="logout()"><span data-t="logout">Log Out</span></button>
     </div>
   </div>
 
   <!-- DATE RANGE -->
   <div class="date-range">
-    <button class="dr-btn active" onclick="setRange(this,'today')">Today</button>
-    <button class="dr-btn" onclick="setRange(this,'7d')">7 Days</button>
-    <button class="dr-btn" onclick="setRange(this,'30d')">30 Days</button>
-    <button class="dr-btn" onclick="setRange(this,'90d')">90 Days</button>
-    <button class="dr-btn" onclick="setRange(this,'all')">All Time</button>
+    <button class="dr-btn active" onclick="setRange(this,'today')" data-t="today">Today</button>
+    <button class="dr-btn" onclick="setRange(this,'7d')" data-t="7days">7 Days</button>
+    <button class="dr-btn" onclick="setRange(this,'30d')" data-t="30days">30 Days</button>
+    <button class="dr-btn" onclick="setRange(this,'90d')" data-t="90days">90 Days</button>
+    <button class="dr-btn" onclick="setRange(this,'all')" data-t="alltime">All Time</button>
   </div>
 
   <!-- STAT CARDS -->
   <div class="stats">
     <div class="stat stat-cyan">
-      <div class="stat-label">Visitors</div>
+      <div class="stat-label" data-t="visitors">Visitors</div>
       <div class="stat-value" id="sVisitors">0</div>
       <div class="stat-change stat-up" id="sVisitorsChg">↑ 0%</div>
     </div>
     <div class="stat stat-green">
-      <div class="stat-label">Revenue</div>
+      <div class="stat-label" data-t="revenue">Revenue</div>
       <div class="stat-value" id="sRevenue">$0</div>
       <div class="stat-change stat-up" id="sRevenueChg">↑ 0%</div>
     </div>
     <div class="stat stat-amber">
-      <div class="stat-label">Page Views</div>
+      <div class="stat-label" data-t="pageviews">Page Views</div>
       <div class="stat-value" id="sPageviews">0</div>
       <div class="stat-change stat-up" id="sPageviewsChg">↑ 0%</div>
     </div>
     <div class="stat stat-purple">
-      <div class="stat-label">Affiliate Clicks</div>
+      <div class="stat-label" data-t="affclicks">Affiliate Clicks</div>
       <div class="stat-value" id="sClicks">0</div>
       <div class="stat-change stat-up" id="sClicksChg">↑ 0%</div>
     </div>
     <div class="stat stat-pink">
-      <div class="stat-label">Conversion Rate</div>
+      <div class="stat-label" data-t="convrate">Conversion Rate</div>
       <div class="stat-value" id="sConv">0%</div>
       <div class="stat-change stat-up" id="sConvChg">↑ 0%</div>
     </div>
@@ -205,13 +210,13 @@ canvas{width:100%!important;height:100%!important;}
   <div class="charts">
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title">Traffic & Revenue</div><div class="chart-subtitle">Daily visitors and revenue over time</div></div>
+        <div><div class="chart-title" data-t="trafficrev">Traffic &amp; Revenue</div><div class="chart-subtitle" data-t="trafficrevsub">Daily visitors and revenue over time</div></div>
       </div>
       <div class="chart-area"><canvas id="mainChart"></canvas></div>
     </div>
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title">Revenue Sources</div><div class="chart-subtitle">Breakdown by affiliate partner</div></div>
+        <div><div class="chart-title" data-t="revsources">Revenue Sources</div><div class="chart-subtitle" data-t="revsourcessub">Breakdown by affiliate partner</div></div>
       </div>
       <div class="chart-area"><canvas id="pieChart"></canvas></div>
     </div>
@@ -221,19 +226,19 @@ canvas{width:100%!important;height:100%!important;}
   <div class="pages-grid">
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title">💰 Revenue by Source</div><div class="chart-subtitle">Affiliate commissions & ad revenue</div></div>
+        <div><div class="chart-title" data-t="revbysource">💰 Revenue by Source</div><div class="chart-subtitle" data-t="revbysourcesub">Affiliate commissions &amp; ad revenue</div></div>
       </div>
       <table class="rev-table">
-        <thead><tr><th>Source</th><th>Clicks</th><th>Conversions</th><th>Revenue</th><th>Status</th></tr></thead>
+        <thead><tr><th data-t="source">Source</th><th data-t="clicks">Clicks</th><th data-t="conversions">Conversions</th><th data-t="revenue">Revenue</th><th data-t="status">Status</th></tr></thead>
         <tbody id="revTableBody"></tbody>
       </table>
     </div>
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title">📊 Top Pages</div><div class="chart-subtitle">Most visited pages this period</div></div>
+        <div><div class="chart-title" data-t="toppages">📊 Top Pages</div><div class="chart-subtitle" data-t="toppagessub">Most visited pages this period</div></div>
       </div>
       <table class="rev-table">
-        <thead><tr><th>Page</th><th>Views</th><th>Bounce</th></tr></thead>
+        <thead><tr><th data-t="page">Page</th><th data-t="views">Views</th><th data-t="bounce">Bounce</th></tr></thead>
         <tbody id="pagesTableBody"></tbody>
       </table>
     </div>
@@ -243,19 +248,19 @@ canvas{width:100%!important;height:100%!important;}
   <div class="bottom-grid">
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title">🌍 Top Countries</div><div class="chart-subtitle">Visitor geography</div></div>
+        <div><div class="chart-title" data-t="topcountries">🌍 Top Countries</div><div class="chart-subtitle" data-t="visitorsgeo">Visitor geography</div></div>
       </div>
       <div id="geoList"></div>
     </div>
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title">🎯 Revenue Goals</div><div class="chart-subtitle">Monthly targets</div></div>
+        <div><div class="chart-title" data-t="revgoals">🎯 Revenue Goals</div><div class="chart-subtitle" data-t="monthlytargets">Monthly targets</div></div>
       </div>
       <div id="goalsSection"></div>
     </div>
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title">⚡ Activity Feed</div><div class="chart-subtitle">Recent events</div></div>
+        <div><div class="chart-title" data-t="activityfeed">⚡ Activity Feed</div><div class="chart-subtitle" data-t="recentevents">Recent events</div></div>
       </div>
       <div id="feedSection"></div>
     </div>
@@ -336,6 +341,79 @@ function getUsers(){
   return DEFAULT_USERS;
 }
 function saveUsers(users){ localStorage.setItem('ymip_users', JSON.stringify(users)); }
+
+// TRANSLATION SYSTEM
+let currentLang = localStorage.getItem('ymip_lang') || 'en';
+const T = {
+  en: {
+    cmdcenter:'Command Center', entercode:'Enter your access code', live:'Live', settings:'Settings', logout:'Log Out',
+    visitors:'Visitors', revenue:'Revenue', pageviews:'Page Views', affclicks:'Affiliate Clicks', convrate:'Conversion Rate',
+    trafficrev:'Traffic & Revenue', trafficrevsub:'Daily visitors and revenue over time',
+    revsources:'Revenue Sources', revsourcessub:'Breakdown by affiliate partner',
+    revbysource:'💰 Revenue by Source', revbysourcesub:'Affiliate commissions & ad revenue',
+    toppages:'📊 Top Pages', toppagessub:'Most visited pages this period',
+    topcountries:'🌍 Top Countries', visitorsgeo:'Visitor geography',
+    revgoals:'🎯 Revenue Goals', monthlytargets:'Monthly targets',
+    activityfeed:'⚡ Activity Feed', recentevents:'Recent events',
+    today:'Today', '7days':'7 Days', '30days':'30 Days', '90days':'90 Days', alltime:'All Time',
+    source:'Source', clicks:'Clicks', conversions:'Conversions', status:'Status',
+    page:'Page', views:'Views', bounce:'Bounce',
+    month1:'Month 1 Target', month3:'Month 3 Target', month6:'Month 6 Target', month12:'Month 12 Target',
+  },
+  es: {
+    cmdcenter:'Centro de Comando', entercode:'Ingresa tu código de acceso', live:'En Vivo', settings:'Ajustes', logout:'Cerrar Sesión',
+    visitors:'Visitantes', revenue:'Ingresos', pageviews:'Páginas Vistas', affclicks:'Clics de Afiliados', convrate:'Tasa de Conversión',
+    trafficrev:'Tráfico e Ingresos', trafficrevsub:'Visitantes diarios e ingresos',
+    revsources:'Fuentes de Ingresos', revsourcessub:'Desglose por socio afiliado',
+    revbysource:'💰 Ingresos por Fuente', revbysourcesub:'Comisiones de afiliados y publicidad',
+    toppages:'📊 Páginas Principales', toppagessub:'Páginas más visitadas en este período',
+    topcountries:'🌍 Principales Países', visitorsgeo:'Geografía de visitantes',
+    revgoals:'🎯 Metas de Ingresos', monthlytargets:'Objetivos mensuales',
+    activityfeed:'⚡ Actividad Reciente', recentevents:'Eventos recientes',
+    today:'Hoy', '7days':'7 Días', '30days':'30 Días', '90days':'90 Días', alltime:'Todo',
+    source:'Fuente', clicks:'Clics', conversions:'Conversiones', status:'Estado',
+    page:'Página', views:'Vistas', bounce:'Rebote',
+    month1:'Meta Mes 1', month3:'Meta Mes 3', month6:'Meta Mes 6', month12:'Meta Mes 12',
+  },
+  fr: {
+    cmdcenter:'Centre de Commande', entercode:'Entrez votre code d\'accès', live:'En Direct', settings:'Paramètres', logout:'Déconnexion',
+    visitors:'Visiteurs', revenue:'Revenus', pageviews:'Pages Vues', affclicks:'Clics Affiliés', convrate:'Taux de Conversion',
+    trafficrev:'Trafic et Revenus', trafficrevsub:'Visiteurs quotidiens et revenus',
+    revsources:'Sources de Revenus', revsourcessub:'Répartition par partenaire affilié',
+    revbysource:'💰 Revenus par Source', revbysourcesub:'Commissions d\'affiliation et publicité',
+    toppages:'📊 Pages Principales', toppagessub:'Pages les plus visitées',
+    topcountries:'🌍 Principaux Pays', visitorsgeo:'Géographie des visiteurs',
+    revgoals:'🎯 Objectifs de Revenus', monthlytargets:'Objectifs mensuels',
+    activityfeed:'⚡ Fil d\'Activité', recentevents:'Événements récents',
+    today:'Aujourd\'hui', '7days':'7 Jours', '30days':'30 Jours', '90days':'90 Jours', alltime:'Tout',
+    source:'Source', clicks:'Clics', conversions:'Conversions', status:'Statut',
+    page:'Page', views:'Vues', bounce:'Rebond',
+    month1:'Objectif Mois 1', month3:'Objectif Mois 3', month6:'Objectif Mois 6', month12:'Objectif Mois 12',
+  }
+};
+
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('ymip_lang', lang);
+  document.querySelectorAll('.lang-sel').forEach(b => {
+    b.style.background = 'none'; b.style.color = 'var(--t2)';
+  });
+  const active = document.getElementById('lang-'+lang);
+  if(active){ active.style.background='var(--cyan)'; active.style.color='#000'; }
+  applyTranslations();
+  renderRevTable();
+  renderPagesTable();
+  renderGoals();
+  renderFeed();
+}
+
+function applyTranslations(){
+  const t = T[currentLang] || T.en;
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if(t[key]) el.textContent = t[key];
+  });
+}
 
 let currentUser = null;
 
@@ -538,6 +616,7 @@ const feed = [
 let mainChartInstance, pieChartInstance;
 
 function initDashboard(){
+  setLang(currentLang);
   updateStats('today');
   renderRevTable();
   renderPagesTable();
@@ -630,11 +709,12 @@ function renderGeo(){
 }
 
 function renderGoals(){
+  const t = T[currentLang] || T.en;
   const goals = [
-    { label:'Month 1 Target', current:412, target:600, color:'var(--cyan)' },
-    { label:'Month 3 Target', current:412, target:3500, color:'var(--amber)' },
-    { label:'Month 6 Target', current:412, target:18000, color:'var(--purple)' },
-    { label:'Month 12 Target', current:412, target:60000, color:'var(--green)' },
+    { label:t.month1, current:412, target:600, color:'var(--cyan)' },
+    { label:t.month3, current:412, target:3500, color:'var(--amber)' },
+    { label:t.month6, current:412, target:18000, color:'var(--purple)' },
+    { label:t.month12, current:412, target:60000, color:'var(--green)' },
   ];
   document.getElementById('goalsSection').innerHTML = goals.map(g => {
     const pct = Math.min((g.current/g.target)*100, 100).toFixed(1);
