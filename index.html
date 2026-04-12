@@ -77,6 +77,10 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filte
 .ad{background:transparent;border:none;border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:14px;color:var(--t3);font-size:12px;text-align:center;}
 .ad-lbl{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;opacity:.5;}
 .ad-top{min-height:0;margin:0;}.ad-rect{min-height:0;}.ad-half{min-height:0;}
+.ad-banner-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0;}
+.ad-placeholder{background:var(--s1);border:1px dashed var(--t3);border-radius:var(--r);min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;color:var(--t3);text-align:center;}
+.ad-size{font-size:12px;opacity:.4;}
+@media(max-width:700px){.ad-banner-row{grid-template-columns:1fr;}}
 .lookup-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px;overflow:hidden;}
 .lookup-card h2{font-family:Arial,sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;}
 .tabs{display:flex;gap:3px;border-bottom:1px solid var(--border);margin-bottom:16px;}
@@ -201,7 +205,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 </div>
 
 <div class="container">
-  <div class="two-col">
+  <div class="ad-banner-row"><div class="ad-placeholder" id="ad-mid-1"><div class="ad-lbl">ADVERTISEMENT</div><div class="ad-size">Ad Slot 1 — 336×280</div></div><div class="ad-placeholder" id="ad-mid-2"><div class="ad-lbl">ADVERTISEMENT</div><div class="ad-size">Ad Slot 2 — 336×280</div></div></div></div><div class="container"><div class="two-col">
     <div>
       <div class="lookup-card">
         <div class="tabs">

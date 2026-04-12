@@ -186,6 +186,10 @@ nav{
 .ad-top{min-height:0;margin:0;}
 .ad-rect{min-height:0;}
 .ad-half{min-height:0;}
+.ad-banner-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0;}
+.ad-placeholder{background:var(--s1);border:1px dashed var(--t3);border-radius:var(--r);min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;color:var(--t3);text-align:center;}
+.ad-size{font-size:12px;opacity:.4;}
+@media(max-width:700px){.ad-banner-row{grid-template-columns:1fr;}}
 
 /* LOOKUP TOOL */
 .lookup-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px;overflow:hidden;}
@@ -438,7 +442,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 
   <!-- MAIN + SIDEBAR -->
   <div class="container">
-    <div class="two-col">
+    <div class="ad-banner-row"><div class="ad-placeholder" id="ad-mid-1"><div class="ad-lbl">PUBLICIDAD</div><div class="ad-size">Ad Slot 1 — 336×280</div></div><div class="ad-placeholder" id="ad-mid-2"><div class="ad-lbl">PUBLICIDAD</div><div class="ad-size">Ad Slot 2 — 336×280</div></div></div></div><div class="container"><div class="two-col">
       <div>
 
         <!-- LEARN TABS -->
