@@ -5,15 +5,37 @@
   <url><loc>https://yesmyip.com/es/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://yesmyip.com/fr/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://yesmyip.com/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://yesmyip.com/tools/vpn-quiz/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://yesmyip.com/blog/what-is-a-vpn/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/best-vpns-for-netflix-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/is-my-vpn-working/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/vpn-vs-proxy/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/best-free-vpns-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/what-is-my-ip-address/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/how-to-hide-ip-address/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/nordvpn-review-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/best-vpns-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://yesmyip.com/blog/vpn-free-trial/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/what-is-a-vpn/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/best-vpns-for-netflix-2026/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/is-my-vpn-working/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/vpn-vs-proxy/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/best-free-vpns-2026/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/what-is-my-ip-address/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/how-to-hide-ip-address/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/nordvpn-review-2026/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/best-vpns-2026/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/vpn-free-trial/</loc><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/que-es-una-vpn/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/mejores-vpn-netflix-2026/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/mi-vpn-funciona/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/vpn-vs-proxy/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/mejores-vpn-gratis-2026/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/que-es-mi-direccion-ip/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/como-ocultar-ip/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/nordvpn-opinion-2026/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/mejores-vpn-2026/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/es/blog/vpn-prueba-gratis/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/quest-ce-quun-vpn/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/meilleurs-vpn-netflix-2026/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/mon-vpn-fonctionne/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/vpn-vs-proxy/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/meilleurs-vpn-gratuits-2026/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/quelle-est-mon-adresse-ip/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/comment-masquer-ip/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/nordvpn-avis-2026/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/meilleurs-vpn-2026/</loc><priority>0.6</priority></url>
+  <url><loc>https://yesmyip.com/fr/blog/vpn-essai-gratuit/</loc><priority>0.6</priority></url>
 </urlset>
