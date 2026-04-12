@@ -1,0 +1,26 @@
+# robots.txt — yesmyip.com
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*utm_
+Disallow: /*?*ref=
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block AI training crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://yesmyip.com/sitemap.xml
