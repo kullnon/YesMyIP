@@ -135,9 +135,9 @@ canvas{width:100%!important;height:100%!important;}
     <img src="/assets/logo.png" alt="YesMyIP">
     <h2 data-t="cmdcenter">Command Center</h2>
     <p data-t="entercode">Enter your access code</p>
-    <input type="text" class="login-input" id="userInput" placeholder="Username" style="letter-spacing:0;margin-bottom:8px;font-family:'Outfit',sans-serif;" autocomplete="off">
+    <input type="text" class="login-input" id="userInput" placeholder="Username" style="letter-spacing:0;margin-bottom:8px;font-family:'Outfit',sans-serif;" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
     <div class="pw-wrap" style="margin-bottom:16px;">
-      <input type="password" class="login-input" id="passInput" placeholder="Password" maxlength="30" autocomplete="off" style="margin-bottom:0;">
+      <input type="password" class="login-input" id="passInput" placeholder="Password" maxlength="30" autocomplete="off" autocapitalize="none" autocorrect="off" style="margin-bottom:0;">
       <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
     </div>
     <button class="login-btn" onclick="tryLogin()">Access Dashboard</button>
@@ -424,7 +424,13 @@ userInput.addEventListener('keydown', e => { if(e.key==='Enter') passInput.focus
 
 function tryLogin(){
   const u = userInput.value.trim().toLowerCase();
-  const p = passInput.value.trim();
+  const p = passInput.value;
+  if(!u || !p){
+    document.getElementById('loginError').textContent='Enter username and password';
+    document.getElementById('loginError').style.display='block';
+    setTimeout(()=>document.getElementById('loginError').style.display='none',3000);
+    return;
+  }
   const users = getUsers();
   const found = users.find(x => x.username.toLowerCase()===u && x.password===p);
   if(found){
