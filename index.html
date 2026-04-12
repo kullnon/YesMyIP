@@ -322,17 +322,17 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 <!-- NAV -->
 <nav>
   <a href="/" class="logo">¿CuálEs<span>MiIP</span>?</a>
-  <button class="nav-link active" onclick="showPage('home')">Mi IP</button>
-  <button class="nav-link" onclick="showPage('lookup')">Consulta IP</button>
-  <button class="nav-link" onclick="showPage('vpns')">VPNs</button>
-  <button class="nav-link" onclick="showPage('blog')">Aprende</button>
+  <button class="nav-link active" onclick="location.href="/"">Mi IP</button>
+  <button class="nav-link" onclick="location.href="/tools/ip-lookup"">Consulta IP</button>
+  <button class="nav-link" onclick="location.href="/vpns"">VPNs</button>
+  <button class="nav-link" onclick="location.href="/blog"">Aprende</button>
   <div class="nav-right">
     <div class="lang-switcher">
       <span class="lang-btn active">🇪🇸 ES</span>
       <a href="/en/" class="lang-btn">🇺🇸 EN</a>
       <a href="/fr/" class="lang-btn">🇫🇷 FR</a>
     </div>
-    <button class="shield-btn" onclick="showPage('vpns')">🛡️ Ocultar Mi IP</button>
+    <button class="shield-btn" onclick="location.href="/vpns"">🛡️ Ocultar Mi IP</button>
   </div>
 </nav>
 
@@ -378,8 +378,8 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
             <div class="pulse"></div>
             <span>⚠️ Tu ubicación real es visible para cada sitio web que visitas</span>
           </div>
-          <button class="btn btn-cyan" onclick="showPage('vpns')">🛡️ Ocultar Mi IP Ahora</button>
-          <button class="btn btn-ghost btn-sm" onclick="showPage('lookup')">🔍 Consultar Otra IP</button>
+          <button class="btn btn-cyan" onclick="location.href="/vpns"">🛡️ Ocultar Mi IP Ahora</button>
+          <button class="btn btn-ghost btn-sm" onclick="location.href="/tools/ip-lookup"">🔍 Consultar Otra IP</button>
           <div class="trust">🔒 Sin registro · Sin almacenamiento · 100% gratis</div>
         </div>
 
@@ -393,10 +393,10 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
         <div class="card">
           <div class="card-title">⚡ Herramientas Rápidas</div>
           <div class="tools-grid">
-            <a class="tool-btn" href="#" onclick="showPage('lookup');return false;"><div class="ti">🔍</div><div class="tn">Consulta IP</div><div class="td">Localiza cualquier IP</div></a>
-            <a class="tool-btn" href="#" onclick="showPage('breach');return false;"><div class="ti">💧</div><div class="tn">Filtración</div><div class="td">¿Tu email fue filtrado?</div></a>
-            <a class="tool-btn" href="#" onclick="showPage('speed');return false;"><div class="ti">⚡</div><div class="tn">Test Velocidad</div><div class="td">Mide tu conexión</div></a>
-            <a class="tool-btn" href="#" onclick="showPage('quiz');return false;"><div class="ti">🎯</div><div class="tn">Test VPN</div><div class="td">¿Qué VPN necesitas?</div></a>
+            <a class="tool-btn" href="#" onclick="location.href="/tools/ip-lookup";return false;"><div class="ti">🔍</div><div class="tn">Consulta IP</div><div class="td">Localiza cualquier IP</div></a>
+            <a class="tool-btn" href="#" onclick="location.href="/tools/breach-check";return false;"><div class="ti">💧</div><div class="tn">Filtración</div><div class="td">¿Tu email fue filtrado?</div></a>
+            <a class="tool-btn" href="#" onclick="location.href="/tools/speed-test";return false;"><div class="ti">⚡</div><div class="tn">Test Velocidad</div><div class="td">Mide tu conexión</div></a>
+            <a class="tool-btn" href="#" onclick="location.href="/tools/vpn-quiz";return false;"><div class="ti">🎯</div><div class="tn">Test VPN</div><div class="td">¿Qué VPN necesitas?</div></a>
           </div>
         </div>
 
@@ -408,7 +408,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
             <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#f7c74420;border:1px solid #f7c74440;">👻</div><div><div class="vpn-name">CyberGhost</div><div class="vpn-deal">84% DESCUENTO · $2.19/mes</div></div><div class="vpn-get">VER OFERTA</div></a>
             <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#1eb8c920;border:1px solid #1eb8c940;">🦈</div><div><div class="vpn-name">Surfshark</div><div class="vpn-deal">87% DESCUENTO · $2.29/mes</div></div><div class="vpn-get">VER OFERTA</div></a>
           </div>
-          <button class="btn btn-sm" style="background:var(--purple);color:white;margin-top:10px;width:100%;border:none;" onclick="showPage('quiz')">🎯 ¿No sabes cuál? Haz el test</button>
+          <button class="btn btn-sm" style="background:var(--purple);color:white;margin-top:10px;width:100%;border:none;" onclick="location.href="/tools/vpn-quiz"">🎯 ¿No sabes cuál? Haz el test</button>
         </div>
 
         <div class="score-card">
@@ -428,7 +428,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
             <div class="chk warn"><div class="chk-dot"></div>IPv6 sin verificar</div>
             <div class="chk pass"><div class="chk-dot"></div>Sin lista negra</div>
           </div>
-          <button class="btn btn-sm" style="background:var(--red);color:white;border:none;margin-top:12px;width:100%;" onclick="showPage('vpns')">Mejorar Seguridad →</button>
+          <button class="btn btn-sm" style="background:var(--red);color:white;border:none;margin-top:12px;width:100%;" onclick="location.href="/vpns"">Mejorar Seguridad →</button>
         </div>
 
         <div class="ad ad-rect"><div class="ad-lbl">Publicidad · 300×250</div></div>
@@ -472,9 +472,9 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
           <h2 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;">¿Cuál Es Tu Mayor Preocupación?</h2>
           <p style="font-size:13px;color:var(--t2);margin-bottom:0;">Dinos tu prioridad y te recomendamos la mejor VPN.</p>
           <div class="concern-grid">
-            <a href="#" class="cc" onclick="showPage('quiz');return false;"><div class="cc-icon">🛡️</div><div class="cc-title">Seguridad</div><div class="cc-desc">Protección de hackers en Wi-Fi públicas</div><span class="cc-btn">Quiero Seguridad</span></a>
-            <a href="#" class="cc" onclick="showPage('quiz');return false;"><div class="cc-icon">👁️</div><div class="cc-title">Privacidad</div><div class="cc-desc">Evitar que mi ISP y anunciantes me rastreen</div><span class="cc-btn">Quiero Privacidad</span></a>
-            <a href="#" class="cc" onclick="showPage('quiz');return false;"><div class="cc-icon">🌍</div><div class="cc-title">Acceso</div><div class="cc-desc">Desbloquear Netflix, BBC y más servicios</div><span class="cc-btn">Quiero Acceso</span></a>
+            <a href="#" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">🛡️</div><div class="cc-title">Seguridad</div><div class="cc-desc">Protección de hackers en Wi-Fi públicas</div><span class="cc-btn">Quiero Seguridad</span></a>
+            <a href="#" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">👁️</div><div class="cc-title">Privacidad</div><div class="cc-desc">Evitar que mi ISP y anunciantes me rastreen</div><span class="cc-btn">Quiero Privacidad</span></a>
+            <a href="#" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">🌍</div><div class="cc-title">Acceso</div><div class="cc-desc">Desbloquear Netflix, BBC y más servicios</div><span class="cc-btn">Quiero Acceso</span></a>
           </div>
         </div>
 
