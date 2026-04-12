@@ -80,6 +80,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
+[id]{scroll-margin-top:80px;}
 body{overflow-x:hidden;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
@@ -446,9 +447,9 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
       <div>
 
         <!-- LEARN TABS -->
-        <div class="lookup-card">
+        <div class="lookup-card id="learn">
           <div class="tabs">
-            <button class="tab active" onclick="switchTab(this,'t1')" id="learn">¿Qué es una IP?</button>
+            <button class="tab active" onclick="switchTab(this,'t1')">¿Qué es una IP?</button>
             <button class="tab" onclick="switchTab(this,'t2')">¿Por qué ocultarla?</button>
             <button class="tab" onclick="switchTab(this,'t3')">¿Qué es una VPN?</button>
           </div>
@@ -476,9 +477,9 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
           <h2 style="font-family:Arial,sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;">¿Cuál Es Tu Mayor Preocupación?</h2>
           <p style="font-size:13px;color:var(--t2);margin-bottom:0;">Dinos tu prioridad y te recomendamos la mejor VPN.</p>
           <div class="concern-grid">
-            <a href="#vpn-compare" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">🛡️</div><div class="cc-title">Seguridad</div><div class="cc-desc">Protección de hackers en Wi-Fi públicas</div><span class="cc-btn">Quiero Seguridad</span></a>
-            <a href="#vpn-compare" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">👁️</div><div class="cc-title">Privacidad</div><div class="cc-desc">Evitar que mi ISP y anunciantes me rastreen</div><span class="cc-btn">Quiero Privacidad</span></a>
-            <a href="#vpn-compare" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">🌍</div><div class="cc-title">Acceso</div><div class="cc-desc">Desbloquear Netflix, BBC y más servicios</div><span class="cc-btn">Quiero Acceso</span></a>
+            <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">🛡️</div><div class="cc-title">Seguridad</div><div class="cc-desc">Protección de hackers en Wi-Fi públicas</div><span class="cc-btn">Quiero Seguridad</span></a>
+            <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">👁️</div><div class="cc-title">Privacidad</div><div class="cc-desc">Evitar que mi ISP y anunciantes me rastreen</div><span class="cc-btn">Quiero Privacidad</span></a>
+            <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">🌍</div><div class="cc-title">Acceso</div><div class="cc-desc">Desbloquear Netflix, BBC y más servicios</div><span class="cc-btn">Quiero Acceso</span></a>
           </div>
         </div>
 
