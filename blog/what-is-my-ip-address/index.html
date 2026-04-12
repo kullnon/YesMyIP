@@ -21,7 +21,10 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filte
 .lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
 .lang-btn{background:none;border:none;color:var(--t2);font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;text-decoration:none;}.lang-btn.active{background:var(--cyan);color:#000;}
 .shield-btn{background:var(--red);color:white;border:none;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;text-decoration:none;}
-.article{max-width:760px;margin:0 auto;padding:40px 20px 60px;}
+.article-layout{max-width:1060px;margin:0 auto;padding:40px 20px 60px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:start;}
+.article-sidebar{position:sticky;top:80px;}
+.article-main{min-width:0;}
+@media(max-width:860px){.article-layout{grid-template-columns:1fr;}.article-sidebar{position:static;order:1;}}
 .article h1{font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px;color:var(--text);}
 .article .meta{font-size:13px;color:var(--t3);margin-bottom:32px;}
 .article h2{font-size:22px;font-weight:700;color:var(--cyan);margin:32px 0 12px;}
@@ -55,7 +58,27 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color
     <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="shield-btn" style="text-decoration:none;">🛡️ Hide My IP</a>
   </div>
 </nav>
-<div class="article">
+<div class="article-layout">
+  <div class="article-sidebar"><div style="background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:16px;padding:22px;margin-top:36px;">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#dde4f2);margin-bottom:14px;">📚 More Articles</div>
+    <a href="/blog/best-vpns-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best VPNs of 2026</a>
+    <a href="/blog/nordvpn-review-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">NordVPN Review 2026</a>
+    <a href="/blog/best-vpns-for-netflix-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best VPNs for Netflix</a>
+    <a href="/blog/what-is-a-vpn/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">What Is a VPN?</a>
+    <a href="/blog/vpn-vs-proxy/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">VPN vs Proxy</a>
+    <a href="/blog/best-free-vpns-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best Free VPNs 2026</a>
+    <a href="/blog/is-my-vpn-working/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Is My VPN Working?</a>
+    <a href="/blog/" style="display:block;padding:9px 12px;border-radius:8px;color:var(--cyan,#00d4ff);font-size:13px;text-decoration:none;font-weight:600;">View All Articles →</a>
+  </div>
+
+  <div class="cta-box">
+    <h3>🛡️ Protect Your Privacy Now</h3>
+    <p>NordVPN — 67% off + 3 months free. 30-day money-back guarantee.</p>
+    <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="cta-btn">Get NordVPN →</a>
+  </div>
+</div>
+  </div>
+  <div class="article-main">
   <div class="breadcrumb"><a href="/">Home</a> → <a href="/blog/">Blog</a> → What Is My IP Address?</div>
   <h1>What Is My IP Address?</h1>
   <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:16px;background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:12px;">
@@ -95,26 +118,6 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color
         <p><strong>2.</strong> Download the app on your device.</p>
         <p><strong>3.</strong> Click connect. Your real IP is now hidden.</p>
         <p>Visit <a href="/">YesMyIP.com</a> before and after connecting to verify it's working.</p>
-        
-  
-  <div style="background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:16px;padding:22px;margin-top:36px;">
-    <div style="font-size:13px;font-weight:700;color:var(--text,#dde4f2);margin-bottom:14px;">📚 More Articles</div>
-    <a href="/blog/best-vpns-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best VPNs of 2026</a>
-    <a href="/blog/nordvpn-review-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">NordVPN Review 2026</a>
-    <a href="/blog/best-vpns-for-netflix-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best VPNs for Netflix</a>
-    <a href="/blog/what-is-a-vpn/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">What Is a VPN?</a>
-    <a href="/blog/vpn-vs-proxy/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">VPN vs Proxy</a>
-    <a href="/blog/best-free-vpns-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best Free VPNs 2026</a>
-    <a href="/blog/is-my-vpn-working/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Is My VPN Working?</a>
-    <a href="/blog/" style="display:block;padding:9px 12px;border-radius:8px;color:var(--cyan,#00d4ff);font-size:13px;text-decoration:none;font-weight:600;">View All Articles →</a>
-  </div>
-
-  <div class="cta-box">
-    <h3>🛡️ Protect Your Privacy Now</h3>
-    <p>NordVPN — 67% off + 3 months free. 30-day money-back guarantee.</p>
-    <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="cta-btn">Get NordVPN →</a>
-  </div>
-</div>
 <footer>
   <p>© 2026 YesMyIP.com · All Rights Reserved</p>
   <p style="margin-top:8px;"><a href="/">Home</a><a href="/blog/">Blog</a><a href="/en/legal/privacy-policy">Privacy</a><a href="/en/legal/terms">Terms</a><a href="/en/legal/affiliate-disclosure">Affiliates</a></p>

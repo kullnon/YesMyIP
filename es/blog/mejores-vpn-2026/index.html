@@ -17,7 +17,10 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filte
 .lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
 .lang-btn{color:var(--t2);font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;text-decoration:none;}.lang-btn.active{background:var(--cyan);color:#000;}
 .shield-btn{background:var(--red);color:white;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;text-decoration:none;}
-.article{max-width:760px;margin:0 auto;padding:40px 20px 60px;}
+.article-layout{max-width:1060px;margin:0 auto;padding:40px 20px 60px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:start;}
+.article-sidebar{position:sticky;top:80px;}
+.article-main{min-width:0;}
+@media(max-width:860px){.article-layout{grid-template-columns:1fr;}.article-sidebar{position:static;order:1;}}
 .article h1{font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px;}
 .article .meta{font-size:13px;color:var(--t3);margin-bottom:32px;}
 .article h2{font-size:22px;font-weight:700;color:var(--cyan);margin:32px 0 12px;}
@@ -48,7 +51,25 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}
     <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="shield-btn">🛡️ Ocultar IP</a>
   </div>
 </nav>
-<div class="article">
+<div class="article-layout">
+  <div class="article-sidebar"><div style="background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:16px;padding:22px;margin-top:36px;">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#dde4f2);margin-bottom:14px;">📚 Más Artículos</div>
+    <a href="/es/blog/mejores-vpn-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">Mejores VPN de 2026</a>
+    <a href="/es/blog/nordvpn-opinion-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">NordVPN Opinión 2026</a>
+    <a href="/es/blog/mejores-vpn-netflix-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">Mejores VPN para Netflix</a>
+    <a href="/es/blog/que-es-una-vpn/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">¿Qué es una VPN?</a>
+    <a href="/es/blog/vpn-vs-proxy/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">VPN vs Proxy</a>
+    <a href="/es/blog/" style="display:block;padding:9px 12px;border-radius:8px;color:var(--cyan,#00d4ff);font-size:13px;text-decoration:none;font-weight:600;">Ver Todos →</a>
+  </div>
+
+  <div class="cta-box">
+    <h3>🛡️ Protege Tu Privacidad Ahora</h3>
+    <p>NordVPN — 67% descuento + 3 meses gratis.</p>
+    <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="cta-btn">Obtener NordVPN →</a>
+  </div>
+</div>
+  </div>
+  <div class="article-main">
   <div class="breadcrumb"><a href="/es/">Inicio</a> → <a href="/es/blog/">Blog</a> → Mejores VPN de 2026</div>
   <h1>Mejores VPN de 2026</h1>
   <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:16px;background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:12px;">
@@ -71,24 +92,6 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}
         <p><a href="https://cyberghostvpn.com" target="_blank" rel="nofollow noopener">CyberGhost</a> tiene 11,500+ servidores. $2.19/mes.</p>
         <h2>5. Private Internet Access (PIA)</h2>
         <p><a href="https://privateinternetaccess.com" target="_blank" rel="nofollow noopener">PIA</a> ofrece 35,000+ servidores y personalización profunda. $2.19/mes.</p>
-        
-  
-  <div style="background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:16px;padding:22px;margin-top:36px;">
-    <div style="font-size:13px;font-weight:700;color:var(--text,#dde4f2);margin-bottom:14px;">📚 Más Artículos</div>
-    <a href="/es/blog/mejores-vpn-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">Mejores VPN de 2026</a>
-    <a href="/es/blog/nordvpn-opinion-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">NordVPN Opinión 2026</a>
-    <a href="/es/blog/mejores-vpn-netflix-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">Mejores VPN para Netflix</a>
-    <a href="/es/blog/que-es-una-vpn/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">¿Qué es una VPN?</a>
-    <a href="/es/blog/vpn-vs-proxy/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">VPN vs Proxy</a>
-    <a href="/es/blog/" style="display:block;padding:9px 12px;border-radius:8px;color:var(--cyan,#00d4ff);font-size:13px;text-decoration:none;font-weight:600;">Ver Todos →</a>
-  </div>
-
-  <div class="cta-box">
-    <h3>🛡️ Protege Tu Privacidad Ahora</h3>
-    <p>NordVPN — 67% descuento + 3 meses gratis.</p>
-    <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="cta-btn">Obtener NordVPN →</a>
-  </div>
-</div>
 <footer>
   <p>© 2026 YesMyIP.com</p>
   <p style="margin-top:8px;"><a href="/es/">Inicio</a><a href="/es/blog/">Blog</a><a href="/en/legal/privacy-policy">Privacidad</a></p>
