@@ -61,8 +61,8 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+
 <link rel="icon" href="/assets/logo.png" type="image/png">
 <link rel="icon" href="/assets/logo.png" type="image/png">
 <link rel="manifest" href="/manifest.json">
@@ -80,7 +80,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{overflow-x:hidden;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
+body{overflow-x:hidden;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px;}
@@ -93,19 +93,19 @@ nav{
   padding:0 20px;height:58px;
   display:flex;align-items:center;gap:6px;
 }
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--text);text-decoration:none;margin-right:12px;white-space:nowrap;}
+.logo{font-family:Arial,sans-serif;font-weight:800;font-size:18px;color:var(--text);text-decoration:none;margin-right:12px;white-space:nowrap;}
 .logo span{color:var(--cyan);}
-.nav-link{background:none;border:none;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.nav-link{background:none;border:none;color:var(--t2);font-family:Arial,sans-serif;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;cursor:pointer;transition:all .18s;white-space:nowrap;}
 .nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06);}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
 
 /* LANG SWITCHER */
 .lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
-.lang-btn{background:none;border:none;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;cursor:pointer;transition:all .2s;text-decoration:none;}
+.lang-btn{background:none;border:none;color:var(--t2);font-family:Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;cursor:pointer;transition:all .2s;text-decoration:none;}
 .lang-btn:hover{color:var(--text);}
 .lang-btn.active{background:var(--cyan);color:#000;}
 
-.shield-btn{background:var(--red);color:white;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer;animation:pulseRed 3s infinite;}
+.shield-btn{background:var(--red);color:white;border:none;font-family:Arial,sans-serif;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer;animation:pulseRed 3s infinite;}
 @keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(255,71,87,.4);}50%{box-shadow:0 0 0 8px rgba(255,71,87,0);}}
 
 /* PROMO BAR */
@@ -125,15 +125,15 @@ nav{
 /* HERO */
 .hero{padding:50px 20px 36px;max-width:1100px;margin:0 auto;}
 .hero-grid{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start;}
-.hero-title{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.1;margin-bottom:6px;}
+.hero-title{font-family:Arial,sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.1;margin-bottom:6px;}
 .hero-title .hl{color:var(--cyan);}
 .hero-sub{color:var(--t2);font-size:14px;margin-bottom:26px;}
 
 /* IP CARD */
-.ip-card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:26px;position:relative;overflow:hidden;}
+.ip-card{max-width:480px;background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:26px;position:relative;overflow:hidden;}
 .ip-card::after{content:'';position:absolute;top:-70px;right:-70px;width:210px;height:210px;background:radial-gradient(circle,rgba(0,212,255,.1) 0%,transparent 70%);pointer-events:none;}
 .ip-lbl{font-size:10px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;}
-.ip-big{font-family:'Syne',sans-serif;font-size:clamp(14px,2vw,22px);word-break:break-all;letter-spacing:0;font-weight:800;color:var(--cyan);letter-spacing:-.5px;display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.ip-big{font-family:Arial,sans-serif;font-size:clamp(14px,2vw,22px);word-break:break-all;letter-spacing:0;font-weight:800;color:var(--cyan);letter-spacing:-.5px;display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
 .copy-btn{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);color:var(--cyan);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
 .copy-btn:hover{background:rgba(0,212,255,.2);}
 .ip-type{font-size:11px;color:var(--t3);margin-bottom:18px;}
@@ -145,7 +145,7 @@ nav{
 .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;animation:pd 2s infinite;}
 @keyframes pd{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
 .alert span{font-size:12px;color:#ff8a95;}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:var(--rsm);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:none;transition:all .2s;text-decoration:none;width:100%;margin-bottom:8px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:var(--rsm);font-family:Arial,sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:none;transition:all .2s;text-decoration:none;width:100%;margin-bottom:8px;}
 .btn-cyan{background:var(--cyan);color:#000;}
 .btn-cyan:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,212,255,.3);}
 .btn-ghost{background:var(--s2);border:1px solid var(--border2);color:var(--text);}
@@ -156,7 +156,7 @@ nav{
 /* RIGHT PANEL */
 .right-panel{display:flex;flex-direction:column;gap:14px;}
 .card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;}
-.card-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;}
+.card-title{font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;}
 .tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .tool-btn{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:13px;cursor:pointer;transition:all .2s;text-decoration:none;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;}
 .tool-btn:hover{border-color:rgba(0,212,255,.3);background:var(--cd);transform:translateY(-2px);}
@@ -166,7 +166,7 @@ nav{
 
 /* VPN STRIP */
 .vpn-strip{background:linear-gradient(135deg,#120a28,#091b30);border:1px solid rgba(123,94,167,.25);border-radius:var(--r);padding:16px;}
-.vpn-strip-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text);}
+.vpn-strip-title{font-family:Arial,sans-serif;font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text);}
 .vpn-items{display:flex;flex-direction:column;gap:7px;}
 .vpn-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid transparent;border-radius:10px;padding:10px 12px;text-decoration:none;transition:all .2s;}
 .vpn-row:hover{border-color:rgba(123,94,167,.35);background:rgba(123,94,167,.06);}
@@ -189,9 +189,9 @@ nav{
 
 /* LOOKUP TOOL */
 .lookup-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px;}
-.lookup-card h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;}
+.lookup-card h2{font-family:Arial,sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;}
 .lookup-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
-.input{background:var(--s2);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:var(--rsm);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color .2s;flex:1;min-width:180px;}
+.input{background:var(--s2);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:var(--rsm);font-family:Arial,sans-serif;font-size:13px;outline:none;transition:border-color .2s;flex:1;min-width:180px;}
 .input:focus{border-color:var(--cyan);}
 .lookup-result{display:none;margin-top:16px;background:var(--s2);border-radius:12px;padding:16px;border:1px solid var(--border);}
 .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -201,19 +201,19 @@ nav{
 
 /* TABS */
 .tabs{display:flex;gap:3px;border-bottom:1px solid var(--border);margin-bottom:16px;}
-.tab{background:none;border:none;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 14px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;}
+.tab{background:none;border:none;color:var(--t2);font-family:Arial,sans-serif;font-size:13px;font-weight:500;padding:8px 14px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;}
 .tab:hover{color:var(--text);}
 .tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
 .tab-panel{display:none;}
 .tab-panel.active{display:block;}
 .tab-panel p{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:10px;}
-.tab-panel h2{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
+.tab-panel h2{font-family:Arial,sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
 .tab-panel strong{color:var(--text);}
 
 /* FAQ */
 .faq-item{border-bottom:1px solid var(--border);padding:14px 0;}
 .faq-item:last-child{border-bottom:none;}
-.faq-q{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.faq-q{font-family:Arial,sans-serif;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;}
 .faq-q::after{content:'+';color:var(--cyan);font-size:17px;flex-shrink:0;}
 .faq-a{font-size:13px;color:var(--t2);line-height:1.75;margin-top:9px;display:none;}
 .faq-item.open .faq-a{display:block;}
@@ -233,7 +233,7 @@ nav{
 .cc{background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;display:block;}
 .cc:hover{border-color:rgba(0,212,255,.3);transform:translateY(-3px);}
 .cc-icon{font-size:26px;margin-bottom:8px;}
-.cc-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.cc-title{font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;}
 .cc-desc{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:10px;}
 .cc-btn{display:inline-block;background:var(--cyan);color:#000;font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;}
 
@@ -241,7 +241,7 @@ nav{
 .score-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;}
 .ring-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:12px;position:relative;}
 .ring-wrap svg{transform:rotate(-90deg);}
-.ring-num{position:absolute;font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--red);}
+.ring-num{position:absolute;font-family:Arial,sans-serif;font-size:24px;font-weight:800;color:var(--red);}
 .ring-sub{text-align:center;font-size:11px;color:var(--t3);margin-bottom:12px;font-weight:700;letter-spacing:.5px;}
 .chk-list{display:flex;flex-direction:column;gap:6px;}
 .chk{display:flex;align-items:center;gap:8px;font-size:11px;padding:7px 10px;border-radius:8px;background:var(--s2);}
@@ -259,7 +259,7 @@ nav{
 .tag-vpn{background:var(--pd);color:var(--purple);}
 .tag-privacy{background:var(--cd);color:var(--cyan);}
 .tag-guide{background:var(--gd);color:var(--green);}
-.blog-card h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3;}
+.blog-card h3{font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3;}
 .blog-card p{font-size:11px;color:var(--t2);line-height:1.6;margin-bottom:10px;}
 .blog-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);border-top:1px solid var(--border);padding-top:9px;}
 
@@ -272,8 +272,8 @@ nav{
 .cb-text{flex:1;min-width:200px;}
 .cb-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
 .cb-desc{font-size:11px;color:var(--t2);}
-.cb-accept{background:var(--cyan);color:#000;border:none;padding:9px 18px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;cursor:pointer;}
-.cb-reject{background:none;border:1px solid var(--border2);color:var(--t2);padding:9px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.cb-accept{background:var(--cyan);color:#000;border:none;padding:9px 18px;border-radius:8px;font-family:Arial,sans-serif;font-weight:800;font-size:12px;cursor:pointer;}
+.cb-reject{background:none;border:1px solid var(--border2);color:var(--t2);padding:9px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:Arial,sans-serif;}
 
 /* FOOTER */
 footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;}
@@ -281,7 +281,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:24px;}
 .footer-brand .logo{display:block;margin-bottom:8px;}
 .footer-brand p{font-size:12px;color:var(--t3);line-height:1.7;}
-.footer-col h4{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;}
+.footer-col h4{font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;}
 .footer-col a{display:block;color:var(--t3);text-decoration:none;font-size:12px;margin-bottom:6px;transition:color .2s;}
 .footer-col a:hover{color:var(--cyan);}
 .footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--t3);}
@@ -471,7 +471,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 
         <!-- CONCERN CARDS -->
         <div class="lookup-card">
-          <h2 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;">¿Cuál Es Tu Mayor Preocupación?</h2>
+          <h2 style="font-family:Arial,sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;">¿Cuál Es Tu Mayor Preocupación?</h2>
           <p style="font-size:13px;color:var(--t2);margin-bottom:0;">Dinos tu prioridad y te recomendamos la mejor VPN.</p>
           <div class="concern-grid">
             <a href="#" class="cc" onclick="location.href="/tools/vpn-quiz";return false;"><div class="cc-icon">🛡️</div><div class="cc-title">Seguridad</div><div class="cc-desc">Protección de hackers en Wi-Fi públicas</div><span class="cc-btn">Quiero Seguridad</span></a>
@@ -484,7 +484,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 
         <!-- VPN TABLE -->
         <div class="lookup-card">
-          <h2 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px;">🏆 Mejores VPNs de 2026</h2>
+          <h2 style="font-family:Arial,sans-serif;font-size:17px;font-weight:700;margin-bottom:6px;">🏆 Mejores VPNs de 2026</h2>
           <p style="font-size:13px;color:var(--t2);margin-bottom:14px;">Revisadas y clasificadas por nuestro equipo. Se aplica divulgación de afiliados.</p>
           <div style="overflow-x:auto;">
             <table class="vtbl">
@@ -503,7 +503,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 
         <!-- FAQ -->
         <div class="lookup-card">
-          <h2 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:14px;">Preguntas Frecuentes</h2>
+          <h2 style="font-family:Arial,sans-serif;font-size:17px;font-weight:700;margin-bottom:14px;">Preguntas Frecuentes</h2>
           <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">¿Qué es mi dirección IP y por qué importa?</div><div class="faq-a">Tu dirección IP es un número único asignado por tu ISP cuando te conectas a internet. Identifica tu dispositivo ante sitios web y servicios, y puede revelar tu ubicación aproximada, nombre del ISP y patrones de navegación. Cada sitio que visitas puede verla.</div></div>
           <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">¿Puede alguien encontrar mi dirección exacta con mi IP?</div><div class="faq-a">No. Tu IP revela tu ciudad y tu ISP, pero no tu dirección domiciliaria específica. Solo tu ISP puede vincular tu IP a tu cuenta, y hacerlo requiere una solicitud legal válida.</div></div>
           <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">¿Cuál es la forma más rápida de ocultar mi IP?</div><div class="faq-a">Instala una VPN (NordVPN o Surfshark cuestan menos de $3 al mes), haz clic en conectar y tu IP queda oculta en menos de 60 segundos. Nuestro Test VPN puede ayudarte a elegir la mejor opción en 2 minutos.</div></div>
@@ -543,7 +543,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
         <button class="btn btn-cyan btn-sm" style="width:auto;" onclick="doLookup()">Consultar →</button>
       </div>
       <div class="lookup-result" id="lookupResult">
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--cyan);margin-bottom:12px;" id="lookupIPLabel"></div>
+        <div style="font-family:Arial,sans-serif;font-weight:700;font-size:14px;color:var(--cyan);margin-bottom:12px;" id="lookupIPLabel"></div>
         <div class="result-grid" id="lookupMeta"></div>
       </div>
     </div>
@@ -580,7 +580,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 <div id="page-blog" style="display:none;">
   <div class="container" style="padding-top:32px;">
     <div class="ad ad-top"><div class="ad-lbl">Publicidad · 728×90</div></div>
-    <h1 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin:20px 0 8px;">📖 Guías de Privacidad y Seguridad</h1>
+    <h1 style="font-family:Arial,sans-serif;font-size:26px;font-weight:800;margin:20px 0 8px;">📖 Guías de Privacidad y Seguridad</h1>
     <p style="font-size:14px;color:var(--t2);margin-bottom:20px;">Guías expertas, reseñas de VPN y todo lo que necesitas para protegerte online.</p>
     <div class="blog-grid">
       <a href="#" class="blog-card"><div class="blog-thumb" style="background:linear-gradient(135deg,#1a0a10,#080c14);">🔐</div><div class="blog-body"><span class="blog-tag tag-guide">Guía</span><h3>¿Qué es una VPN? Explicación Sencilla</h3><p>Todo lo que necesitas saber sobre las VPN en 2026, sin tecnicismos.</p><div class="blog-meta"><span>Abr 2026</span><span>⏱ 6 min</span></div></div></a>
