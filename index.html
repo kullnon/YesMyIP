@@ -319,41 +319,40 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 </footer>
 
 <script>
-function countryFlag(code){
-  if(!code||code.length!==2) return '';
-  return String.fromCodePoint(...[...code.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65));
-}
-const cn={"AF":"Afghanistan","AL":"Albania","DZ":"Algeria","AR":"Argentina","AU":"Australia","AT":"Austria","BS":"Bahamas","BD":"Bangladesh","BB":"Barbados","BE":"Belgium","BO":"Bolivia","BR":"Brazil","BG":"Bulgaria","CA":"Canada","CL":"Chile","CN":"China","CO":"Colombia","CR":"Costa Rica","HR":"Croatia","CU":"Cuba","CZ":"Czechia","DK":"Denmark","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","FI":"Finland","FR":"France","DE":"Germany","GH":"Ghana","GR":"Greece","GT":"Guatemala","GY":"Guyana","HT":"Haiti","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IN":"India","ID":"Indonesia","IE":"Ireland","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","KE":"Kenya","KR":"South Korea","LB":"Lebanon","MX":"Mexico","MA":"Morocco","NL":"Netherlands","NZ":"New Zealand","NG":"Nigeria","NO":"Norway","PK":"Pakistan","PA":"Panama","PE":"Peru","PH":"Philippines","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","RO":"Romania","RU":"Russia","SA":"Saudi Arabia","SN":"Senegal","SG":"Singapore","ZA":"South Africa","ES":"Spain","SE":"Sweden","CH":"Switzerland","TW":"Taiwan","TH":"Thailand","TT":"Trinidad and Tobago","TR":"Turkey","UA":"Ukraine","AE":"UAE","GB":"United Kingdom","US":"United States","UY":"Uruguay","VE":"Venezuela","VN":"Vietnam"};
+const cn={"AF":"Afghanistan","AL":"Albania","DZ":"Algeria","AR":"Argentina","AU":"Australia","AT":"Austria","BD":"Bangladesh","BE":"Belgium","BO":"Bolivia","BR":"Brazil","CA":"Canada","CL":"Chile","CN":"China","CO":"Colombia","CR":"Costa Rica","CU":"Cuba","CZ":"Czechia","DK":"Denmark","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","FI":"Finland","FR":"France","DE":"Germany","GH":"Ghana","GR":"Greece","GT":"Guatemala","GY":"Guyana","HT":"Haiti","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IN":"India","ID":"Indonesia","IE":"Ireland","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","KE":"Kenya","KR":"South Korea","LB":"Lebanon","MX":"Mexico","MA":"Morocco","NL":"Netherlands","NZ":"New Zealand","NG":"Nigeria","NO":"Norway","PK":"Pakistan","PA":"Panama","PE":"Peru","PH":"Philippines","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","RO":"Romania","RU":"Russia","SA":"Saudi Arabia","SN":"Senegal","SG":"Singapore","ZA":"South Africa","ES":"Spain","SE":"Sweden","CH":"Switzerland","TW":"Taiwan","TH":"Thailand","TT":"Trinidad and Tobago","TR":"Turkey","UA":"Ukraine","AE":"UAE","GB":"United Kingdom","US":"United States","UY":"Uruguay","VE":"Venezuela","VN":"Vietnam"};
+function flag(c){if(!c||c.length!==2)return'';return String.fromCodePoint(...[...c.toUpperCase()].map(x=>0x1F1E6+x.charCodeAt(0)-65));}
+function setField(id,val){var el=document.getElementById(id);if(el)el.innerText=val;}
 async function fetchIP(){
   try{
-    var ip,country,city,region,org,ver;
-    // Try db-ip first (fastest)
+    const r=await fetch('https://api.db-ip.com/v2/free/self');
+    const d=await r.json();
+    var ip=d.ipAddress,cc=d.countryCode,country=d.countryName||cn[cc]||cc,city=d.city||'—',region=d.stateProv||'',ver=ip.includes(':')?'IPv6':'IPv4',org='—';
+    try{const r2=await fetch('https://ipinfo.io/json');const d2=await r2.json();org=(d2.org||'').replace(/^AS\d+\s*/,'')||'—';}catch(e){}
+    window._ip=ip;
+    setField('ipDisplay',ip);
+    setField('metaISP',org);
+    setField('metaCountry',flag(cc)+' '+country);
+    setField('metaCity',city+', '+region);
+    setField('ipType',ver+' Address');
+  }catch(e){
     try{
-      const r=await fetch('https://api.db-ip.com/v2/free/self');
-      const d=await r.json();
-      ip=d.ipAddress;country=d.countryName||cn[d.countryCode]||d.countryCode;city=d.city;region=d.stateProv;ver=ip.includes(':')?'IPv6':'IPv4';
-      org='—';
-      // Get ISP from ipinfo
-      try{const r2=await fetch('https://ipinfo.io/json');const d2=await r2.json();org=(d2.org||'').replace(/^AS\d+\s*/,'')||'—';}catch(e2){}
-      var cc=d.countryCode;
-    }catch(e){
-      // Fallback: ipinfo only
       const r=await fetch('https://ipinfo.io/json');
       const d=await r.json();
-      ip=d.ip;country=cn[d.country]||d.country;city=d.city;region=d.region;org=(d.org||'').replace(/^AS\d+\s*/,'');ver=ip.includes(':')?'IPv6':'IPv4';
-      var cc=d.country;
+      window._ip=d.ip;
+      setField('ipDisplay',d.ip);
+      setField('metaISP',(d.org||'').replace(/^AS\d+\s*/,''));
+      setField('metaCountry',flag(d.country)+' '+(cn[d.country]||d.country));
+      setField('metaCity',(d.city||'—')+', '+(d.region||''));
+      setField('ipType',(d.ip.includes(':')?'IPv6':'IPv4')+' Address');
+    }catch(e2){
+      setField('ipDisplay','Unable to detect');
     }
-    window._ip=ip;
-    document.getElementById('ipDisplay').textContent=ip;
-    document.getElementById('metaISP').textContent=org||'—';
-    document.getElementById('metaCountry').textContent=countryFlag(cc)+' '+country;
-    document.getElementById('metaCity').textContent=(city||'—')+', '+(region||'');
-    document.getElementById('ipType').textContent=ver+' Address';
-  }catch(e){
-    document.getElementById('ipDisplay').textContent='Unable to detect';
   }
 }
+// Run immediately, then again after 2s to override Google Translate
 fetchIP();
+setTimeout(fetchIP,2000);
+setTimeout(fetchIP,5000);
 function copyIP(){navigator.clipboard.writeText(window._ip||'').then(()=>showToast('✓ Copied!'));}
 function switchTab(btn,id){btn.closest('.lookup-card').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.closest('.lookup-card').querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
 function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
