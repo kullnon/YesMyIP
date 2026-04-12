@@ -1,67 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-  <!-- SPANISH (default) -->
-  <url>
-    <loc>https://qualesmiip.com/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://qualesmiip.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://qualesmiip.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://qualesmiip.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qualesmiip.com/"/>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-    <lastmod>2026-04-11</lastmod>
-  </url>
-
-  <!-- ENGLISH -->
-  <url>
-    <loc>https://qualesmiip.com/en/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://qualesmiip.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://qualesmiip.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://qualesmiip.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qualesmiip.com/"/>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-04-11</lastmod>
-  </url>
-
-  <!-- FRENCH -->
-  <url>
-    <loc>https://qualesmiip.com/fr/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://qualesmiip.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://qualesmiip.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://qualesmiip.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qualesmiip.com/"/>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2026-04-11</lastmod>
-  </url>
-
-  <!-- TOOLS -->
-  <url><loc>https://qualesmiip.com/tools/ip-lookup</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://qualesmiip.com/en/tools/ip-lookup</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://qualesmiip.com/fr/tools/ip-lookup</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-
-  <!-- BLOG ES -->
-  <url><loc>https://qualesmiip.com/blog/cual-es-mi-ip</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://qualesmiip.com/blog/como-ocultar-ip</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://qualesmiip.com/blog/mejores-vpn-2026</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://qualesmiip.com/blog/que-es-una-vpn</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-  <!-- BLOG EN -->
-  <url><loc>https://qualesmiip.com/en/blog/what-is-my-ip-address</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://qualesmiip.com/en/blog/how-to-hide-ip-address</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://qualesmiip.com/en/blog/best-vpns-2026</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-
-  <!-- BLOG FR -->
-  <url><loc>https://qualesmiip.com/fr/blog/quelle-est-mon-adresse-ip</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://qualesmiip.com/fr/blog/comment-masquer-son-ip</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://qualesmiip.com/fr/blog/meilleurs-vpn-2026</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-
-  <!-- LEGAL -->
-  <url><loc>https://qualesmiip.com/legal/politica-privacidad</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://qualesmiip.com/en/legal/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://qualesmiip.com/fr/legal/politique-de-confidentialite</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://yesmyip.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://yesmyip.com/en/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://yesmyip.com/es/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://yesmyip.com/fr/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://yesmyip.com/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://yesmyip.com/tools/vpn-quiz/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://yesmyip.com/blog/what-is-a-vpn/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/best-vpns-for-netflix-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/is-my-vpn-working/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/vpn-vs-proxy/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/best-free-vpns-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/what-is-my-ip-address/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/how-to-hide-ip-address/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/nordvpn-review-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/best-vpns-2026/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://yesmyip.com/blog/vpn-free-trial/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

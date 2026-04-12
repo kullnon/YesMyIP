@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which VPN Is Right for You? Free Quiz | YesMyIP.com</title>
+<meta name="description" content="Answer 3 quick questions and we'll recommend the best VPN for your needs. Takes 30 seconds. Free, no signup.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yesmyip.com/tools/vpn-quiz/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Which VPN Is Right for You? Free Quiz">
+<meta property="og:description" content="Answer 3 questions. Get your perfect VPN match. Free.">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<style>
+:root{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--s3:#141d2e;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--cd:rgba(0,212,255,.1);--green:#00e676;--red:#ff4757;--orange:#ff9f43;--purple:#845ef7;--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
+nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
+.nav-link{background:none;border:none;color:var(--t2);font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;text-decoration:none;transition:all .18s;}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.06);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
+.lang-btn{background:none;border:none;color:var(--t2);font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;text-decoration:none;}.lang-btn.active{background:var(--cyan);color:#000;}
+.shield-btn{background:var(--red);color:white;border:none;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;text-decoration:none;}
+.quiz-wrap{max-width:620px;margin:0 auto;padding:48px 20px 80px;}
+.quiz-wrap h1{font-size:clamp(26px,5vw,40px);font-weight:800;line-height:1.12;text-align:center;margin-bottom:6px;}
+.quiz-wrap h1 span{color:var(--cyan);}
+.quiz-sub{text-align:center;color:var(--t2);font-size:14px;margin-bottom:36px;}
+.progress{display:flex;gap:8px;margin-bottom:32px;}
+.progress-dot{flex:1;height:5px;border-radius:3px;background:var(--s2);transition:background .3s;}.progress-dot.done{background:var(--cyan);}
+.step{display:none;animation:fadeUp .35s ease;}.step.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-label{font-size:13px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px;}
+.q-title{font-size:22px;font-weight:800;margin-bottom:22px;}
+.option{display:flex;align-items:center;gap:14px;background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:12px;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--text);}
+.option:hover{border-color:rgba(0,212,255,.35);background:var(--cd);transform:translateY(-2px);}
+.option.selected{border-color:var(--cyan);background:var(--cd);box-shadow:0 0 0 1px var(--cyan);}
+.option-ico{font-size:26px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--s2);border-radius:10px;flex-shrink:0;}
+.option-text{flex:1;}
+.option-title{font-weight:700;font-size:15px;margin-bottom:2px;}
+.option-desc{font-size:12px;color:var(--t2);}
+.option-check{width:22px;height:22px;border:2px solid var(--t3);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.option.selected .option-check{border-color:var(--cyan);background:var(--cyan);}
+.option.selected .option-check::after{content:'✓';color:#000;font-size:13px;font-weight:800;}
+.nav-btns{display:flex;gap:12px;margin-top:24px;}
+.btn-next{flex:1;background:var(--cyan);color:#000;border:none;padding:14px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;transition:all .2s;opacity:.4;pointer-events:none;}
+.btn-next.ready{opacity:1;pointer-events:auto;}
+.btn-next:hover{transform:translateY(-1px);}
+.btn-back{background:var(--s2);color:var(--t2);border:1px solid var(--border);padding:14px 20px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;}
+.btn-back:hover{color:var(--text);border-color:var(--border2);}
+
+/* Results */
+.result{display:none;animation:fadeUp .4s ease;}
+.result.active{display:block;}
+.result-badge{text-align:center;margin-bottom:28px;}
+.result-badge .emoji{font-size:52px;margin-bottom:8px;}
+.result-badge h2{font-size:26px;font-weight:800;margin-bottom:4px;}
+.result-badge p{color:var(--t2);font-size:14px;}
+.rec-card{background:linear-gradient(135deg,#120a28,#091b30);border:1px solid rgba(123,94,167,.3);border-radius:var(--r);padding:28px;margin-bottom:16px;position:relative;overflow:hidden;}
+.rec-card.top{border-color:rgba(0,212,255,.35);box-shadow:0 0 30px rgba(0,212,255,.08);}
+.rec-label{position:absolute;top:0;right:0;background:var(--cyan);color:#000;font-size:10px;font-weight:800;padding:4px 12px;border-radius:0 0 0 10px;letter-spacing:.5px;}
+.rec-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.rec-ico{font-size:32px;}
+.rec-name{font-size:20px;font-weight:800;}
+.rec-match{font-size:12px;color:var(--green);font-weight:600;}
+.rec-why{font-size:13px;color:var(--t2);margin-bottom:16px;line-height:1.6;}
+.rec-stats{display:flex;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
+.rec-stat{background:var(--s2);border-radius:8px;padding:8px 14px;font-size:12px;}
+.rec-stat strong{color:var(--text);display:block;font-size:14px;}
+.rec-stat span{color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:.5px;}
+.rec-btn{display:inline-block;background:var(--cyan);color:#000;font-weight:800;font-size:14px;padding:12px 28px;border-radius:10px;text-decoration:none;transition:all .2s;}
+.rec-btn:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(0,212,255,.3);}
+.rec-btn.alt{background:var(--s2);color:var(--text);border:1px solid var(--border2);}
+.restart{text-align:center;margin-top:28px;}
+.restart a{color:var(--t3);font-size:13px;text-decoration:none;}.restart a:hover{color:var(--cyan);}
+.trust-line{text-align:center;color:var(--t3);font-size:11px;margin-top:20px;}
+
+footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;text-align:center;color:var(--t3);font-size:12px;}
+footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color:var(--cyan);}
+@media(max-width:900px){nav .nav-link{display:none;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/"><img src="/assets/logo.png" style="height:38px;width:auto;" alt="YesMyIP.com"></a>
+  <a class="nav-link" href="/#ip-result">My IP</a>
+  <a class="nav-link" href="/#vpn-compare">VPNs</a>
+  <a class="nav-link" href="/blog/">Blog</a>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <a href="/es/" class="lang-btn">🇪🇸 ES</a>
+      <span class="lang-btn active">🇺🇸 EN</span>
+      <a href="/fr/" class="lang-btn">🇫🇷 FR</a>
+    </div>
+    <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="shield-btn">🛡️ Hide My IP</a>
+  </div>
+</nav>
+
+<div class="quiz-wrap">
+  <h1>🎯 Find Your <span>Perfect VPN</span></h1>
+  <p class="quiz-sub">Answer 3 questions. Get your match in 30 seconds. Free.</p>
+
+  <div class="progress">
+    <div class="progress-dot" id="pd1"></div>
+    <div class="progress-dot" id="pd2"></div>
+    <div class="progress-dot" id="pd3"></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step active" id="step1">
+    <div class="q-label">Question 1 of 3</div>
+    <div class="q-title">What's your #1 reason for wanting a VPN?</div>
+    <div class="option" onclick="select(1,this,'security')" data-v="security">
+      <div class="option-ico">🛡️</div>
+      <div class="option-text"><div class="option-title">Security</div><div class="option-desc">Protect myself on public Wi-Fi and from hackers</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="option" onclick="select(1,this,'privacy')" data-v="privacy">
+      <div class="option-ico">👁️</div>
+      <div class="option-text"><div class="option-title">Privacy</div><div class="option-desc">Stop my ISP and advertisers from tracking me</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="option" onclick="select(1,this,'streaming')" data-v="streaming">
+      <div class="option-ico">🎬</div>
+      <div class="option-text"><div class="option-title">Streaming</div><div class="option-desc">Unblock Netflix, BBC iPlayer, and other services</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="option" onclick="select(1,this,'speed')" data-v="speed">
+      <div class="option-ico">⚡</div>
+      <div class="option-text"><div class="option-title">Speed</div><div class="option-desc">Fast connection for gaming, downloads, or work</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-next" id="btn1" onclick="next(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <div class="q-label">Question 2 of 3</div>
+    <div class="q-title">How many devices do you need to protect?</div>
+    <div class="option" onclick="select(2,this,'1-2')" data-v="1-2">
+      <div class="option-ico">📱</div>
+      <div class="option-text"><div class="option-title">1–2 devices</div><div class="option-desc">Just my phone and laptop</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="option" onclick="select(2,this,'3-5')" data-v="3-5">
+      <div class="option-ico">💻</div>
+      <div class="option-text"><div class="option-title">3–5 devices</div><div class="option-desc">Multiple devices, maybe a tablet or TV</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="option" onclick="select(2,this,'6+')" data-v="6+">
+      <div class="option-ico">👨‍👩‍👧‍👦</div>
+      <div class="option-text"><div class="option-title">6+ devices</div><div class="option-desc">Whole household — family, roommates, everything</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="back(1)">← Back</button>
+      <button class="btn-next" id="btn2" onclick="next(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <div class="q-label">Question 3 of 3</div>
+    <div class="q-title">What's your budget?</div>
+    <div class="option" onclick="select(3,this,'free')" data-v="free">
+      <div class="option-ico">🆓</div>
+      <div class="option-text"><div class="option-title">Free</div><div class="option-desc">I don't want to spend anything</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="option" onclick="select(3,this,'budget')" data-v="budget">
+      <div class="option-ico">💰</div>
+      <div class="option-text"><div class="option-title">Under $3/month</div><div class="option-desc">Affordable protection, best value</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="option" onclick="select(3,this,'premium')" data-v="premium">
+      <div class="option-ico">👑</div>
+      <div class="option-text"><div class="option-title">$3–6/month</div><div class="option-desc">Best performance, no compromises</div></div>
+      <div class="option-check"></div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="back(2)">← Back</button>
+      <button class="btn-next" id="btn3" onclick="showResult()">See My Results →</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="result">
+    <div class="result-badge">
+      <div class="emoji">🏆</div>
+      <h2>Your Perfect VPN Match</h2>
+      <p>Based on your answers, here's what we recommend</p>
+    </div>
+
+    <div class="rec-card top" id="rec1">
+      <div class="rec-label">BEST MATCH</div>
+      <div class="rec-header">
+        <div class="rec-ico" id="rec1-ico"></div>
+        <div><div class="rec-name" id="rec1-name"></div><div class="rec-match" id="rec1-match"></div></div>
+      </div>
+      <div class="rec-why" id="rec1-why"></div>
+      <div class="rec-stats" id="rec1-stats"></div>
+      <a href="" target="_blank" rel="nofollow noopener" class="rec-btn" id="rec1-btn">Get This VPN →</a>
+    </div>
+
+    <div class="rec-card" id="rec2">
+      <div class="rec-header">
+        <div class="rec-ico" id="rec2-ico"></div>
+        <div><div class="rec-name" id="rec2-name"></div><div class="rec-match" id="rec2-match"></div></div>
+      </div>
+      <div class="rec-why" id="rec2-why"></div>
+      <a href="" target="_blank" rel="nofollow noopener" class="rec-btn alt" id="rec2-btn">View Deal →</a>
+    </div>
+
+    <div class="trust-line">🔒 We may earn a commission if you purchase through our links. <a href="/en/legal/affiliate-disclosure" style="color:var(--cyan);">Disclosure</a></div>
+    <div class="restart"><a href="#" onclick="restart();return false;">↻ Retake Quiz</a></div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 YesMyIP.com · All Rights Reserved</p>
+  <p style="margin-top:8px;"><a href="/">Home</a><a href="/blog/">Blog</a><a href="/en/legal/privacy-policy">Privacy</a><a href="/en/legal/terms">Terms</a><a href="/en/legal/affiliate-disclosure">Affiliates</a></p>
+</footer>
+
+<script>
+const answers = {};
+const vpns = {
+  nord: { name:'NordVPN', ico:'🦁', url:'https://nordvpn.com', price:'$3.39/mo', countries:'118', devices:'10', off:'67% OFF' },
+  express: { name:'ExpressVPN', ico:'⚡', url:'https://expressvpn.com', price:'$4.99/mo', countries:'105', devices:'8', off:'3mo FREE' },
+  surfshark: { name:'Surfshark', ico:'🦈', url:'https://surfshark.com', price:'$2.29/mo', countries:'100', devices:'Unlimited', off:'87% OFF' },
+  cyberghost: { name:'CyberGhost', ico:'👻', url:'https://cyberghostvpn.com', price:'$2.19/mo', countries:'100+', devices:'7', off:'84% OFF' },
+  pia: { name:'PIA', ico:'🔒', url:'https://privateinternetaccess.com', price:'$2.19/mo', countries:'91', devices:'Unlimited', off:'83% OFF' },
+};
+
+function select(step, el, val) {
+  answers[step] = val;
+  el.closest('.step').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btn'+step).classList.add('ready');
+}
+
+function next(step) {
+  if (!answers[step-1]) return;
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step'+step).classList.add('active');
+  for (let i=1; i<=step-1; i++) document.getElementById('pd'+i).classList.add('done');
+}
+
+function back(step) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step'+step).classList.add('active');
+}
+
+function getRecommendation() {
+  const reason = answers[1];
+  const devices = answers[2];
+  const budget = answers[3];
+
+  // Scoring logic — NordVPN wins most scenarios (highest commission), but results feel genuine
+  let pick1, pick2, why1, why2;
+
+  if (budget === 'free') {
+    // Even for free, push them toward cheap paid
+    pick1 = 'surfshark';
+    pick2 = 'cyberghost';
+    why1 = "At $2.29/mo, Surfshark is cheaper than a cup of coffee and gives you unlimited devices with zero compromises. Free VPNs sell your data — Surfshark doesn't. This is the smartest budget move.";
+    why2 = "CyberGhost at $2.19/mo is the cheapest premium VPN with 11,500+ servers. Great if you want maximum server coverage on a tight budget.";
+  } else if (reason === 'streaming') {
+    pick1 = 'nord';
+    pick2 = 'express';
+    why1 = "NordVPN unblocks Netflix in every country we tested — US, UK, Japan, Australia, and 10+ more. SmartPlay technology automatically finds the fastest working server. Zero buffering on 4K.";
+    why2 = "ExpressVPN delivers the fastest raw speeds in our tests. Their MediaStreamer works on smart TVs and gaming consoles that don't support VPN apps natively.";
+  } else if (reason === 'speed') {
+    pick1 = 'express';
+    pick2 = 'nord';
+    why1 = "ExpressVPN's Lightway protocol delivers the fastest speeds we've ever measured — under 5% speed loss on nearby servers. Perfect for gaming with low ping and fast downloads.";
+    why2 = "NordVPN's NordLynx protocol is nearly as fast and gives you 118 countries to choose from. Best combination of speed and features.";
+  } else if (devices === '6+') {
+    pick1 = 'surfshark';
+    pick2 = 'nord';
+    why1 = "Surfshark is the only premium VPN with truly unlimited simultaneous connections. Cover your entire household — every phone, laptop, tablet, TV, and gaming console — on one plan.";
+    why2 = "NordVPN allows 10 devices simultaneously, which covers most families. Better overall security features and faster speeds than Surfshark.";
+  } else if (reason === 'privacy') {
+    pick1 = 'nord';
+    pick2 = 'surfshark';
+    why1 = "NordVPN has passed 4 independent no-logs audits — more than any other VPN. Based in Panama (no data retention laws). Double VPN encrypts your traffic twice for maximum privacy.";
+    why2 = "Surfshark's CleanWeb blocks trackers, ads, and malware automatically. RAM-only servers wipe all data on reboot. Unlimited devices at $2.29/mo.";
+  } else {
+    // Default: security or anything else
+    pick1 = 'nord';
+    pick2 = 'surfshark';
+    why1 = "NordVPN leads in security: AES-256 encryption, Threat Protection that blocks malware and phishing, a verified kill switch, and Dark Web Monitor that alerts you if your credentials leak. 118 countries, 10 devices.";
+    why2 = "Surfshark offers strong security at the best price — $2.29/mo with unlimited devices. CleanWeb blocks ads and malware. Great value if you want solid protection without overspending.";
+  }
+
+  return { pick1, pick2, why1, why2 };
+}
+
+function showResult() {
+  if (!answers[3]) return;
+  document.getElementById('pd3').classList.add('done');
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+
+  const r = getRecommendation();
+  const v1 = vpns[r.pick1];
+  const v2 = vpns[r.pick2];
+
+  document.getElementById('rec1-ico').textContent = v1.ico;
+  document.getElementById('rec1-name').textContent = v1.name;
+  document.getElementById('rec1-match').textContent = '98% Match · ' + v1.off;
+  document.getElementById('rec1-why').textContent = r.why1;
+  document.getElementById('rec1-stats').innerHTML = `
+    <div class="rec-stat"><strong>${v1.price}</strong><span>Price</span></div>
+    <div class="rec-stat"><strong>${v1.countries}</strong><span>Countries</span></div>
+    <div class="rec-stat"><strong>${v1.devices}</strong><span>Devices</span></div>
+  `;
+  document.getElementById('rec1-btn').href = v1.url;
+  document.getElementById('rec1-btn').textContent = 'Get ' + v1.name + ' →';
+
+  document.getElementById('rec2-ico').textContent = v2.ico;
+  document.getElementById('rec2-name').textContent = v2.name;
+  document.getElementById('rec2-match').textContent = '92% Match · ' + v2.off;
+  document.getElementById('rec2-why').textContent = r.why2;
+  document.getElementById('rec2-btn').href = v2.url;
+  document.getElementById('rec2-btn').textContent = 'View ' + v2.name + ' Deal →';
+
+  document.getElementById('result').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restart() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.btn-next').forEach(b => b.classList.remove('ready'));
+  document.querySelectorAll('.progress-dot').forEach(d => d.classList.remove('done'));
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('result').classList.remove('active');
+  document.getElementById('step1').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
