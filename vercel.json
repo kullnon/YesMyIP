@@ -10,6 +10,18 @@
         { "key": "X-XSS-Protection", "value": "1; mode=block" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
+    },
+    {
+      "source": "/es/(.*)",
+      "headers": [
+        { "key": "Content-Language", "value": "es" }
+      ]
+    },
+    {
+      "source": "/fr/(.*)",
+      "headers": [
+        { "key": "Content-Language", "value": "fr" }
+      ]
     }
   ]
 }
