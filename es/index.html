@@ -325,26 +325,24 @@ function countryFlag(code){
 async function fetchIP(){
   const apis = [
     {
-      url: 'https://freeipapi.com/api/json',
-      parse: (d) => ({ ip: d.ipAddress, org: d.isp||'—', country: countryFlag(d.countryCode)+' '+(d.countryName||'—'), city: d.cityName||'—', region: d.regionName||'', version: d.ipVersion==6?'IPv6':'IPv4' })
+      url: 'https://ipwho.is/',
+      parse: (d) => {
+        if(!d.success) throw new Error('fail');
+        return { ip:d.ip, org:d.connection&&d.connection.isp||d.connection&&d.connection.org||'Unknown', country:countryFlag(d.country_code)+' '+d.country, city:d.city||'\u2014', region:d.region||'', version:d.type||'IPv4' };
+      }
+    },
+    {
+      url: 'https://ipinfo.io/json',
+      parse: (d) => ({ ip:d.ip, org:(d.org||'Unknown').replace(/^AS\d+\s*/,''), country:countryFlag(d.country)+' '+(d.country||''), city:d.city||'\u2014', region:d.region||'', version:d.ip&&d.ip.includes(':')?'IPv6':'IPv4' })
     },
     {
       url: 'https://api.db-ip.com/v2/free/self',
-      parse: (d) => ({ ip: d.ipAddress, org: d.isp||'—', country: countryFlag(d.countryCode)+' '+(d.countryName||'—'), city: d.city||'—', region: d.stateProv||'', version: d.ipAddress&&d.ipAddress.includes(':')?'IPv6':'IPv4' })
-    },
-    {
-      url: 'https://ipapi.co/json/',
-      parse: (d) => {
-        if(d.error) throw new Error('limited');
-        return { ip: d.ip, org: d.org||'—', country: countryFlag(d.country_code)+' '+(d.country_name||'—'), city: d.city||'—', region: d.region||'', version: d.version||'IPv4' };
-      }
+      parse: (d) => ({ ip:d.ipAddress, org:d.isp||'Unknown', country:countryFlag(d.countryCode)+' '+(d.countryName||''), city:d.city||'\u2014', region:d.stateProv||'', version:d.ipAddress&&d.ipAddress.includes(':')?'IPv6':'IPv4' })
     }
   ];
   for(const api of apis){
     try{
-      const r=await fetch(api.url);
-      const d=await r.json();
-      const info=api.parse(d);
+      const r=await fetch(api.url);const d=await r.json();const info=api.parse(d);
       if(!info.ip) continue;
       window._ip=info.ip;
       document.getElementById('ipDisplay').textContent=info.ip;
