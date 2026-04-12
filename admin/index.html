@@ -117,6 +117,11 @@ canvas{width:100%!important;height:100%!important;}
 .goal-label{color:var(--t2);font-weight:600;}
 .goal-value{font-family:'JetBrains Mono',monospace;color:var(--text);}
 
+/* PASSWORD TOGGLE */
+.pw-wrap{position:relative;width:100%;margin-bottom:8px;}
+.pw-wrap input{width:100%;padding-right:40px;}
+.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--t3);font-size:16px;cursor:pointer;padding:4px;}.pw-eye:hover{color:var(--cyan);}
+
 /* RESPONSIVE */
 @media(max-width:1100px){.stats{grid-template-columns:repeat(3,1fr);}.charts{grid-template-columns:1fr;}.pages-grid{grid-template-columns:1fr;}.bottom-grid{grid-template-columns:1fr;}}
 @media(max-width:700px){.stats{grid-template-columns:1fr 1fr;}.stat-value{font-size:22px;}}
@@ -131,7 +136,10 @@ canvas{width:100%!important;height:100%!important;}
     <h2>Command Center</h2>
     <p>Enter your access code</p>
     <input type="text" class="login-input" id="userInput" placeholder="Username" style="letter-spacing:0;margin-bottom:8px;font-family:'Outfit',sans-serif;" autocomplete="off">
-    <input type="password" class="login-input" id="passInput" placeholder="Password" maxlength="30" autocomplete="off">
+    <div class="pw-wrap" style="margin-bottom:16px;">
+      <input type="password" class="login-input" id="passInput" placeholder="Password" maxlength="30" autocomplete="off" style="margin-bottom:0;">
+      <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
+    </div>
     <button class="login-btn" onclick="tryLogin()">Access Dashboard</button>
     <div class="login-error" id="loginError">Invalid credentials</div>
   </div>
@@ -267,8 +275,14 @@ canvas{width:100%!important;height:100%!important;}
     <div id="changePassSection" style="display:none;margin-bottom:28px;">
       <h3 style="font-size:14px;color:var(--cyan);margin-bottom:12px;">🔑 Change Password</h3>
       <select id="changePassUser" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:8px;"></select>
-      <input type="password" id="newPass1" placeholder="New password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:8px;">
-      <input type="password" id="newPass2" placeholder="Confirm password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:10px;">
+      <div class="pw-wrap">
+        <input type="password" id="newPass1" placeholder="New password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:0;">
+        <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
+      </div>
+      <div class="pw-wrap">
+        <input type="password" id="newPass2" placeholder="Confirm password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:0;">
+        <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
+      </div>
       <button onclick="changePassword()" style="background:var(--cyan);color:#000;border:none;padding:8px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Outfit',sans-serif;">Update Password</button>
       <span id="passMsg" style="margin-left:10px;font-size:12px;"></span>
     </div>
@@ -280,11 +294,16 @@ canvas{width:100%!important;height:100%!important;}
 
       <div style="background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:12px;">
         <div style="font-size:12px;color:var(--t2);font-weight:600;margin-bottom:10px;">Add New User</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-          <input type="text" id="newUserName" placeholder="Username" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;">
-          <input type="password" id="newUserPass" placeholder="Password" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;">
+        <input type="text" id="newUserName" placeholder="Username" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;margin-bottom:8px;">
+        <div class="pw-wrap">
+          <input type="password" id="newUserPass" placeholder="Password" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;margin-bottom:0;">
+          <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
+        <div class="pw-wrap">
+          <input type="password" id="newUserPass2" placeholder="Confirm password" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;margin-bottom:0;">
+          <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
           <select id="newUserRole" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;flex:1;">
             <option value="viewer">Viewer</option>
             <option value="editor">Editor</option>
@@ -415,14 +434,22 @@ function renderUserList(){
   }).join('');
 }
 
+function togglePw(btn){
+  const input = btn.parentElement.querySelector('input');
+  if(input.type==='password'){input.type='text';btn.textContent='🙈';}
+  else{input.type='password';btn.textContent='👁';}
+}
+
 function addUser(){
   const name = document.getElementById('newUserName').value.trim();
   const pass = document.getElementById('newUserPass').value.trim();
+  const pass2 = document.getElementById('newUserPass2').value.trim();
   const role = document.getElementById('newUserRole').value;
   const msg = document.getElementById('addUserMsg');
-  if(!name || !pass){ msg.textContent='Fill in both fields'; msg.style.color='var(--red)'; return; }
+  if(!name || !pass){ msg.textContent='Fill in all fields'; msg.style.color='var(--red)'; return; }
   if(name.length < 2){ msg.textContent='Username too short'; msg.style.color='var(--red)'; return; }
   if(pass.length < 4){ msg.textContent='Password min 4 chars'; msg.style.color='var(--red)'; return; }
+  if(pass !== pass2){ msg.textContent='Passwords don\'t match'; msg.style.color='var(--red)'; return; }
   const users = getUsers();
   if(users.length >= 6){ msg.textContent='Max 6 users reached'; msg.style.color='var(--red)'; return; }
   if(users.find(u => u.username.toLowerCase()===name.toLowerCase())){ msg.textContent='Username already exists'; msg.style.color='var(--red)'; return; }
@@ -430,6 +457,7 @@ function addUser(){
   saveUsers(users);
   document.getElementById('newUserName').value='';
   document.getElementById('newUserPass').value='';
+  document.getElementById('newUserPass2').value='';
   msg.textContent='✓ User added!'; msg.style.color='var(--green)';
   renderUserList();
   setTimeout(()=>msg.textContent='',2000);
