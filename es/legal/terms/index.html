@@ -26,6 +26,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filte
 footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;text-align:center;color:var(--t3);font-size:13px;}
 footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color:var(--cyan);}
 @media(max-width:900px){nav .nav-link{display:none;}}
+
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:24px;}
+.footer-brand p{font-size:13px;color:var(--t3);line-height:1.7;}
+.footer-col h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;}.footer-col a{display:block;color:var(--t3);text-decoration:none;font-size:13px;margin-bottom:6px;transition:color .2s;}.footer-col a:hover{color:var(--cyan);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--t3);}
+.footer-legal{display:flex;gap:14px;flex-wrap:wrap;}.footer-legal a{color:var(--t3);text-decoration:none;font-size:12px;}.footer-legal a:hover{color:var(--cyan);}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -69,8 +77,26 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color
   <p>Preguntas: <a href="mailto:legal@yesmyip.com">legal@yesmyip.com</a></p>
 </div>
 <footer>
-  <p>© 2026 Maestro Media Group · Todos los Derechos Reservados</p>
-  <p style="margin-top:8px;"><a href="/es/">Inicio</a><a href="/es/legal/privacy-policy/">Privacidad</a><a href="/es/legal/terms/">Términos</a><a href="/es/legal/affiliate-disclosure/">Afiliados</a><a href="/es/legal/contact/">Contacto</a></p>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/es/"><img src="/assets/logo.png" style="height:38px;width:auto;vertical-align:middle;" alt="YesMyIP.com"></a>
+        <p>La forma más rápida de verificar tu IP, ejecutar herramientas de seguridad y encontrar la mejor VPN. Este sitio gana comisiones de afiliados.</p>
+        <p style="margin-top:8px;font-size:12px;opacity:.4;">© 2026 Maestro Media Group · Todos los Derechos Reservados</p>
+      </div>
+      <div class="footer-col"><h4>Herramientas</h4><a href="/es/">Mi Dirección IP</a><a href="/tools/ip-lookup/">Búsqueda IP</a><a href="https://fast.com" target="_blank" rel="nofollow noopener">Test de Velocidad</a><a href="https://haveibeenpwned.com" target="_blank" rel="nofollow noopener">Verificar Filtración</a><a href="/tools/vpn-quiz/">Quiz VPN</a></div>
+      <div class="footer-col"><h4>VPNs</h4><a href="https://nordvpn.com" target="_blank" rel="nofollow noopener">NordVPN</a><a href="https://expressvpn.com" target="_blank" rel="nofollow noopener">ExpressVPN</a><a href="https://surfshark.com" target="_blank" rel="nofollow noopener">Surfshark</a><a href="https://cyberghostvpn.com" target="_blank" rel="nofollow noopener">CyberGhost</a><a href="/es/#vpn-compare">Comparación VPN</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/es/legal/privacy-policy/">Política de Privacidad</a><a href="/es/legal/terms/">Términos de Uso</a><a href="/es/legal/affiliate-disclosure/">Divulgación de Afiliados</a><a href="/es/legal/contact/">Contacto</a></div>
+    </div>
+    <div class="footer-bottom">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <span style="font-size:13px;color:var(--cyan);">🇪🇸 Español</span>
+        <a href="/" style="font-size:13px;color:var(--t3);text-decoration:none;">🇺🇸 English</a>
+        <a href="/fr/" style="font-size:13px;color:var(--t3);text-decoration:none;">🇫🇷 Français</a>
+      </div>
+      <div class="footer-legal"><a href="/es/legal/privacy-policy/">Privacidad</a><a href="/es/legal/terms/">Términos</a><a href="/es/legal/affiliate-disclosure/">Afiliados</a><a href="/es/legal/contact/">Contacto</a></div>
+    </div>
+  </div>
 </footer>
 </body>
 </html>
