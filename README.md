@@ -1,4 +1,4 @@
-# QualesMiIP.com
+# YesMyIP.com
 ## Trilingual IP Address & VPN Site — ES / EN / FR
 ## GitHub: kullnon | Vercel Deploy
 
@@ -6,9 +6,9 @@
 
 ## REPO STRUCTURE
 ```
-/                     ← Spanish (default, qualesmiip.com/)
-/en/                  ← English (qualesmiip.com/en/)
-/fr/                  ← French (qualesmiip.com/fr/)
+/                     ← Spanish (default, yesmyip.com/)
+/en/                  ← English (yesmyip.com/en/)
+/fr/                  ← French (yesmyip.com/fr/)
 /legal/               ← Spanish legal pages
 /en/legal/            ← English legal pages
 /fr/legal/            ← French legal pages
@@ -30,36 +30,36 @@ deals.json            ← VPN pricing — update monthly
 
 ### Step 1: Push to GitHub
 ```bash
-cd /path/to/qualesmiip
+cd /path/to/yesmyip
 git init
 git add .
 git commit -m "Initial commit — trilingual site ES/EN/FR"
-git remote add origin https://github.com/kullnon/qualesmiip.git
+git remote add origin https://github.com/kullnon/yesmyip.git
 git push -u origin main
 ```
-→ Go to github.com → New repository → name: "qualesmiip" → public → create
+→ Go to github.com → New repository → name: "yesmyip" → public → create
 → Then run the commands above
 
 ### Step 2: Deploy to Vercel
 1. Go to vercel.com
 2. Click "Add New Project"
-3. Import from GitHub → select "kullnon/qualesmiip"
+3. Import from GitHub → select "kullnon/yesmyip"
 4. Framework: Other (static HTML)
 5. Click Deploy
-→ Live in 30 seconds at qualesmiip-xxx.vercel.app
+→ Live in 30 seconds at yesmyip-xxx.vercel.app
 
-### Step 3: Connect qualesmiip.com
+### Step 3: Connect yesmyip.com
 1. In Vercel → Project Settings → Domains
-2. Add domain: qualesmiip.com
+2. Add domain: yesmyip.com
 3. Vercel shows you DNS records to add
 4. Go to your domain registrar → DNS settings
 5. Add the CNAME or A records Vercel shows
 → SSL automatic, live in 24-48 hours (usually minutes)
 
 ### Step 4: Test all 3 languages
-- https://qualesmiip.com → Spanish ✓
-- https://qualesmiip.com/en/ → English ✓
-- https://qualesmiip.com/fr/ → French ✓
+- https://yesmyip.com → Spanish ✓
+- https://yesmyip.com/en/ → English ✓
+- https://yesmyip.com/fr/ → French ✓
 
 ---
 
@@ -81,8 +81,8 @@ git push -u origin main
 
 5. **Submit sitemap** to Google Search Console:
    - search.google.com/search-console
-   - Add property: qualesmiip.com
-   - Submit: https://qualesmiip.com/sitemap.xml
+   - Add property: yesmyip.com
+   - Submit: https://yesmyip.com/sitemap.xml
 
 ---
 
