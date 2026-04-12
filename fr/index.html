@@ -347,7 +347,7 @@ async function fetchIP(){
     document.getElementById('metaISP').textContent=org||'—';
     document.getElementById('metaCountry').textContent=countryFlag(cc)+' '+country;
     document.getElementById('metaCity').textContent=(city||'—')+', '+(region||'');
-    document.getElementById('ipType').textContent=ver+' Adresse';
+    document.getElementById('ipType').textContent=ver+' Address';
   }catch(e){
     document.getElementById('ipDisplay').textContent='Impossible à détecter';
   }
