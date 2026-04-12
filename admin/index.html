@@ -325,22 +325,31 @@ canvas{width:100%!important;height:100%!important;}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
 // MULTI-USER AUTH SYSTEM
-const DEFAULT_USERS = [
-  { username:'andy', password:'maestro2026', role:'admin', name:'Andy' },
-];
+// Users stored in /admin/users.json on server
+// To change passwords or add users, edit that file and push to GitHub
 
-function getUsers(){
-  const stored = localStorage.getItem('ymip_users');
-  if(stored){
-    const users = JSON.parse(stored);
-    // Fix any users missing name field
-    users.forEach(u => { if(!u.name) u.name = u.username; });
-    return users;
+let allUsers = [];
+
+async function loadUsers(){
+  try{
+    const r = await fetch('/admin/users.json?t='+Date.now());
+    allUsers = await r.json();
+  }catch(e){
+    allUsers = [{ username:'andy', password:'maestro2026', role:'admin', name:'Andy' }];
   }
-  localStorage.setItem('ymip_users', JSON.stringify(DEFAULT_USERS));
-  return DEFAULT_USERS;
 }
-function saveUsers(users){ localStorage.setItem('ymip_users', JSON.stringify(users)); }
+function getUsers(){ return allUsers; }
+function saveUsers(users){
+  allUsers = users;
+  // Show the updated JSON so Andy can push to GitHub
+  const json = JSON.stringify(users, null, 2);
+  const w = window.open('','_blank','width=500,height=400');
+  w.document.write('<html><head><title>Updated users.json</title><style>body{background:#0a0e1a;color:#e8edf8;font-family:monospace;padding:20px;}pre{background:#0f1525;padding:16px;border-radius:10px;font-size:13px;overflow:auto;}h3{margin-bottom:10px;}p{color:#7b8baa;font-size:13px;margin-bottom:16px;}</style></head><body>');
+  w.document.write('<h3>Updated users.json</h3>');
+  w.document.write('<p>Copy this and replace the content of /admin/users.json in your GitHub repo, then push.</p>');
+  w.document.write('<pre>'+json+'</pre>');
+  w.document.write('</body></html>');
+}
 
 // TRANSLATION SYSTEM
 let currentLang = localStorage.getItem('ymip_lang') || 'en';
@@ -422,7 +431,8 @@ const userInput = document.getElementById('userInput');
 passInput.addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
 userInput.addEventListener('keydown', e => { if(e.key==='Enter') passInput.focus(); });
 
-function tryLogin(){
+async function tryLogin(){
+  await loadUsers();
   const u = userInput.value.trim().toLowerCase();
   const p = passInput.value;
   if(!u || !p){
@@ -431,8 +441,7 @@ function tryLogin(){
     setTimeout(()=>document.getElementById('loginError').style.display='none',3000);
     return;
   }
-  const users = getUsers();
-  const found = users.find(x => x.username.toLowerCase()===u && x.password===p);
+  const found = allUsers.find(x => x.username.toLowerCase()===u && x.password===p);
   if(found){
     currentUser = found;
     document.getElementById('loginScreen').classList.add('hidden');
@@ -460,8 +469,10 @@ if(savedAuth){
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('dashboard').classList.add('show');
     document.getElementById('currentUser').textContent = '👤 '+(currentUser.name||currentUser.username);
-    setTimeout(initDashboard,100);
+    loadUsers().then(()=>initDashboard());
   }catch(e){}
+} else {
+  loadUsers();
 }
 
 // SETTINGS
