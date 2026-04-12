@@ -326,7 +326,12 @@ const DEFAULT_USERS = [
 
 function getUsers(){
   const stored = localStorage.getItem('ymip_users');
-  if(stored) return JSON.parse(stored);
+  if(stored){
+    const users = JSON.parse(stored);
+    // Fix any users missing name field
+    users.forEach(u => { if(!u.name) u.name = u.username; });
+    return users;
+  }
   localStorage.setItem('ymip_users', JSON.stringify(DEFAULT_USERS));
   return DEFAULT_USERS;
 }
@@ -348,7 +353,7 @@ function tryLogin(){
     currentUser = found;
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('dashboard').classList.add('show');
-    document.getElementById('currentUser').textContent = '👤 '+found.name;
+    document.getElementById('currentUser').textContent = '👤 '+(found.name||found.username);
     sessionStorage.setItem('ymip_auth', JSON.stringify(found));
     initDashboard();
   } else {
@@ -370,7 +375,7 @@ if(savedAuth){
     currentUser = JSON.parse(savedAuth);
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('dashboard').classList.add('show');
-    document.getElementById('currentUser').textContent = '👤 '+currentUser.name;
+    document.getElementById('currentUser').textContent = '👤 '+(currentUser.name||currentUser.username);
     setTimeout(initDashboard,100);
   }catch(e){}
 }
