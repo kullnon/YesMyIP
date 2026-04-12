@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YesMyIP — Command Center</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#06080e;--s1:#0a0e1a;--s2:#0f1525;--s3:#151d30;
+  --border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.1);
+  --cyan:#00d4ff;--green:#00e676;--red:#ff4757;--amber:#ffb300;--purple:#a855f7;--pink:#f472b6;
+  --text:#e8edf8;--t2:#7b8baa;--t3:#3a4560;
+  --glow-cyan:0 0 20px rgba(0,212,255,.15);--glow-green:0 0 20px rgba(0,230,118,.15);
+}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;line-height:1.5;min-height:100vh;overflow-x:hidden;}
+
+/* LOGIN SCREEN */
+.login-screen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+.login-screen.hidden{display:none;}
+.login-box{background:var(--s1);border:1px solid var(--border2);border-radius:20px;padding:40px;width:360px;text-align:center;animation:fadeScale .4s ease;}
+@keyframes fadeScale{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
+.login-box img{height:48px;margin-bottom:20px;}
+.login-box h2{font-size:20px;font-weight:700;margin-bottom:4px;}
+.login-box p{color:var(--t2);font-size:13px;margin-bottom:24px;}
+.login-input{width:100%;background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:12px 16px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:14px;outline:none;text-align:center;letter-spacing:2px;margin-bottom:16px;}
+.login-input:focus{border-color:var(--cyan);box-shadow:var(--glow-cyan);}
+.login-btn{width:100%;background:var(--cyan);color:#000;border:none;padding:12px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
+.login-btn:hover{transform:translateY(-1px);box-shadow:var(--glow-cyan);}
+.login-error{color:var(--red);font-size:12px;margin-top:10px;display:none;}
+
+/* DASHBOARD */
+.dash{display:none;padding:20px;max-width:1400px;margin:0 auto;}
+.dash.show{display:block;animation:fadeIn .5s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* TOP BAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+.topbar-left{display:flex;align-items:center;gap:14px;}
+.topbar-left img{height:36px;}
+.topbar-title{font-size:22px;font-weight:800;letter-spacing:-.5px;}
+.topbar-title span{color:var(--cyan);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,230,118,.4);}50%{box-shadow:0 0 0 6px rgba(0,230,118,0);}}
+.topbar-badge{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--t2);display:flex;align-items:center;gap:6px;}
+.topbar-time{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3);}
+.logout-btn{background:none;border:1px solid var(--border);color:var(--t2);padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;}
+.logout-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* DATE RANGE */
+.date-range{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap;}
+.dr-btn{background:var(--s2);border:1px solid var(--border);color:var(--t2);padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;}
+.dr-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.dr-btn.active{background:rgba(0,212,255,.1);border-color:var(--cyan);color:var(--cyan);}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:24px;}
+.stat{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;transition:all .2s;}
+.stat:hover{border-color:var(--border2);transform:translateY(-2px);}
+.stat::after{content:'';position:absolute;top:-40px;right:-40px;width:100px;height:100px;border-radius:50%;opacity:.06;pointer-events:none;}
+.stat-cyan::after{background:var(--cyan);}.stat-green::after{background:var(--green);}.stat-amber::after{background:var(--amber);}.stat-purple::after{background:var(--purple);}.stat-pink::after{background:var(--pink);}
+.stat-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:8px;}
+.stat-value{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;margin-bottom:4px;}
+.stat-cyan .stat-value{color:var(--cyan);}.stat-green .stat-value{color:var(--green);}.stat-amber .stat-value{color:var(--amber);}.stat-purple .stat-value{color:var(--purple);}.stat-pink .stat-value{color:var(--pink);}
+.stat-change{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px;}
+.stat-up{color:var(--green);}.stat-down{color:var(--red);}
+
+/* CHARTS */
+.charts{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:24px;}
+.chart-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:22px;overflow:hidden;}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.chart-title{font-size:14px;font-weight:700;}
+.chart-subtitle{font-size:11px;color:var(--t3);}
+.chart-area{width:100%;height:220px;position:relative;}
+canvas{width:100%!important;height:100%!important;}
+
+/* REVENUE TABLE */
+.rev-table{width:100%;border-collapse:collapse;font-size:13px;}
+.rev-table th{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);color:var(--t3);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;}
+.rev-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:middle;}
+.rev-table tr:hover td{background:rgba(255,255,255,.02);}
+.rev-table .source-icon{width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;margin-right:8px;vertical-align:middle;}
+.badge{padding:3px 8px;border-radius:5px;font-size:10px;font-weight:700;}.badge-green{background:rgba(0,230,118,.12);color:var(--green);}.badge-amber{background:rgba(255,179,0,.12);color:var(--amber);}.badge-red{background:rgba(255,71,87,.12);color:var(--red);}
+
+/* PAGES TABLE */
+.pages-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+
+/* BOTTOM GRID */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:24px;}
+
+/* PROGRESS BAR */
+.progress-track{width:100%;height:6px;background:var(--s3);border-radius:3px;overflow:hidden;margin-top:8px;}
+.progress-fill{height:100%;border-radius:3px;transition:width .8s ease;}
+
+/* GEO LIST */
+.geo-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03);}
+.geo-item:last-child{border:none;}
+.geo-flag{font-size:16px;margin-right:8px;}
+.geo-country{font-size:13px;color:var(--text);}
+.geo-pct{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t2);}
+
+/* ACTIVITY FEED */
+.feed-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:12px;}
+.feed-item:last-child{border:none;}
+.feed-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.feed-text{color:var(--t2);flex:1;}
+.feed-text strong{color:var(--text);}
+.feed-time{color:var(--t3);font-family:'JetBrains Mono',monospace;font-size:10px;white-space:nowrap;}
+
+/* GOAL TRACKER */
+.goal{margin-bottom:16px;}
+.goal-header{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;}
+.goal-label{color:var(--t2);font-weight:600;}
+.goal-value{font-family:'JetBrains Mono',monospace;color:var(--text);}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.stats{grid-template-columns:repeat(3,1fr);}.charts{grid-template-columns:1fr;}.pages-grid{grid-template-columns:1fr;}.bottom-grid{grid-template-columns:1fr;}}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr;}.stat-value{font-size:22px;}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <img src="/assets/logo.png" alt="YesMyIP">
+    <h2>Command Center</h2>
+    <p>Enter your access code</p>
+    <input type="password" class="login-input" id="passInput" placeholder="••••••" maxlength="20" autofocus>
+    <button class="login-btn" onclick="tryLogin()">Access Dashboard</button>
+    <div class="login-error" id="loginError">Invalid access code</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dashboard">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="/assets/logo.png" alt="YesMyIP">
+      <div class="topbar-title">Command <span>Center</span></div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-badge"><div class="live-dot"></div> Live</div>
+      <div class="topbar-time" id="clock"></div>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <!-- DATE RANGE -->
+  <div class="date-range">
+    <button class="dr-btn active" onclick="setRange(this,'today')">Today</button>
+    <button class="dr-btn" onclick="setRange(this,'7d')">7 Days</button>
+    <button class="dr-btn" onclick="setRange(this,'30d')">30 Days</button>
+    <button class="dr-btn" onclick="setRange(this,'90d')">90 Days</button>
+    <button class="dr-btn" onclick="setRange(this,'all')">All Time</button>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="stats">
+    <div class="stat stat-cyan">
+      <div class="stat-label">Visitors</div>
+      <div class="stat-value" id="sVisitors">0</div>
+      <div class="stat-change stat-up" id="sVisitorsChg">↑ 0%</div>
+    </div>
+    <div class="stat stat-green">
+      <div class="stat-label">Revenue</div>
+      <div class="stat-value" id="sRevenue">$0</div>
+      <div class="stat-change stat-up" id="sRevenueChg">↑ 0%</div>
+    </div>
+    <div class="stat stat-amber">
+      <div class="stat-label">Page Views</div>
+      <div class="stat-value" id="sPageviews">0</div>
+      <div class="stat-change stat-up" id="sPageviewsChg">↑ 0%</div>
+    </div>
+    <div class="stat stat-purple">
+      <div class="stat-label">Affiliate Clicks</div>
+      <div class="stat-value" id="sClicks">0</div>
+      <div class="stat-change stat-up" id="sClicksChg">↑ 0%</div>
+    </div>
+    <div class="stat stat-pink">
+      <div class="stat-label">Conversion Rate</div>
+      <div class="stat-value" id="sConv">0%</div>
+      <div class="stat-change stat-up" id="sConvChg">↑ 0%</div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW -->
+  <div class="charts">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div><div class="chart-title">Traffic & Revenue</div><div class="chart-subtitle">Daily visitors and revenue over time</div></div>
+      </div>
+      <div class="chart-area"><canvas id="mainChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div><div class="chart-title">Revenue Sources</div><div class="chart-subtitle">Breakdown by affiliate partner</div></div>
+      </div>
+      <div class="chart-area"><canvas id="pieChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- REVENUE TABLE & TOP PAGES -->
+  <div class="pages-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div><div class="chart-title">💰 Revenue by Source</div><div class="chart-subtitle">Affiliate commissions & ad revenue</div></div>
+      </div>
+      <table class="rev-table">
+        <thead><tr><th>Source</th><th>Clicks</th><th>Conversions</th><th>Revenue</th><th>Status</th></tr></thead>
+        <tbody id="revTableBody"></tbody>
+      </table>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div><div class="chart-title">📊 Top Pages</div><div class="chart-subtitle">Most visited pages this period</div></div>
+      </div>
+      <table class="rev-table">
+        <thead><tr><th>Page</th><th>Views</th><th>Bounce</th></tr></thead>
+        <tbody id="pagesTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BOTTOM GRID -->
+  <div class="bottom-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div><div class="chart-title">🌍 Top Countries</div><div class="chart-subtitle">Visitor geography</div></div>
+      </div>
+      <div id="geoList"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div><div class="chart-title">🎯 Revenue Goals</div><div class="chart-subtitle">Monthly targets</div></div>
+      </div>
+      <div id="goalsSection"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div><div class="chart-title">⚡ Activity Feed</div><div class="chart-subtitle">Recent events</div></div>
+      </div>
+      <div id="feedSection"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// PASSWORD: maestro2026
+const PASS_HASH = 'maestro2026';
+const passInput = document.getElementById('passInput');
+passInput.addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
+
+function tryLogin(){
+  const v = passInput.value.trim();
+  if(v === PASS_HASH){
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('dashboard').classList.add('show');
+    sessionStorage.setItem('ymip_auth','1');
+    initDashboard();
+  } else {
+    document.getElementById('loginError').style.display='block';
+    passInput.value='';
+    passInput.focus();
+    setTimeout(()=>document.getElementById('loginError').style.display='none',2000);
+  }
+}
+function logout(){
+  sessionStorage.removeItem('ymip_auth');
+  location.reload();
+}
+if(sessionStorage.getItem('ymip_auth')==='1'){
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('dashboard').classList.add('show');
+  setTimeout(initDashboard,100);
+}
+
+// CLOCK
+function updateClock(){
+  const now=new Date();
+  document.getElementById('clock').textContent=now.toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+setInterval(updateClock,1000);
+updateClock();
+
+// SIMULATED DATA (replace with real GA4 API later)
+const ranges = {
+  today: { visitors:42, revenue:3.20, pageviews:187, clicks:8, conv:1.9, vChg:12, rChg:8, pChg:15, cChg:5, cvChg:2 },
+  '7d': { visitors:284, revenue:22.50, pageviews:1340, clicks:52, conv:2.1, vChg:18, rChg:24, pChg:20, cChg:15, cvChg:6 },
+  '30d': { visitors:1120, revenue:89.40, pageviews:5280, clicks:198, conv:2.3, vChg:34, rChg:42, pChg:28, cChg:38, cvChg:12 },
+  '90d': { visitors:3450, revenue:320.00, pageviews:16200, clicks:612, conv:2.5, vChg:156, rChg:180, pChg:145, cChg:170, cvChg:22 },
+  all: { visitors:4200, revenue:412.60, pageviews:19800, clicks:745, conv:2.4, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
+};
+
+const revSources = [
+  { name:'NordVPN', icon:'🦁', clicks:312, convs:28, rev:196.00, status:'active', color:'#e33b5e' },
+  { name:'Surfshark', icon:'🦈', clicks:186, convs:15, rev:82.50, status:'active', color:'#1eb8c9' },
+  { name:'ExpressVPN', icon:'⚡', clicks:124, convs:8, rev:56.00, status:'pending', color:'#da3735' },
+  { name:'CyberGhost', icon:'👻', clicks:89, convs:6, rev:33.00, status:'active', color:'#f7c744' },
+  { name:'AdSense', icon:'📺', clicks:0, convs:0, rev:45.10, status:'active', color:'#4285f4' },
+];
+
+const topPages = [
+  { page:'/', views:4820, bounce:'42%' },
+  { page:'/blog/best-vpns-2026/', views:2340, bounce:'38%' },
+  { page:'/tools/vpn-quiz/', views:1890, bounce:'22%' },
+  { page:'/blog/nordvpn-review-2026/', views:1560, bounce:'35%' },
+  { page:'/tools/ip-lookup/', views:1240, bounce:'45%' },
+  { page:'/es/', views:980, bounce:'48%' },
+  { page:'/blog/what-is-a-vpn/', views:870, bounce:'40%' },
+  { page:'/fr/', views:620, bounce:'52%' },
+];
+
+const geoData = [
+  { flag:'🇺🇸', country:'United States', pct:'32%' },
+  { flag:'🇭🇹', country:'Haiti', pct:'18%' },
+  { flag:'🇫🇷', country:'France', pct:'12%' },
+  { flag:'🇲🇽', country:'Mexico', pct:'8%' },
+  { flag:'🇨🇦', country:'Canada', pct:'7%' },
+  { flag:'🇬🇧', country:'United Kingdom', pct:'6%' },
+  { flag:'🇨🇴', country:'Colombia', pct:'5%' },
+  { flag:'🇧🇷', country:'Brazil', pct:'4%' },
+];
+
+const feed = [
+  { dot:'var(--green)', text:'<strong>NordVPN</strong> conversion — $7.00 commission', time:'2m ago' },
+  { dot:'var(--cyan)', text:'New visitor from <strong>Port-au-Prince, HT</strong>', time:'5m ago' },
+  { dot:'var(--amber)', text:'<strong>VPN Quiz</strong> completed — recommended Surfshark', time:'12m ago' },
+  { dot:'var(--green)', text:'<strong>Surfshark</strong> conversion — $5.50 commission', time:'28m ago' },
+  { dot:'var(--cyan)', text:'Blog article ranked <strong>#8</strong> for "best vpns 2026"', time:'1h ago' },
+  { dot:'var(--purple)', text:'<strong>AdSense</strong> — $0.42 earned (3 clicks)', time:'2h ago' },
+  { dot:'var(--cyan)', text:'New visitor from <strong>Paris, FR</strong>', time:'3h ago' },
+  { dot:'var(--green)', text:'<strong>NordVPN</strong> conversion — $7.00 commission', time:'5h ago' },
+];
+
+let mainChartInstance, pieChartInstance;
+
+function initDashboard(){
+  updateStats('today');
+  renderRevTable();
+  renderPagesTable();
+  renderGeo();
+  renderGoals();
+  renderFeed();
+  renderMainChart();
+  renderPieChart();
+}
+
+function setRange(btn, range){
+  document.querySelectorAll('.dr-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  updateStats(range);
+}
+
+function animateValue(el, target, prefix='', suffix=''){
+  const start = 0;
+  const duration = 800;
+  const startTime = performance.now();
+  function update(now){
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed/duration, 1);
+    const eased = 1 - Math.pow(1-progress, 3);
+    const current = Math.round(start + (target-start)*eased);
+    el.textContent = prefix + current.toLocaleString() + suffix;
+    if(progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+function updateStats(range){
+  const d = ranges[range];
+  animateValue(document.getElementById('sVisitors'), d.visitors);
+  document.getElementById('sRevenue').textContent = '$'+d.revenue.toFixed(2);
+  animateValue(document.getElementById('sPageviews'), d.pageviews);
+  animateValue(document.getElementById('sClicks'), d.clicks);
+  document.getElementById('sConv').textContent = d.conv+'%';
+  
+  const fields = ['Visitors','Revenue','Pageviews','Clicks','Conv'];
+  const chgKeys = ['vChg','rChg','pChg','cChg','cvChg'];
+  fields.forEach((f,i) => {
+    const el = document.getElementById('s'+f+'Chg');
+    const val = d[chgKeys[i]];
+    if(val > 0){
+      el.className = 'stat-change stat-up';
+      el.textContent = '↑ '+val+'%';
+    } else if(val < 0){
+      el.className = 'stat-change stat-down';
+      el.textContent = '↓ '+Math.abs(val)+'%';
+    } else {
+      el.className = 'stat-change';
+      el.textContent = '— all time';
+      el.style.color = 'var(--t3)';
+    }
+  });
+}
+
+function renderRevTable(){
+  const tbody = document.getElementById('revTableBody');
+  tbody.innerHTML = revSources.map(s => `
+    <tr>
+      <td><span class="source-icon" style="background:${s.color}22;border:1px solid ${s.color}44;">${s.icon}</span>${s.name}</td>
+      <td style="font-family:'JetBrains Mono',monospace;">${s.clicks.toLocaleString()}</td>
+      <td style="font-family:'JetBrains Mono',monospace;">${s.convs}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--green);font-weight:700;">$${s.rev.toFixed(2)}</td>
+      <td><span class="badge ${s.status==='active'?'badge-green':s.status==='pending'?'badge-amber':'badge-red'}">${s.status.toUpperCase()}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderPagesTable(){
+  const tbody = document.getElementById('pagesTableBody');
+  tbody.innerHTML = topPages.map(p => `
+    <tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);">${p.page}</td>
+      <td style="font-family:'JetBrains Mono',monospace;">${p.views.toLocaleString()}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:${parseInt(p.bounce)>45?'var(--amber)':'var(--green)'};">${p.bounce}</td>
+    </tr>
+  `).join('');
+}
+
+function renderGeo(){
+  document.getElementById('geoList').innerHTML = geoData.map(g => `
+    <div class="geo-item">
+      <div><span class="geo-flag">${g.flag}</span><span class="geo-country">${g.country}</span></div>
+      <span class="geo-pct">${g.pct}</span>
+    </div>
+  `).join('');
+}
+
+function renderGoals(){
+  const goals = [
+    { label:'Month 1 Target', current:412, target:600, color:'var(--cyan)' },
+    { label:'Month 3 Target', current:412, target:3500, color:'var(--amber)' },
+    { label:'Month 6 Target', current:412, target:18000, color:'var(--purple)' },
+    { label:'Month 12 Target', current:412, target:60000, color:'var(--green)' },
+  ];
+  document.getElementById('goalsSection').innerHTML = goals.map(g => {
+    const pct = Math.min((g.current/g.target)*100, 100).toFixed(1);
+    return `
+      <div class="goal">
+        <div class="goal-header">
+          <span class="goal-label">${g.label}</span>
+          <span class="goal-value">$${g.current} / $${g.target.toLocaleString()}</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:${g.color};"></div></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderFeed(){
+  document.getElementById('feedSection').innerHTML = feed.map(f => `
+    <div class="feed-item">
+      <div class="feed-dot" style="background:${f.dot};"></div>
+      <div class="feed-text">${f.text}</div>
+      <div class="feed-time">${f.time}</div>
+    </div>
+  `).join('');
+}
+
+function renderMainChart(){
+  const ctx = document.getElementById('mainChart').getContext('2d');
+  const labels = ['Mar 3','Mar 7','Mar 12','Mar 16','Mar 20','Mar 25','Mar 29','Apr 2','Apr 6','Apr 10','Apr 12'];
+  const visitors = [12,28,45,62,85,120,156,198,245,310,420];
+  const revenue = [0,0,1.2,3.5,5.8,12,18.5,28,42,58,89.4];
+  
+  if(mainChartInstance) mainChartInstance.destroy();
+  mainChartInstance = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        {
+          label:'Visitors',
+          data:visitors,
+          borderColor:'#00d4ff',
+          backgroundColor:'rgba(0,212,255,.08)',
+          fill:true,
+          tension:.4,
+          borderWidth:2,
+          pointRadius:3,
+          pointBackgroundColor:'#00d4ff',
+          yAxisID:'y',
+        },
+        {
+          label:'Revenue ($)',
+          data:revenue,
+          borderColor:'#00e676',
+          backgroundColor:'rgba(0,230,118,.08)',
+          fill:true,
+          tension:.4,
+          borderWidth:2,
+          pointRadius:3,
+          pointBackgroundColor:'#00e676',
+          yAxisID:'y1',
+        }
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{color:'#7b8baa',font:{family:'Outfit',size:11}}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#3a4560',font:{family:'JetBrains Mono',size:10}}},
+        y:{position:'left',grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#00d4ff',font:{family:'JetBrains Mono',size:10}}},
+        y1:{position:'right',grid:{display:false},ticks:{color:'#00e676',font:{family:'JetBrains Mono',size:10},callback:v=>'$'+v}}
+      }
+    }
+  });
+}
+
+function renderPieChart(){
+  const ctx = document.getElementById('pieChart').getContext('2d');
+  if(pieChartInstance) pieChartInstance.destroy();
+  pieChartInstance = new Chart(ctx, {
+    type:'doughnut',
+    data:{
+      labels: revSources.map(s=>s.name),
+      datasets:[{
+        data: revSources.map(s=>s.rev),
+        backgroundColor: revSources.map(s=>s.color+'cc'),
+        borderColor: revSources.map(s=>s.color),
+        borderWidth:1,
+        hoverOffset:6,
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      cutout:'62%',
+      plugins:{
+        legend:{position:'bottom',labels:{color:'#7b8baa',font:{family:'Outfit',size:11},padding:12,usePointStyle:true,pointStyleWidth:8}},
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>
