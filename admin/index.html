@@ -130,9 +130,10 @@ canvas{width:100%!important;height:100%!important;}
     <img src="/assets/logo.png" alt="YesMyIP">
     <h2>Command Center</h2>
     <p>Enter your access code</p>
-    <input type="password" class="login-input" id="passInput" placeholder="••••••" maxlength="20" autofocus>
+    <input type="text" class="login-input" id="userInput" placeholder="Username" style="letter-spacing:0;margin-bottom:8px;font-family:'Outfit',sans-serif;" autocomplete="off">
+    <input type="password" class="login-input" id="passInput" placeholder="Password" maxlength="30" autocomplete="off">
     <button class="login-btn" onclick="tryLogin()">Access Dashboard</button>
-    <div class="login-error" id="loginError">Invalid access code</div>
+    <div class="login-error" id="loginError">Invalid credentials</div>
   </div>
 </div>
 
@@ -148,6 +149,8 @@ canvas{width:100%!important;height:100%!important;}
     <div class="topbar-right">
       <div class="topbar-badge"><div class="live-dot"></div> Live</div>
       <div class="topbar-time" id="clock"></div>
+      <span id="currentUser" style="font-size:12px;color:var(--cyan);font-weight:600;"></span>
+      <button class="logout-btn" onclick="openSettings()" style="border-color:var(--cyan);color:var(--cyan);">⚙ Settings</button>
       <button class="logout-btn" onclick="logout()">Log Out</button>
     </div>
   </div>
@@ -252,19 +255,81 @@ canvas{width:100%!important;height:100%!important;}
 
 </div>
 
+<!-- SETTINGS MODAL -->
+<div id="settingsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;display:none;align-items:center;justify-content:center;">
+  <div style="background:var(--s1);border:1px solid var(--border2);border-radius:20px;padding:32px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;animation:fadeScale .3s ease;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <h2 style="font-size:18px;font-weight:800;">⚙ Settings</h2>
+      <button onclick="closeSettings()" style="background:none;border:none;color:var(--t2);font-size:20px;cursor:pointer;">✕</button>
+    </div>
+
+    <!-- Change Own Password -->
+    <div style="margin-bottom:28px;">
+      <h3 style="font-size:14px;color:var(--cyan);margin-bottom:12px;">🔑 Change Your Password</h3>
+      <input type="password" id="newPass1" placeholder="New password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:8px;">
+      <input type="password" id="newPass2" placeholder="Confirm password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:10px;">
+      <button onclick="changePassword()" style="background:var(--cyan);color:#000;border:none;padding:8px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Outfit',sans-serif;">Update Password</button>
+      <span id="passMsg" style="margin-left:10px;font-size:12px;"></span>
+    </div>
+
+    <!-- User Management (admin only) -->
+    <div id="adminSection" style="display:none;">
+      <h3 style="font-size:14px;color:var(--cyan);margin-bottom:12px;">👥 Manage Users</h3>
+      <div id="userList" style="margin-bottom:16px;"></div>
+
+      <div style="background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:12px;">
+        <div style="font-size:12px;color:var(--t2);font-weight:600;margin-bottom:10px;">Add New User</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+          <input type="text" id="newUserName" placeholder="Username" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;">
+          <input type="password" id="newUserPass" placeholder="Password" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;">
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <select id="newUserRole" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;flex:1;">
+            <option value="viewer">Viewer</option>
+            <option value="editor">Editor</option>
+            <option value="admin">Admin</option>
+          </select>
+          <button onclick="addUser()" style="background:var(--green);color:#000;border:none;padding:8px 16px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;font-family:'Outfit',sans-serif;">+ Add User</button>
+        </div>
+        <span id="addUserMsg" style="font-size:11px;margin-top:6px;display:block;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-// PASSWORD: maestro2026
-const PASS_HASH = 'maestro2026';
+// MULTI-USER AUTH SYSTEM
+const DEFAULT_USERS = [
+  { username:'andy', password:'maestro2026', role:'admin', name:'Andy' },
+];
+
+function getUsers(){
+  const stored = localStorage.getItem('ymip_users');
+  if(stored) return JSON.parse(stored);
+  localStorage.setItem('ymip_users', JSON.stringify(DEFAULT_USERS));
+  return DEFAULT_USERS;
+}
+function saveUsers(users){ localStorage.setItem('ymip_users', JSON.stringify(users)); }
+
+let currentUser = null;
+
 const passInput = document.getElementById('passInput');
+const userInput = document.getElementById('userInput');
 passInput.addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
+userInput.addEventListener('keydown', e => { if(e.key==='Enter') passInput.focus(); });
 
 function tryLogin(){
-  const v = passInput.value.trim();
-  if(v === PASS_HASH){
+  const u = userInput.value.trim().toLowerCase();
+  const p = passInput.value.trim();
+  const users = getUsers();
+  const found = users.find(x => x.username.toLowerCase()===u && x.password===p);
+  if(found){
+    currentUser = found;
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('dashboard').classList.add('show');
-    sessionStorage.setItem('ymip_auth','1');
+    document.getElementById('currentUser').textContent = '👤 '+found.name;
+    sessionStorage.setItem('ymip_auth', JSON.stringify(found));
     initDashboard();
   } else {
     document.getElementById('loginError').style.display='block';
@@ -275,12 +340,94 @@ function tryLogin(){
 }
 function logout(){
   sessionStorage.removeItem('ymip_auth');
+  currentUser = null;
   location.reload();
 }
-if(sessionStorage.getItem('ymip_auth')==='1'){
-  document.getElementById('loginScreen').classList.add('hidden');
-  document.getElementById('dashboard').classList.add('show');
-  setTimeout(initDashboard,100);
+// Auto-login from session
+const savedAuth = sessionStorage.getItem('ymip_auth');
+if(savedAuth){
+  try{
+    currentUser = JSON.parse(savedAuth);
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('dashboard').classList.add('show');
+    document.getElementById('currentUser').textContent = '👤 '+currentUser.name;
+    setTimeout(initDashboard,100);
+  }catch(e){}
+}
+
+// SETTINGS
+function openSettings(){
+  document.getElementById('settingsModal').style.display='flex';
+  if(currentUser && currentUser.role==='admin'){
+    document.getElementById('adminSection').style.display='block';
+    renderUserList();
+  }
+}
+function closeSettings(){ document.getElementById('settingsModal').style.display='none'; }
+document.getElementById('settingsModal').addEventListener('click', function(e){ if(e.target===this) closeSettings(); });
+
+function changePassword(){
+  const p1 = document.getElementById('newPass1').value;
+  const p2 = document.getElementById('newPass2').value;
+  const msg = document.getElementById('passMsg');
+  if(!p1 || p1.length < 4){ msg.textContent='Min 4 characters'; msg.style.color='var(--red)'; return; }
+  if(p1 !== p2){ msg.textContent='Passwords don\'t match'; msg.style.color='var(--red)'; return; }
+  const users = getUsers();
+  const idx = users.findIndex(u => u.username === currentUser.username);
+  if(idx>=0){
+    users[idx].password = p1;
+    saveUsers(users);
+    currentUser.password = p1;
+    sessionStorage.setItem('ymip_auth', JSON.stringify(currentUser));
+    msg.textContent='✓ Password updated!'; msg.style.color='var(--green)';
+    document.getElementById('newPass1').value='';
+    document.getElementById('newPass2').value='';
+  }
+}
+
+function renderUserList(){
+  const users = getUsers();
+  document.getElementById('userList').innerHTML = users.map((u,i) => {
+    const roleColors = {admin:'var(--cyan)',editor:'var(--amber)',viewer:'var(--t2)'};
+    const isMe = u.username === currentUser.username;
+    return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--border);border-radius:10px;margin-bottom:6px;">' +
+      '<div style="display:flex;align-items:center;gap:10px;">' +
+        '<div style="width:32px;height:32px;border-radius:50%;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:14px;">👤</div>' +
+        '<div><div style="font-size:13px;font-weight:600;">'+u.name+(isMe?' <span style="color:var(--cyan);font-size:10px;">(you)</span>':'')+'</div>' +
+        '<div style="font-size:11px;color:'+roleColors[u.role]+';font-weight:600;text-transform:uppercase;letter-spacing:.5px;">'+u.role+'</div></div>' +
+      '</div>' +
+      (isMe ? '' : '<button onclick="removeUser('+i+')" style="background:none;border:1px solid var(--border);color:var(--red);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:\'Outfit\',sans-serif;">Remove</button>') +
+    '</div>';
+  }).join('');
+}
+
+function addUser(){
+  const name = document.getElementById('newUserName').value.trim();
+  const pass = document.getElementById('newUserPass').value.trim();
+  const role = document.getElementById('newUserRole').value;
+  const msg = document.getElementById('addUserMsg');
+  if(!name || !pass){ msg.textContent='Fill in both fields'; msg.style.color='var(--red)'; return; }
+  if(name.length < 2){ msg.textContent='Username too short'; msg.style.color='var(--red)'; return; }
+  if(pass.length < 4){ msg.textContent='Password min 4 chars'; msg.style.color='var(--red)'; return; }
+  const users = getUsers();
+  if(users.length >= 6){ msg.textContent='Max 6 users reached'; msg.style.color='var(--red)'; return; }
+  if(users.find(u => u.username.toLowerCase()===name.toLowerCase())){ msg.textContent='Username already exists'; msg.style.color='var(--red)'; return; }
+  users.push({ username:name.toLowerCase(), password:pass, role:role, name:name });
+  saveUsers(users);
+  document.getElementById('newUserName').value='';
+  document.getElementById('newUserPass').value='';
+  msg.textContent='✓ User added!'; msg.style.color='var(--green)';
+  renderUserList();
+  setTimeout(()=>msg.textContent='',2000);
+}
+
+function removeUser(idx){
+  const users = getUsers();
+  if(users[idx].username === currentUser.username) return;
+  if(!confirm('Remove user "'+users[idx].name+'"?')) return;
+  users.splice(idx,1);
+  saveUsers(users);
+  renderUserList();
 }
 
 // CLOCK
