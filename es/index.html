@@ -318,42 +318,54 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 </footer>
 
 <script>
+function countryFlag(code){
+  if(!code||code.length!==2) return '';
+  return String.fromCodePoint(...[...code.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65));
+}
 async function fetchIP(){
   const apis = [
     {
-      url: "https://api.ipify.org?format=json",
+      url: 'https://api.ipify.org?format=json',
       parse: async (d) => {
         const ip = d.ip;
-        const r2 = await fetch("https://ip-api.com/json/"+ip+"?fields=status,country,regionName,city,isp,org,query");
+        const r2 = await fetch('http://ip-api.com/json/'+ip+'?fields=status,country,countryCode,regionName,city,isp,org,query');
         const d2 = await r2.json();
-        return { ip, org: d2.isp||d2.org||"Unknown", country: d2.country||"Unknown", city: d2.city||"—", region: d2.regionName||"", version: ip.includes(":") ? "IPv6" : "IPv4" };
+        if(d2.status==='fail') throw new Error('fail');
+        const flag = countryFlag(d2.countryCode);
+        return { ip, org: d2.isp||d2.org||'Unknown', country: flag+' '+(d2.country||'Unknown'), city: d2.city||'—', region: d2.regionName||'', version: ip.includes(':') ? 'IPv6' : 'IPv4' };
       }
     },
     {
-      url: "https://ipapi.co/json/",
-      parse: async (d) => ({ ip: d.ip, org: d.org||"Unknown", country: (d.country_flag_emoji||"")+" "+(d.country_name||"Unknown"), city: d.city||"—", region: d.region||"", version: d.version||"IPv4" })
+      url: 'https://ipapi.co/json/',
+      parse: async (d) => {
+        if(d.error) throw new Error('rate limited');
+        return { ip: d.ip, org: d.org||'Unknown', country: (d.country_flag_emoji||countryFlag(d.country_code))+' '+(d.country_name||'Unknown'), city: d.city||'—', region: d.region||'', version: d.version||'IPv4' };
+      }
     },
     {
-      url: "https://api.db-ip.com/v2/free/self",
-      parse: async (d) => ({ ip: d.ipAddress, org: d.isp||"Unknown", country: d.countryName||"Unknown", city: d.city||"—", region: d.stateProv||"", version: d.ipAddress&&d.ipAddress.includes(":") ? "IPv6" : "IPv4" })
+      url: 'https://api.db-ip.com/v2/free/self',
+      parse: async (d) => {
+        const flag = countryFlag(d.countryCode);
+        return { ip: d.ipAddress, org: d.isp||'Unknown', country: flag+' '+(d.countryName||'Unknown'), city: d.city||'—', region: d.stateProv||'', version: d.ipAddress&&d.ipAddress.includes(':') ? 'IPv6' : 'IPv4' };
+      }
     }
   ];
   for (const api of apis) {
     try {
       const r = await fetch(api.url);
       const d = await r.json();
-      if (d.error) continue;
       const info = await api.parse(d);
+      if(!info.ip) continue;
       window._ip = info.ip;
-      document.getElementById("ipDisplay").textContent = info.ip || "Unavailable";
-      document.getElementById("metaISP").textContent = info.org;
-      document.getElementById("metaCountry").textContent = info.country;
-      document.getElementById("metaCity").textContent = info.city + ", " + info.region;
-      document.getElementById("ipType").textContent = info.version + " Address";
+      document.getElementById('ipDisplay').textContent = info.ip;
+      document.getElementById('metaISP').textContent = info.org;
+      document.getElementById('metaCountry').textContent = info.country;
+      document.getElementById('metaCity').textContent = info.city + ', ' + info.region;
+      document.getElementById('ipType').textContent = info.version + ' Address';
       return;
     } catch(e) { continue; }
   }
-  document.getElementById("ipDisplay").textContent = "Unable to detect";
+  document.getElementById('ipDisplay').textContent = 'Unable to detect';
 }
 fetchIP();
 function copyIP(){navigator.clipboard.writeText(window._ip||'').then(()=>showToast('✓ Copied!'));}
