@@ -1,7 +1,6 @@
-
 const cn={"AF":"Afghanistan","AL":"Albania","DZ":"Algeria","AR":"Argentina","AU":"Australia","AT":"Austria","BD":"Bangladesh","BE":"Belgium","BO":"Bolivia","BR":"Brazil","CA":"Canada","CL":"Chile","CN":"China","CO":"Colombia","CR":"Costa Rica","CU":"Cuba","CZ":"Czechia","DK":"Denmark","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","FI":"Finland","FR":"France","DE":"Germany","GH":"Ghana","GR":"Greece","GT":"Guatemala","GY":"Guyana","HT":"Haiti","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IN":"India","ID":"Indonesia","IE":"Ireland","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","KE":"Kenya","KR":"South Korea","LB":"Lebanon","MX":"Mexico","MA":"Morocco","NL":"Netherlands","NZ":"New Zealand","NG":"Nigeria","NO":"Norway","PK":"Pakistan","PA":"Panama","PE":"Peru","PH":"Philippines","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","RO":"Romania","RU":"Russia","SA":"Saudi Arabia","SN":"Senegal","SG":"Singapore","ZA":"South Africa","ES":"Spain","SE":"Sweden","CH":"Switzerland","TW":"Taiwan","TH":"Thailand","TT":"Trinidad and Tobago","TR":"Turkey","UA":"Ukraine","AE":"UAE","GB":"United Kingdom","US":"United States","UY":"Uruguay","VE":"Venezuela","VN":"Vietnam"};
-function flag(c){if(!c||c.length!==2)return'';return String.fromCodePoint(...[...c.toUpperCase()].map(x=>0x1F1E6+x.charCodeAt(0)-65));}
-function setField(id,val){var el=document.getElementById(id);if(el)el.innerText=val;}
+function setField(id,val){var el=document.getElementById(id);if(el){el.innerHTML=val;}}
+function flagImg(cc){if(!cc)return'';return '<img src="https://flagcdn.com/20x15/'+cc.toLowerCase()+'.png" style="vertical-align:middle;margin-right:4px;" alt="'+cc+'">';}
 async function fetchIP(){
   try{
     const r=await fetch('https://api.db-ip.com/v2/free/self');
@@ -11,7 +10,7 @@ async function fetchIP(){
     window._ip=ip;
     setField('ipDisplay',ip);
     setField('metaISP',org);
-    setField('metaCountry',flag(cc)+' '+country);
+    setField('metaCountry',flagImg(cc)+country);
     setField('metaCity',city+', '+region);
     setField('ipType',ver+' Address');
   }catch(e){
@@ -21,7 +20,7 @@ async function fetchIP(){
       window._ip=d.ip;
       setField('ipDisplay',d.ip);
       setField('metaISP',(d.org||'').replace(/^AS\d+\s*/,''));
-      setField('metaCountry',flag(d.country)+' '+(cn[d.country]||d.country));
+      setField('metaCountry',flagImg(d.country)+(cn[d.country]||d.country));
       setField('metaCity',(d.city||'—')+', '+(d.region||''));
       setField('ipType',(d.ip.includes(':')?'IPv6':'IPv4')+' Address');
     }catch(e2){
@@ -29,10 +28,8 @@ async function fetchIP(){
     }
   }
 }
-// Run immediately, then again after 2s to override Google Translate
 fetchIP();
-setTimeout(fetchIP,2000);
-setTimeout(fetchIP,5000);
+setTimeout(fetchIP,3000);
 function copyIP(){navigator.clipboard.writeText(window._ip||'').then(()=>showToast('✓ Copied!'));}
 function switchTab(btn,id){btn.closest('.lookup-card').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.closest('.lookup-card').querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
 function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
