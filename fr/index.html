@@ -119,23 +119,23 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 </div>
 <nav>
   <a href="/fr/"><img src="/assets/logo.png" style="height:32px;width:auto;" alt="YesMyIP.com"></a>
-  <button class="nav-link active">Mon IP</button>
-  <button class="nav-link">Recherche IP</button>
-  <button class="nav-link">VPN</button>
-  <button class="nav-link">Apprendre</button>
+  <a class="nav-link active" href="#ip-result" style="text-decoration:none;">Mon IP</a>
+  <a class="nav-link" href="#ip-result" style="text-decoration:none;">Recherche IP</a>
+  <a class="nav-link" href="#vpn-compare" style="text-decoration:none;">VPN</a>
+  <a class="nav-link" href="#learn" style="text-decoration:none;">Apprendre</a>
   <div class="nav-right">
     <div class="lang-switcher">
       <a href="/" class="lang-btn">🇪🇸 ES</a>
       <a href="/en/" class="lang-btn">🇺🇸 EN</a>
       <span class="lang-btn active">🇫🇷 FR</span>
     </div>
-    <button class="shield-btn">🛡️ Masquer Mon IP</button>
+    <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="shield-btn" style="text-decoration:none;">🛡️ Masquer Mon IP</a>
   </div>
 </nav>
 <div class="promo">
   <span class="promo-tag">OFFRE</span>
   <span>🔒 <strong>NordVPN</strong> — 67% de réduction + 3 mois offerts. Durée limitée.</span>
-  <a href="#" class="promo-cta">Voir l'Offre →</a>
+  <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="promo-cta">Voir l'Offre →</a>
 </div>
 
 </div>
@@ -145,7 +145,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
     <div>
       <h1 class="hero-title">Quelle Est Votre<br><span class="hl">Adresse IP ?</span></h1>
       <p class="hero-sub">Votre IP publique, localisation et analyse de sécurité — instantanément et gratuitement.</p>
-      <div class="ip-card">
+      <div class="ip-card" id="ip-result">
         <div class="ip-lbl">VOTRE ADRESSE IP PUBLIQUE</div>
         <div class="ip-big"><span id="ipDisplay">Détection…</span><button class="copy-btn" onclick="copyIP()" title="Copier">📋</button></div>
         <div class="ip-type" id="ipType">Adresse IPv4 · Détectée via ipapi.co</div>
@@ -156,8 +156,8 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
           <div class="meta-box"><div class="mk">Statut IPv6</div><div class="mv" id="metaV6">Non détecté</div></div>
         </div>
         <div class="alert"><div class="pulse"></div><span>⚠️ Votre localisation réelle est visible par chaque site que vous visitez</span></div>
-        <button class="btn btn-cyan">🛡️ Masquer Mon IP Maintenant</button>
-        <button class="btn btn-ghost btn-sm">🔍 Outil de Recherche IP</button>
+        <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="btn btn-cyan" style="text-decoration:none;">🛡️ Masquer Mon IP Maintenant</a>
+        <a href="#ip-result" class="btn btn-ghost btn-sm" style="text-decoration:none;">🔍 Outil de Recherche IP</a>
         <div class="trust">🔒 Sans inscription · Sans stockage · 100% gratuit</div>
       </div>
       </div>
@@ -166,19 +166,19 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
       <div class="card">
         <div class="card-title">⚡ Outils Rapides</div>
         <div class="tools-grid">
-          <a class="tool-btn" href="#"><div class="ti">🔍</div><div class="tn">Recherche IP</div><div class="td">Localiser n'importe quelle IP</div></a>
-          <a class="tool-btn" href="#"><div class="ti">💧</div><div class="tn">Fuite de Données</div><div class="td">Email compromis ?</div></a>
-          <a class="tool-btn" href="#"><div class="ti">⚡</div><div class="tn">Test de Vitesse</div><div class="td">Testez votre connexion</div></a>
-          <a class="tool-btn" href="#"><div class="ti">🎯</div><div class="tn">Test VPN</div><div class="td">Quel VPN vous convient ?</div></a>
+          <a class="tool-btn" href="#ip-result"><div class="ti">🔍</div><div class="tn">Recherche IP</div><div class="td">Localiser n'importe quelle IP</div></a>
+          <a class="tool-btn" href="#ip-result"><div class="ti">💧</div><div class="tn">Fuite de Données</div><div class="td">Email compromis ?</div></a>
+          <a class="tool-btn" href="https://haveibeenpwned.com" target="_blank" rel="nofollow noopener"><div class="ti">⚡</div><div class="tn">Test de Vitesse</div><div class="td">Testez votre connexion</div></a>
+          <a class="tool-btn" href="https://fast.com" target="_blank" rel="nofollow noopener"><div class="ti">🎯</div><div class="tn">Test VPN</div><div class="td">Quel VPN vous convient ?</div></a>
         </div>
       </div>
       <div class="vpn-strip">
         <div class="vpn-strip-title">🏆 Meilleurs VPN — Vérifiés 2026</div>
         <div class="vpn-items">
-          <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#e33b5e20;border:1px solid #e33b5e40;">🦁</div><div><div class="vpn-name">NordVPN</div><div class="vpn-deal">67% RÉDUCTION · 3,39€/mois</div></div><div class="vpn-get">VOIR OFFRE</div></a>
-          <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#da373520;border:1px solid #da373540;">⚡</div><div><div class="vpn-name">ExpressVPN</div><div class="vpn-deal">3 mois GRATUITS</div></div><div class="vpn-get">VOIR OFFRE</div></a>
-          <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#f7c74420;border:1px solid #f7c74440;">👻</div><div><div class="vpn-name">CyberGhost</div><div class="vpn-deal">84% RÉDUCTION · 2,19€/mois</div></div><div class="vpn-get">VOIR OFFRE</div></a>
-          <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#1eb8c920;border:1px solid #1eb8c940;">🦈</div><div><div class="vpn-name">Surfshark</div><div class="vpn-deal">87% RÉDUCTION · 2,29€/mois</div></div><div class="vpn-get">VOIR OFFRE</div></a>
+          <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="vpn-row"><div class="vpn-ico" style="background:#e33b5e20;border:1px solid #e33b5e40;">🦁</div><div><div class="vpn-name">NordVPN</div><div class="vpn-deal">67% RÉDUCTION · 3,39€/mois</div></div><div class="vpn-get">VOIR OFFRE</div></a>
+          <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="vpn-row"><div class="vpn-ico" style="background:#da373520;border:1px solid #da373540;">⚡</div><div><div class="vpn-name">ExpressVPN</div><div class="vpn-deal">3 mois GRATUITS</div></div><div class="vpn-get">VOIR OFFRE</div></a>
+          <a href="https://expressvpn.com" target="_blank" rel="nofollow noopener" class="vpn-row"><div class="vpn-ico" style="background:#f7c74420;border:1px solid #f7c74440;">👻</div><div><div class="vpn-name">CyberGhost</div><div class="vpn-deal">84% RÉDUCTION · 2,19€/mois</div></div><div class="vpn-get">VOIR OFFRE</div></a>
+          <a href="https://cyberghostvpn.com" target="_blank" rel="nofollow noopener" class="vpn-row"><div class="vpn-ico" style="background:#1eb8c920;border:1px solid #1eb8c940;">🦈</div><div><div class="vpn-name">Surfshark</div><div class="vpn-deal">87% RÉDUCTION · 2,29€/mois</div></div><div class="vpn-get">VOIR OFFRE</div></a>
         </div>
       </div>
       <div class="score-card">
@@ -192,7 +192,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
           <div class="chk warn"><div class="chk-dot"></div>IPv6 non vérifié</div>
           <div class="chk pass"><div class="chk-dot"></div>Pas de liste noire</div>
         </div>
-        <button class="btn btn-sm" style="background:var(--red);color:white;border:none;margin-top:12px;width:100%;">Améliorer ma Sécurité →</button>
+        <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="btn btn-sm" style="background:var(--red);color:white;border:none;margin-top:12px;width:100%;text-decoration:none;">Améliorer ma Sécurité →</a>
       </div>
       </div>
     </div>
@@ -204,7 +204,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
     <div>
       <div class="lookup-card">
         <div class="tabs">
-          <button class="tab active" onclick="switchTab(this,'t1')">Qu'est-ce qu'une IP ?</button>
+          <button class="tab active" onclick="switchTab(this,'t1')" id="learn">Qu'est-ce qu'une IP ?</button>
           <button class="tab" onclick="switchTab(this,'t2')">Pourquoi la masquer ?</button>
           <button class="tab" onclick="switchTab(this,'t3')">Qu'est-ce qu'un VPN ?</button>
         </div>
@@ -228,24 +228,24 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
         <h2>Quelle Est Votre Plus Grande Préoccupation ?</h2>
         <p style="font-size:13px;color:var(--t2);margin-bottom:0;">Dites-nous votre priorité et nous vous recommandons le meilleur VPN.</p>
         <div class="concern-grid">
-          <a href="#" class="cc"><div class="cc-icon">🛡️</div><div class="cc-title">Sécurité</div><div class="cc-desc">Protection contre les hackers sur Wi-Fi public</div><span class="cc-btn">Je Veux la Sécurité</span></a>
-          <a href="#" class="cc"><div class="cc-icon">👁️</div><div class="cc-title">Confidentialité</div><div class="cc-desc">Empêcher mon FAI de me surveiller</div><span class="cc-btn">Je Veux la Vie Privée</span></a>
-          <a href="#" class="cc"><div class="cc-icon">🌍</div><div class="cc-title">Accès</div><div class="cc-desc">Débloquer Netflix, BBC iPlayer et plus</div><span class="cc-btn">Je Veux l'Accès</span></a>
+          <a href="#vpn-compare" class="cc"><div class="cc-icon">🛡️</div><div class="cc-title">Sécurité</div><div class="cc-desc">Protection contre les hackers sur Wi-Fi public</div><span class="cc-btn">Je Veux la Sécurité</span></a>
+          <a href="#vpn-compare" class="cc"><div class="cc-icon">👁️</div><div class="cc-title">Confidentialité</div><div class="cc-desc">Empêcher mon FAI de me surveiller</div><span class="cc-btn">Je Veux la Vie Privée</span></a>
+          <a href="#vpn-compare" class="cc"><div class="cc-icon">🌍</div><div class="cc-title">Accès</div><div class="cc-desc">Débloquer Netflix, BBC iPlayer et plus</div><span class="cc-btn">Je Veux l'Accès</span></a>
         </div>
       </div>
       </div>
       <div class="lookup-card">
-        <h2>🏆 Meilleurs VPN de 2026</h2>
+        <h2 id="vpn-compare">🏆 Meilleurs VPN de 2026</h2>
         <p style="font-size:13px;color:var(--t2);margin-bottom:14px;">Indépendamment testés et classés par notre équipe de sécurité.</p>
         <div style="overflow-x:auto;">
           <table class="vtbl">
             <thead><tr><th>Fournisseur</th><th>Pays</th><th>Appareils</th><th>À partir de</th><th>Action</th></tr></thead>
             <tbody>
-              <tr><td><strong>🦁 NordVPN</strong></td><td>118</td><td>10</td><td style="color:var(--green);">3,39€/mois</td><td><a href="#" class="deal-link">Voir l'Offre</a></td></tr>
-              <tr><td><strong>⚡ ExpressVPN</strong></td><td>105</td><td>8</td><td style="color:var(--green);">4,99€/mois</td><td><a href="#" class="deal-link">Voir l'Offre</a></td></tr>
-              <tr><td><strong>👻 CyberGhost</strong></td><td>100+</td><td>7</td><td style="color:var(--green);">2,19€/mois</td><td><a href="#" class="deal-link">Voir l'Offre</a></td></tr>
-              <tr><td><strong>🦈 Surfshark</strong></td><td>100</td><td>∞</td><td style="color:var(--green);">2,29€/mois</td><td><a href="#" class="deal-link">Voir l'Offre</a></td></tr>
-              <tr><td><strong>🔒 PIA</strong></td><td>91</td><td>∞</td><td style="color:var(--green);">2,19€/mois</td><td><a href="#" class="deal-link">Voir l'Offre</a></td></tr>
+              <tr><td><strong>🦁 NordVPN</strong></td><td>118</td><td>10</td><td style="color:var(--green);">3,39€/mois</td><td><a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="deal-link">Voir l'Offre</a></td></tr>
+              <tr><td><strong>⚡ ExpressVPN</strong></td><td>105</td><td>8</td><td style="color:var(--green);">4,99€/mois</td><td><a href="https://expressvpn.com" target="_blank" rel="nofollow noopener" class="deal-link">Voir l'Offre</a></td></tr>
+              <tr><td><strong>👻 CyberGhost</strong></td><td>100+</td><td>7</td><td style="color:var(--green);">2,19€/mois</td><td><a href="https://cyberghostvpn.com" target="_blank" rel="nofollow noopener" class="deal-link">Voir l'Offre</a></td></tr>
+              <tr><td><strong>🦈 Surfshark</strong></td><td>100</td><td>∞</td><td style="color:var(--green);">2,29€/mois</td><td><a href="https://surfshark.com" target="_blank" rel="nofollow noopener" class="deal-link">Voir l'Offre</a></td></tr>
+              <tr><td><strong>🔒 PIA</strong></td><td>91</td><td>∞</td><td style="color:var(--green);">2,19€/mois</td><td><a href="https://privateinternetaccess.com" target="_blank" rel="nofollow noopener" class="deal-link">Voir l'Offre</a></td></tr>
             </tbody>
           </table>
         </div>
@@ -264,11 +264,11 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
       <div class="card">
         <div class="card-title">📚 Articles Populaires</div>
         <div style="display:flex;flex-direction:column;gap:5px;">
-          <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Qu'est-ce qu'un VPN ? Guide Complet</a>
-          <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Meilleurs VPN pour Netflix 2026</a>
-          <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Mon VPN Fonctionne-t-il ?</a>
-          <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">VPN vs Proxy : La Différence</a>
-          <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Meilleurs VPN Gratuits 2026</a>
+          <a href="#learn" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Qu'est-ce qu'un VPN ? Guide Complet</a>
+          <a href="#learn" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Meilleurs VPN pour Netflix 2026</a>
+          <a href="#learn" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Mon VPN Fonctionne-t-il ?</a>
+          <a href="#learn" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">VPN vs Proxy : La Différence</a>
+          <a href="#learn" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Meilleurs VPN Gratuits 2026</a>
         </div>
       </div>
       </div>
@@ -285,8 +285,8 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
         <p>La façon la plus rapide de vérifier votre IP, exécuter des outils de sécurité et trouver le meilleur VPN. Ce site perçoit des commissions d'affiliation sur les achats VPN.</p>
         <p style="margin-top:8px;font-size:11px;opacity:.4;">© 2026 YesMyIP.com · Tous Droits Réservés</p>
       </div>
-      <div class="footer-col"><h4>Outils</h4><a href="/fr/">Mon Adresse IP</a><a href="#">Recherche IP</a><a href="#">Test de Vitesse</a><a href="#">Vérification Fuite</a><a href="#">Test VPN</a></div>
-      <div class="footer-col"><h4>VPN</h4><a href="#">NordVPN</a><a href="#">ExpressVPN</a><a href="#">Surfshark</a><a href="#">CyberGhost</a><a href="#">Comparer les VPN</a></div>
+      <div class="footer-col"><h4>Outils</h4><a href="/fr/">Mon Adresse IP</a><a href="#vpn-compare">Recherche IP</a><a href="#vpn-compare">Test de Vitesse</a><a href="#vpn-compare">Vérification Fuite</a><a href="#vpn-compare">Test VPN</a></div>
+      <div class="footer-col"><h4>VPN</h4><a href="https://nordvpn.com" target="_blank" rel="nofollow noopener">NordVPN</a><a href="https://expressvpn.com" target="_blank" rel="nofollow noopener">ExpressVPN</a><a href="https://surfshark.com" target="_blank" rel="nofollow noopener">Surfshark</a><a href="https://cyberghostvpn.com" target="_blank" rel="nofollow noopener">CyberGhost</a><a href="#vpn-compare">Comparer les VPN</a></div>
       <div class="footer-col"><h4>Légal</h4><a href="/fr/legal/politique-de-confidentialite">Politique de Confidentialité</a><a href="/fr/legal/conditions-utilisation">Conditions d'Utilisation</a><a href="/fr/legal/divulgation-affilies">Divulgation d'Affiliation</a><a href="/fr/legal/contact">Contact</a></div>
     </div>
     <div class="footer-bottom">
