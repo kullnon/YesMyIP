@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head><title>IP Test</title></head>
+<body style="background:#000;color:#fff;font-family:monospace;padding:40px;">
+<h2>IP Detection Test</h2>
+<div id="log" style="white-space:pre-wrap;"></div>
+<script>
+const log = document.getElementById('log');
+function addLog(msg){ log.textContent += msg + '\n'; }
+
+async function test(){
+  addLog('Starting tests...\n');
+  
+  const apis = [
+    { name: 'ipwho.is', url: 'https://ipwho.is/' },
+    { name: 'ipinfo.io', url: 'https://ipinfo.io/json' },
+    { name: 'db-ip.com', url: 'https://api.db-ip.com/v2/free/self' },
+    { name: 'ipapi.co', url: 'https://ipapi.co/json/' },
+    { name: 'ipify.org', url: 'https://api.ipify.org?format=json' },
+  ];
+  
+  for(const api of apis){
+    try {
+      addLog('Testing ' + api.name + '...');
+      const start = Date.now();
+      const r = await fetch(api.url);
+      const ms = Date.now() - start;
+      const d = await r.json();
+      addLog('  ✅ ' + api.name + ' (' + ms + 'ms): ' + JSON.stringify(d).substring(0,200));
+      addLog('');
+    } catch(e) {
+      addLog('  ❌ ' + api.name + ' FAILED: ' + e.message);
+      addLog('');
+    }
+  }
+  addLog('Done!');
+}
+test();
+</script>
+</body>
+</html>
