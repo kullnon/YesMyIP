@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Cuál Es Mi IP? Verificador de IP Gratis | QualesMiIP.com</title>
+<meta name="description" content="Comprueba tu dirección IP pública al instante. Análisis de seguridad, herramientas de privacidad y las mejores reseñas de VPN. Gratis, sin registro.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://qualesmiip.com/">
+<link rel="alternate" hreflang="es" href="https://qualesmiip.com/">
+<link rel="alternate" hreflang="en" href="https://qualesmiip.com/en/">
+<link rel="alternate" hreflang="fr" href="https://qualesmiip.com/fr/">
+<link rel="alternate" hreflang="x-default" href="https://qualesmiip.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qualesmiip.com/">
+<meta property="og:title" content="¿Cuál Es Mi IP? Herramientas de Privacidad Gratis">
+<meta property="og:description" content="Comprueba tu dirección IP, analiza tu seguridad y encuentra la mejor VPN — todo gratis.">
+<meta property="og:image" content="https://qualesmiip.com/assets/og-es.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "QualesMiIP.com",
+  "url": "https://qualesmiip.com",
+  "description": "Verificador de IP gratuito, herramientas de privacidad y reseñas de VPN",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://qualesmiip.com/tools/ip-lookup?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "inLanguage": "es"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuál es mi dirección IP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tu dirección IP es un número único asignado a tu dispositivo por tu proveedor de internet. Revela tu ubicación aproximada y tu ISP. Puedes verla gratis en la parte superior de esta página."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo oculto mi dirección IP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La forma más efectiva es usar una VPN. Una VPN cifra tu tráfico y reemplaza tu IP real con la del servidor VPN. NordVPN es nuestra recomendación principal."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<style>
+:root{
+  --bg:#07090f;--s1:#0b0f1c;--s2:#101828;--s3:#141d2e;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --cyan:#00d4ff;--cd:rgba(0,212,255,.1);
+  --green:#00e676;--gd:rgba(0,230,118,.1);
+  --red:#ff4757;--rd:rgba(255,71,87,.1);
+  --orange:#ff9f43;--od:rgba(255,159,67,.1);
+  --purple:#845ef7;--pd:rgba(132,94,247,.12);
+  --text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;
+  --r:16px;--rsm:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px;}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(7,9,15,.95);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:0 20px;height:58px;
+  display:flex;align-items:center;gap:6px;
+}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--text);text-decoration:none;margin-right:12px;white-space:nowrap;}
+.logo span{color:var(--cyan);}
+.nav-link{background:none;border:none;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+
+/* LANG SWITCHER */
+.lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
+.lang-btn{background:none;border:none;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;cursor:pointer;transition:all .2s;text-decoration:none;}
+.lang-btn:hover{color:var(--text);}
+.lang-btn.active{background:var(--cyan);color:#000;}
+
+.shield-btn{background:var(--red);color:white;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer;animation:pulseRed 3s infinite;}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(255,71,87,.4);}50%{box-shadow:0 0 0 8px rgba(255,71,87,0);}}
+
+/* PROMO BAR */
+.promo{
+  background:linear-gradient(90deg,#0d1a2e,#1a0d2e,#0d1a2e);
+  background-size:200%;animation:gs 6s linear infinite;
+  border-bottom:1px solid rgba(123,94,167,.2);
+  padding:9px 20px;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-size:12.5px;color:var(--t2);flex-wrap:wrap;
+}
+@keyframes gs{0%{background-position:0%;}100%{background-position:200%;}}
+.promo strong{color:#c4a8ff;}
+.promo-tag{background:rgba(123,94,167,.25);border:1px solid rgba(123,94,167,.4);color:#c4a8ff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.6px;}
+.promo-cta{background:var(--purple);color:white;padding:4px 13px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;transition:opacity .2s;}
+.promo-cta:hover{opacity:.8;}
+
+/* HERO */
+.hero{padding:50px 20px 36px;max-width:1100px;margin:0 auto;}
+.hero-grid{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start;}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.1;margin-bottom:6px;}
+.hero-title .hl{color:var(--cyan);}
+.hero-sub{color:var(--t2);font-size:14px;margin-bottom:26px;}
+
+/* IP CARD */
+.ip-card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:26px;position:relative;overflow:hidden;}
+.ip-card::after{content:'';position:absolute;top:-70px;right:-70px;width:210px;height:210px;background:radial-gradient(circle,rgba(0,212,255,.1) 0%,transparent 70%);pointer-events:none;}
+.ip-lbl{font-size:10px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;}
+.ip-big{font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,34px);font-weight:800;color:var(--cyan);letter-spacing:-.5px;display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.copy-btn{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);color:var(--cyan);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+.copy-btn:hover{background:rgba(0,212,255,.2);}
+.ip-type{font-size:11px;color:var(--t3);margin-bottom:18px;}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.meta-box{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;}
+.meta-box .mk{font-size:9px;text-transform:uppercase;letter-spacing:1.2px;color:var(--t3);font-weight:700;margin-bottom:3px;}
+.meta-box .mv{font-size:13px;font-weight:500;color:var(--text);}
+.alert{display:flex;align-items:center;gap:8px;background:var(--rd);border:1px solid rgba(255,71,87,.2);border-radius:10px;padding:10px 13px;margin-bottom:14px;}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;animation:pd 2s infinite;}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
+.alert span{font-size:12px;color:#ff8a95;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:var(--rsm);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:none;transition:all .2s;text-decoration:none;width:100%;margin-bottom:8px;}
+.btn-cyan{background:var(--cyan);color:#000;}
+.btn-cyan:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,212,255,.3);}
+.btn-ghost{background:var(--s2);border:1px solid var(--border2);color:var(--text);}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
+.btn-sm{padding:8px 14px;font-size:12px;}
+.trust{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:var(--t3);margin-top:10px;}
+
+/* RIGHT PANEL */
+.right-panel{display:flex;flex-direction:column;gap:14px;}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;}
+.card-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;}
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.tool-btn{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:13px;cursor:pointer;transition:all .2s;text-decoration:none;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;}
+.tool-btn:hover{border-color:rgba(0,212,255,.3);background:var(--cd);transform:translateY(-2px);}
+.tool-btn .ti{font-size:20px;}
+.tool-btn .tn{font-size:11px;font-weight:700;color:var(--text);}
+.tool-btn .td{font-size:10px;color:var(--t3);}
+
+/* VPN STRIP */
+.vpn-strip{background:linear-gradient(135deg,#120a28,#091b30);border:1px solid rgba(123,94,167,.25);border-radius:var(--r);padding:16px;}
+.vpn-strip-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text);}
+.vpn-items{display:flex;flex-direction:column;gap:7px;}
+.vpn-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid transparent;border-radius:10px;padding:10px 12px;text-decoration:none;transition:all .2s;}
+.vpn-row:hover{border-color:rgba(123,94,167,.35);background:rgba(123,94,167,.06);}
+.vpn-ico{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.vpn-name{font-size:12px;font-weight:700;color:var(--text);}
+.vpn-deal{font-size:10px;color:var(--green);}
+.vpn-get{background:rgba(123,94,167,.3);color:#c4a8ff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;margin-left:auto;white-space:nowrap;}
+
+/* MAIN CONTENT */
+.container{max-width:1100px;margin:0 auto;padding:0 20px 60px;}
+.two-col{display:grid;grid-template-columns:1fr 300px;gap:24px;}
+.sidebar{display:flex;flex-direction:column;gap:14px;}
+
+/* AD UNITS */
+.ad{background:var(--s1);border:1px dashed rgba(255,255,255,.08);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:14px;color:var(--t3);font-size:12px;text-align:center;}
+.ad-lbl{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;opacity:.5;}
+.ad-top{min-height:90px;margin:16px 0;}
+.ad-rect{min-height:250px;}
+.ad-half{min-height:300px;}
+
+/* LOOKUP TOOL */
+.lookup-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px;}
+.lookup-card h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;}
+.lookup-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.input{background:var(--s2);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:var(--rsm);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color .2s;flex:1;min-width:180px;}
+.input:focus{border-color:var(--cyan);}
+.lookup-result{display:none;margin-top:16px;background:var(--s2);border-radius:12px;padding:16px;border:1px solid var(--border);}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.rbox{background:var(--s3);border-radius:8px;padding:10px 12px;}
+.rbox .rk{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--t3);font-weight:700;margin-bottom:3px;}
+.rbox .rv{font-size:13px;font-weight:500;color:var(--text);}
+
+/* TABS */
+.tabs{display:flex;gap:3px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.tab{background:none;border:none;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 14px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.tab-panel p{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:10px;}
+.tab-panel h2{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
+.tab-panel strong{color:var(--text);}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--border);padding:14px 0;}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.faq-q::after{content:'+';color:var(--cyan);font-size:17px;flex-shrink:0;}
+.faq-a{font-size:13px;color:var(--t2);line-height:1.75;margin-top:9px;display:none;}
+.faq-item.open .faq-a{display:block;}
+.faq-item.open .faq-q::after{content:'−';}
+
+/* VPN TABLE */
+.vtbl{width:100%;border-collapse:collapse;font-size:12px;}
+.vtbl th{text-align:left;padding:9px 11px;border-bottom:1px solid var(--border);color:var(--t3);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.6px;}
+.vtbl td{padding:11px 11px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--text);vertical-align:middle;}
+.vtbl tr:last-child td{border-bottom:none;}
+.vtbl tr:hover td{background:rgba(255,255,255,.02);}
+.deal-link{background:linear-gradient(135deg,var(--purple),#4a2d70);color:white;border:none;padding:5px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity .2s;}
+.deal-link:hover{opacity:.8;}
+
+/* CONCERN GRID */
+.concern-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
+.cc{background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;display:block;}
+.cc:hover{border-color:rgba(0,212,255,.3);transform:translateY(-3px);}
+.cc-icon{font-size:26px;margin-bottom:8px;}
+.cc-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.cc-desc{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:10px;}
+.cc-btn{display:inline-block;background:var(--cyan);color:#000;font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;}
+
+/* SECURITY SCORE */
+.score-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;}
+.ring-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:12px;position:relative;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-num{position:absolute;font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--red);}
+.ring-sub{text-align:center;font-size:11px;color:var(--t3);margin-bottom:12px;font-weight:700;letter-spacing:.5px;}
+.chk-list{display:flex;flex-direction:column;gap:6px;}
+.chk{display:flex;align-items:center;gap:8px;font-size:11px;padding:7px 10px;border-radius:8px;background:var(--s2);}
+.chk.fail{color:#ff8a95;}.chk.pass{color:#69f0ae;}.chk.warn{color:#ffd082;}
+.chk-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.fail .chk-dot{background:var(--red);}.pass .chk-dot{background:var(--green);}.warn .chk-dot{background:var(--orange);}
+
+/* BLOG GRID */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px;}
+.blog-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .2s;text-decoration:none;}
+.blog-card:hover{border-color:rgba(0,212,255,.2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3);}
+.blog-thumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:40px;}
+.blog-body{padding:16px;}
+.blog-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;}
+.tag-vpn{background:var(--pd);color:var(--purple);}
+.tag-privacy{background:var(--cd);color:var(--cyan);}
+.tag-guide{background:var(--gd);color:var(--green);}
+.blog-card h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3;}
+.blog-card p{font-size:11px;color:var(--t2);line-height:1.6;margin-bottom:10px;}
+.blog-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);border-top:1px solid var(--border);padding-top:9px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#000;padding:9px 16px;border-radius:9px;font-size:12px;font-weight:700;opacity:0;transform:translateY(10px);transition:all .3s;z-index:9999;pointer-events:none;}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* COOKIE BANNER */
+#cookieBanner{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9998;background:rgba(10,14,26,.97);border-top:1px solid var(--border2);padding:14px 20px;flex-wrap:wrap;align-items:center;gap:14px;}
+.cb-text{flex:1;min-width:200px;}
+.cb-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.cb-desc{font-size:11px;color:var(--t2);}
+.cb-accept{background:var(--cyan);color:#000;border:none;padding:9px 18px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;cursor:pointer;}
+.cb-reject{background:none;border:1px solid var(--border2);color:var(--t2);padding:9px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* FOOTER */
+footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:24px;}
+.footer-brand .logo{display:block;margin-bottom:8px;}
+.footer-brand p{font-size:12px;color:var(--t3);line-height:1.7;}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;}
+.footer-col a{display:block;color:var(--t3);text-decoration:none;font-size:12px;margin-bottom:6px;transition:color .2s;}
+.footer-col a:hover{color:var(--cyan);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--t3);}
+.footer-legal{display:flex;gap:14px;flex-wrap:wrap;}
+.footer-legal a{color:var(--t3);text-decoration:none;font-size:11px;transition:color .2s;}
+.footer-legal a:hover{color:var(--cyan);}
+
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;}
+  .right-panel{order:-1;}
+  .two-col{grid-template-columns:1fr;}
+  .sidebar{order:-1;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .concern-grid{grid-template-columns:1fr;}
+  nav .nav-link{display:none;}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr;}
+  .meta-grid{grid-template-columns:1fr;}
+  .tools-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- COOKIE BANNER -->
+<div id="cookieBanner">
+  <div class="cb-text">
+    <div class="cb-title">🍪 Usamos cookies</div>
+    <div class="cb-desc">Usamos cookies para analítica (Google Analytics), anuncios (AdSense) y seguimiento de afiliados. Ver <a href="/legal/politica-de-cookies" style="color:var(--cyan);">Política de Cookies</a>.</div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <button class="cb-accept" onclick="setCookies(true)">Aceptar Todo</button>
+    <button class="cb-reject" onclick="setCookies(false)">Solo Esenciales</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">¿CuálEs<span>MiIP</span>?</a>
+  <button class="nav-link active" onclick="showPage('home')">Mi IP</button>
+  <button class="nav-link" onclick="showPage('lookup')">Consulta IP</button>
+  <button class="nav-link" onclick="showPage('vpns')">VPNs</button>
+  <button class="nav-link" onclick="showPage('blog')">Aprende</button>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <span class="lang-btn active">🇪🇸 ES</span>
+      <a href="/en/" class="lang-btn">🇺🇸 EN</a>
+      <a href="/fr/" class="lang-btn">🇫🇷 FR</a>
+    </div>
+    <button class="shield-btn" onclick="showPage('vpns')">🛡️ Ocultar Mi IP</button>
+  </div>
+</nav>
+
+<!-- PROMO BAR -->
+<div class="promo">
+  <span class="promo-tag">OFERTA</span>
+  <span>🔒 <strong>NordVPN</strong> — 67% de descuento + 3 meses gratis. Oferta limitada.</span>
+  <a href="#" class="promo-cta">Ver Oferta →</a>
+</div>
+
+<!-- PAGES -->
+<div id="page-home">
+
+  <!-- TOP AD -->
+  <div class="container">
+    <div class="ad ad-top">
+      <div class="ad-lbl">Publicidad · 728×90</div>
+      <span>Google AdSense — Unidad de anuncio</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <h1 class="hero-title">¿Cuál Es Tu<br><span class="hl">Dirección IP?</span></h1>
+        <p class="hero-sub">Tu IP pública, ubicación y análisis de seguridad — al instante y gratis.</p>
+
+        <div class="ip-card">
+          <div class="ip-lbl">TU DIRECCIÓN IP PÚBLICA</div>
+          <div class="ip-big">
+            <span id="ipDisplay">Detectando…</span>
+            <button class="copy-btn" onclick="copyIP()" title="Copiar">📋</button>
+          </div>
+          <div class="ip-type" id="ipType">Dirección IPv4 · Detectada vía ipapi.co</div>
+          <div class="meta-grid">
+            <div class="meta-box"><div class="mk">ISP / Proveedor</div><div class="mv" id="metaISP">—</div></div>
+            <div class="meta-box"><div class="mk">País</div><div class="mv" id="metaCountry">—</div></div>
+            <div class="meta-box"><div class="mk">Ciudad / Región</div><div class="mv" id="metaCity">—</div></div>
+            <div class="meta-box"><div class="mk">Estado IPv6</div><div class="mv" id="metaV6">No detectado</div></div>
+          </div>
+          <div class="alert">
+            <div class="pulse"></div>
+            <span>⚠️ Tu ubicación real es visible para cada sitio web que visitas</span>
+          </div>
+          <button class="btn btn-cyan" onclick="showPage('vpns')">🛡️ Ocultar Mi IP Ahora</button>
+          <button class="btn btn-ghost btn-sm" onclick="showPage('lookup')">🔍 Consultar Otra IP</button>
+          <div class="trust">🔒 Sin registro · Sin almacenamiento · 100% gratis</div>
+        </div>
+
+        <div class="ad ad-top">
+          <div class="ad-lbl">Publicidad · 728×90</div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="right-panel">
+        <div class="card">
+          <div class="card-title">⚡ Herramientas Rápidas</div>
+          <div class="tools-grid">
+            <a class="tool-btn" href="#" onclick="showPage('lookup');return false;"><div class="ti">🔍</div><div class="tn">Consulta IP</div><div class="td">Localiza cualquier IP</div></a>
+            <a class="tool-btn" href="#" onclick="showPage('breach');return false;"><div class="ti">💧</div><div class="tn">Filtración</div><div class="td">¿Tu email fue filtrado?</div></a>
+            <a class="tool-btn" href="#" onclick="showPage('speed');return false;"><div class="ti">⚡</div><div class="tn">Test Velocidad</div><div class="td">Mide tu conexión</div></a>
+            <a class="tool-btn" href="#" onclick="showPage('quiz');return false;"><div class="ti">🎯</div><div class="tn">Test VPN</div><div class="td">¿Qué VPN necesitas?</div></a>
+          </div>
+        </div>
+
+        <div class="vpn-strip">
+          <div class="vpn-strip-title">🏆 Mejores VPNs — Verificadas 2026</div>
+          <div class="vpn-items">
+            <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#e33b5e20;border:1px solid #e33b5e40;">🦁</div><div><div class="vpn-name">NordVPN</div><div class="vpn-deal">67% DESCUENTO · $3.39/mes</div></div><div class="vpn-get">VER OFERTA</div></a>
+            <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#da373520;border:1px solid #da373540;">⚡</div><div><div class="vpn-name">ExpressVPN</div><div class="vpn-deal">3 meses GRATIS</div></div><div class="vpn-get">VER OFERTA</div></a>
+            <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#f7c74420;border:1px solid #f7c74440;">👻</div><div><div class="vpn-name">CyberGhost</div><div class="vpn-deal">84% DESCUENTO · $2.19/mes</div></div><div class="vpn-get">VER OFERTA</div></a>
+            <a href="#" class="vpn-row"><div class="vpn-ico" style="background:#1eb8c920;border:1px solid #1eb8c940;">🦈</div><div><div class="vpn-name">Surfshark</div><div class="vpn-deal">87% DESCUENTO · $2.29/mes</div></div><div class="vpn-get">VER OFERTA</div></a>
+          </div>
+          <button class="btn btn-sm" style="background:var(--purple);color:white;margin-top:10px;width:100%;border:none;" onclick="showPage('quiz')">🎯 ¿No sabes cuál? Haz el test</button>
+        </div>
+
+        <div class="score-card">
+          <div class="card-title">🔒 Tu Puntuación de Seguridad</div>
+          <div class="ring-wrap">
+            <svg width="88" height="88" viewBox="0 0 88 88">
+              <circle cx="44" cy="44" r="36" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/>
+              <circle cx="44" cy="44" r="36" fill="none" stroke="#ff4757" stroke-width="7" stroke-dasharray="226" stroke-dashoffset="147" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-num">35</div>
+          </div>
+          <div class="ring-sub">DEFICIENTE — SIN PROTECCIÓN</div>
+          <div class="chk-list">
+            <div class="chk fail"><div class="chk-dot"></div>IP expuesta públicamente</div>
+            <div class="chk fail"><div class="chk-dot"></div>Ubicación visible</div>
+            <div class="chk fail"><div class="chk-dot"></div>Sin VPN activa</div>
+            <div class="chk warn"><div class="chk-dot"></div>IPv6 sin verificar</div>
+            <div class="chk pass"><div class="chk-dot"></div>Sin lista negra</div>
+          </div>
+          <button class="btn btn-sm" style="background:var(--red);color:white;border:none;margin-top:12px;width:100%;" onclick="showPage('vpns')">Mejorar Seguridad →</button>
+        </div>
+
+        <div class="ad ad-rect"><div class="ad-lbl">Publicidad · 300×250</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN + SIDEBAR -->
+  <div class="container">
+    <div class="two-col">
+      <div>
+
+        <!-- LEARN TABS -->
+        <div class="lookup-card">
+          <div class="tabs">
+            <button class="tab active" onclick="switchTab(this,'t1')">¿Qué es una IP?</button>
+            <button class="tab" onclick="switchTab(this,'t2')">¿Por qué ocultarla?</button>
+            <button class="tab" onclick="switchTab(this,'t3')">¿Qué es una VPN?</button>
+          </div>
+          <div class="tab-panel active" id="t1">
+            <h2>¿Qué Es una Dirección IP Pública?</h2>
+            <p>Tu dirección IP (Protocolo de Internet) es un identificador único asignado a tu dispositivo cada vez que te conectas a internet. Piensa en ella como la dirección postal de tu casa — pero para los datos digitales.</p>
+            <p>Tu IP es asignada por tu Proveedor de Servicios de Internet (ISP) y revela tu ubicación aproximada, el nombre de tu ISP, y crea un rastro de tu actividad en línea que pueden rastrear anunciantes, tu ISP e incluso ciberdelincuentes.</p>
+            <p>Existen dos versiones: <strong>IPv4</strong> (ej. 192.168.1.1) — el formato clásico de 32 bits — e <strong>IPv6</strong> (ej. 2001:db8::1) — el estándar moderno de 128 bits que soporta muchos más dispositivos.</p>
+          </div>
+          <div class="tab-panel" id="t2">
+            <h2>¿Por Qué Ocultar Tu Dirección IP?</h2>
+            <p>Tu dirección IP revela más de lo que crees: tu ciudad, tu ISP, y conecta cada sitio web que visitas con tu identidad digital. Los anunciantes crean perfiles de comportamiento. Tu ISP puede vender tu historial de navegación. Los hackers en redes Wi-Fi públicas pueden interceptar tus datos.</p>
+            <p>Una VPN soluciona todo esto enrutando tu tráfico a través de un servidor en otra ubicación, reemplazando tu IP real con la del servidor. Los sitios web ven la IP del servidor, no la tuya.</p>
+          </div>
+          <div class="tab-panel" id="t3">
+            <h2>¿Qué Es una VPN?</h2>
+            <p>Una VPN (Red Privada Virtual) crea un túnel cifrado entre tu dispositivo e internet. Todo tu tráfico — navegación, streaming, correos — pasa por el servidor VPN. Tu IP real queda oculta y tus datos van cifrados.</p>
+            <p>Las VPN hacen tres cosas: añaden <strong>seguridad</strong> (cifran tus datos en Wi-Fi públicas), añaden <strong>privacidad</strong> (ocultan tu IP de rastreadores y tu ISP) y dan <strong>acceso</strong> (desbloquean contenido con restricciones geográficas).</p>
+            <p>Una VPN de calidad cuesta entre $2–5 al mes. Las VPN gratuitas suelen vender tus datos — exactamente lo contrario a lo que buscas.</p>
+          </div>
+        </div>
+
+        <!-- CONCERN CARDS -->
+        <div class="lookup-card">
+          <h2 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;">¿Cuál Es Tu Mayor Preocupación?</h2>
+          <p style="font-size:13px;color:var(--t2);margin-bottom:0;">Dinos tu prioridad y te recomendamos la mejor VPN.</p>
+          <div class="concern-grid">
+            <a href="#" class="cc" onclick="showPage('quiz');return false;"><div class="cc-icon">🛡️</div><div class="cc-title">Seguridad</div><div class="cc-desc">Protección de hackers en Wi-Fi públicas</div><span class="cc-btn">Quiero Seguridad</span></a>
+            <a href="#" class="cc" onclick="showPage('quiz');return false;"><div class="cc-icon">👁️</div><div class="cc-title">Privacidad</div><div class="cc-desc">Evitar que mi ISP y anunciantes me rastreen</div><span class="cc-btn">Quiero Privacidad</span></a>
+            <a href="#" class="cc" onclick="showPage('quiz');return false;"><div class="cc-icon">🌍</div><div class="cc-title">Acceso</div><div class="cc-desc">Desbloquear Netflix, BBC y más servicios</div><span class="cc-btn">Quiero Acceso</span></a>
+          </div>
+        </div>
+
+        <div class="ad" style="min-height:100px;margin-bottom:16px;"><div class="ad-lbl">Publicidad · 970×250</div></div>
+
+        <!-- VPN TABLE -->
+        <div class="lookup-card">
+          <h2 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px;">🏆 Mejores VPNs de 2026</h2>
+          <p style="font-size:13px;color:var(--t2);margin-bottom:14px;">Revisadas y clasificadas por nuestro equipo. Se aplica divulgación de afiliados.</p>
+          <div style="overflow-x:auto;">
+            <table class="vtbl">
+              <thead><tr><th>Proveedor</th><th>Países</th><th>Dispositivos</th><th>Desde</th><th>Acción</th></tr></thead>
+              <tbody>
+                <tr><td><strong>🦁 NordVPN</strong></td><td>118</td><td>10</td><td style="color:var(--green);">$3.39/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+                <tr><td><strong>⚡ ExpressVPN</strong></td><td>105</td><td>8</td><td style="color:var(--green);">$4.99/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+                <tr><td><strong>👻 CyberGhost</strong></td><td>100+</td><td>7</td><td style="color:var(--green);">$2.19/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+                <tr><td><strong>🦈 Surfshark</strong></td><td>100</td><td>∞</td><td style="color:var(--green);">$2.29/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+                <tr><td><strong>🔒 PIA</strong></td><td>91</td><td>∞</td><td style="color:var(--green);">$2.19/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:10px;font-size:11px;color:var(--t3);">* Podemos recibir comisión si compras a través de nuestros enlaces. Ver <a href="/legal/divulgacion-afiliados" style="color:var(--cyan);">Divulgación de Afiliados</a>.</p>
+        </div>
+
+        <!-- FAQ -->
+        <div class="lookup-card">
+          <h2 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:14px;">Preguntas Frecuentes</h2>
+          <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">¿Qué es mi dirección IP y por qué importa?</div><div class="faq-a">Tu dirección IP es un número único asignado por tu ISP cuando te conectas a internet. Identifica tu dispositivo ante sitios web y servicios, y puede revelar tu ubicación aproximada, nombre del ISP y patrones de navegación. Cada sitio que visitas puede verla.</div></div>
+          <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">¿Puede alguien encontrar mi dirección exacta con mi IP?</div><div class="faq-a">No. Tu IP revela tu ciudad y tu ISP, pero no tu dirección domiciliaria específica. Solo tu ISP puede vincular tu IP a tu cuenta, y hacerlo requiere una solicitud legal válida.</div></div>
+          <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">¿Cuál es la forma más rápida de ocultar mi IP?</div><div class="faq-a">Instala una VPN (NordVPN o Surfshark cuestan menos de $3 al mes), haz clic en conectar y tu IP queda oculta en menos de 60 segundos. Nuestro Test VPN puede ayudarte a elegir la mejor opción en 2 minutos.</div></div>
+          <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">¿Las VPN gratuitas son seguras?</div><div class="faq-a">La mayoría no lo son. Las VPN gratuitas suelen financiarse vendiendo tus datos de navegación — exactamente lo contrario de la privacidad. Las pocas opciones legítimas (ProtonVPN gratis) son seguras pero muy limitadas. Por $2–3 al mes, vale la pena pagar.</div></div>
+          <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">¿Es legal usar una VPN?</div><div class="faq-a">Sí, en la mayoría de países. Las VPN son completamente legales en EE.UU., UE, Reino Unido, México, Argentina, España y la mayor parte del mundo. Un pequeño número de países las restringe. Usar una VPN para cometer delitos sigue siendo ilegal.</div></div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="card">
+          <div class="card-title">📚 Artículos Populares</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">¿Qué es una VPN? Guía Completa</a>
+            <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Mejores VPNs para Netflix 2026</a>
+            <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">¿Mi VPN Está Funcionando?</a>
+            <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">VPN vs Proxy: La Diferencia Real</a>
+            <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Mejores VPNs Gratis 2026</a>
+            <a href="#" style="color:var(--t2);font-size:13px;padding:8px 10px;background:var(--s2);border-radius:8px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--t2)'">Guía de Privacidad Online</a>
+          </div>
+        </div>
+        <div class="ad ad-rect"><div class="ad-lbl">Publicidad · 300×250</div></div>
+        <div class="ad ad-half"><div class="ad-lbl">Publicidad · 300×600</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: LOOKUP -->
+<div id="page-lookup" style="display:none;">
+  <div class="container" style="padding-top:32px;">
+    <div class="lookup-card">
+      <h2>🔍 Consulta de Dirección IP</h2>
+      <p style="font-size:13px;color:var(--t2);margin-bottom:0;">Introduce cualquier dirección IPv4 o IPv6 para obtener su ubicación, ISP y detalles.</p>
+      <div class="lookup-row">
+        <input class="input" id="lookupInput" type="text" placeholder="Ej: 8.8.8.8 o 2001:4860:4860::8888" onkeydown="if(event.key==='Enter')doLookup()">
+        <button class="btn btn-cyan btn-sm" style="width:auto;" onclick="doLookup()">Consultar →</button>
+      </div>
+      <div class="lookup-result" id="lookupResult">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--cyan);margin-bottom:12px;" id="lookupIPLabel"></div>
+        <div class="result-grid" id="lookupMeta"></div>
+      </div>
+    </div>
+    <div class="ad ad-top"><div class="ad-lbl">Publicidad</div></div>
+  </div>
+</div>
+
+<!-- PAGE: VPNS -->
+<div id="page-vpns" style="display:none;">
+  <div class="container" style="padding-top:32px;">
+    <div class="lookup-card">
+      <h2>🔐 Mejores Servicios VPN 2026</h2>
+      <p style="font-size:13px;color:var(--t2);margin-bottom:14px;">Revisadas y clasificadas por nuestro equipo de seguridad. Se aplica divulgación de afiliados.</p>
+      <div style="overflow-x:auto;">
+        <table class="vtbl">
+          <thead><tr><th>Proveedor</th><th>Países</th><th>Dispositivos</th><th>P2P</th><th>Desde</th><th>Acción</th></tr></thead>
+          <tbody>
+            <tr><td><strong>🦁 NordVPN</strong></td><td>118</td><td>10</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">$3.39/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+            <tr><td><strong>⚡ ExpressVPN</strong></td><td>105</td><td>8</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">$4.99/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+            <tr><td><strong>👻 CyberGhost</strong></td><td>100+</td><td>7</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">$2.19/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+            <tr><td><strong>🦈 Surfshark</strong></td><td>100</td><td>∞</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">$2.29/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+            <tr><td><strong>🔵 IPVanish</strong></td><td>75</td><td>∞</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">$2.75/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+            <tr><td><strong>🔒 PIA</strong></td><td>91</td><td>∞</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">$2.19/mes</td><td><a href="#" class="deal-link">Ver Oferta</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px;font-size:11px;color:var(--t3);">* Podemos recibir comisión si compras a través de nuestros enlaces. No afecta a nuestras reseñas.</p>
+    </div>
+    <div class="ad ad-top"><div class="ad-lbl">Publicidad</div></div>
+  </div>
+</div>
+
+<!-- PAGE: BLOG -->
+<div id="page-blog" style="display:none;">
+  <div class="container" style="padding-top:32px;">
+    <div class="ad ad-top"><div class="ad-lbl">Publicidad · 728×90</div></div>
+    <h1 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin:20px 0 8px;">📖 Guías de Privacidad y Seguridad</h1>
+    <p style="font-size:14px;color:var(--t2);margin-bottom:20px;">Guías expertas, reseñas de VPN y todo lo que necesitas para protegerte online.</p>
+    <div class="blog-grid">
+      <a href="#" class="blog-card"><div class="blog-thumb" style="background:linear-gradient(135deg,#1a0a10,#080c14);">🔐</div><div class="blog-body"><span class="blog-tag tag-guide">Guía</span><h3>¿Qué es una VPN? Explicación Sencilla</h3><p>Todo lo que necesitas saber sobre las VPN en 2026, sin tecnicismos.</p><div class="blog-meta"><span>Abr 2026</span><span>⏱ 6 min</span></div></div></a>
+      <a href="#" class="blog-card"><div class="blog-thumb" style="background:linear-gradient(135deg,#0a0f1a,#1a0a2e);">🛡️</div><div class="blog-body"><span class="blog-tag tag-privacy">Privacidad</span><h3>Cómo Ocultar Tu Dirección IP en 2026</h3><p>7 métodos probados. Una VPN es la mejor opción. Aquí explicamos por qué.</p><div class="blog-meta"><span>Abr 2026</span><span>⏱ 7 min</span></div></div></a>
+      <a href="#" class="blog-card"><div class="blog-thumb" style="background:linear-gradient(135deg,#0a1a10,#080c14);">🏆</div><div class="blog-body"><span class="blog-tag tag-vpn">Reseña VPN</span><h3>Mejores VPNs de 2026: Analizadas y Clasificadas</h3><p>Probamos 15 VPN durante 3 meses. Solo estas merecen tu dinero.</p><div class="blog-meta"><span>Abr 2026</span><span>⏱ 9 min</span></div></div></a>
+      <a href="#" class="blog-card"><div class="blog-thumb" style="background:linear-gradient(135deg,#1a0a0a,#0d1320);">🦁</div><div class="blog-body"><span class="blog-tag tag-vpn">Reseña VPN</span><h3>NordVPN Reseña 2026: ¿Sigue Siendo la Mejor?</h3><p>30 días de pruebas. Test de velocidad, privacidad y streaming revisados.</p><div class="blog-meta"><span>Abr 2026</span><span>⏱ 10 min</span></div></div></a>
+      <a href="#" class="blog-card"><div class="blog-thumb" style="background:linear-gradient(135deg,#0a1a1a,#080c14);">🆚</div><div class="blog-body"><span class="blog-tag tag-guide">Guía</span><h3>VPN vs Proxy: La Diferencia que Importa</h3><p>Ambos cambian tu IP pero solo uno te protege de verdad.</p><div class="blog-meta"><span>Abr 2026</span><span>⏱ 5 min</span></div></div></a>
+      <a href="#" class="blog-card"><div class="blog-thumb" style="background:linear-gradient(135deg,#1a1000,#0d1320);">🆓</div><div class="blog-body"><span class="blog-tag tag-vpn">Reseña VPN</span><h3>Mejores VPNs Gratis de 2026 — Sin Trucos</h3><p>La verdad sobre las VPN gratuitas y cuáles son seguras.</p><div class="blog-meta"><span>Abr 2026</span><span>⏱ 7 min</span></div></div></a>
+    </div>
+    <div class="ad" style="min-height:90px;margin-top:20px;"><div class="ad-lbl">Publicidad · 728×90</div></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo">¿CuálEs<span>MiIP</span>?</a>
+        <p>La forma más rápida de comprobar tu IP, ejecutar herramientas de seguridad y encontrar la mejor VPN. Este sitio gana comisiones de afiliados por compras de VPN.</p>
+        <p style="margin-top:8px;font-size:11px;opacity:.4;">© 2026 QualesMiIP.com · Todos los derechos reservados</p>
+      </div>
+      <div class="footer-col">
+        <h4>Herramientas</h4>
+        <a href="/">Mi Dirección IP</a>
+        <a href="#">Consulta IP</a>
+        <a href="#">Test de Velocidad</a>
+        <a href="#">Verificar Filtración</a>
+        <a href="#">Test VPN</a>
+      </div>
+      <div class="footer-col">
+        <h4>VPNs</h4>
+        <a href="#">NordVPN</a>
+        <a href="#">ExpressVPN</a>
+        <a href="#">Surfshark</a>
+        <a href="#">CyberGhost</a>
+        <a href="#">Comparar VPNs</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/legal/politica-privacidad">Política de Privacidad</a>
+        <a href="/legal/terminos">Términos de Uso</a>
+        <a href="/legal/divulgacion-afiliados">Divulgación de Afiliados</a>
+        <a href="/legal/contacto">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <span class="lang-btn active" style="font-size:12px;">🇪🇸 Español</span>
+        <a href="/en/" class="lang-btn" style="font-size:12px;color:var(--t3);text-decoration:none;">🇺🇸 English</a>
+        <a href="/fr/" class="lang-btn" style="font-size:12px;color:var(--t3);text-decoration:none;">🇫🇷 Français</a>
+      </div>
+      <div class="footer-legal">
+        <a href="/legal/politica-privacidad">Privacidad</a>
+        <a href="/legal/terminos">Términos</a>
+        <a href="/legal/divulgacion-afiliados">Afiliados</a>
+        <a href="/legal/contacto">Contacto</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* IP DETECTION */
+async function fetchIP(){
+  try{
+    const r=await fetch('https://ipapi.co/json/');
+    const d=await r.json();
+    window._ip=d.ip;
+    document.getElementById('ipDisplay').textContent=d.ip||'No disponible';
+    document.getElementById('metaISP').textContent=d.org||'Desconocido';
+    document.getElementById('metaCountry').textContent=(d.country_flag_emoji||'')+' '+(d.country_name||'Desconocido');
+    document.getElementById('metaCity').textContent=(d.city||'—')+', '+(d.region||'');
+    document.getElementById('ipType').textContent=(d.version||'IPv4')+' · Detectada vía ipapi.co';
+  }catch(e){document.getElementById('ipDisplay').textContent='No se pudo detectar';}
+}
+fetchIP();
+
+function copyIP(){
+  navigator.clipboard.writeText(window._ip||document.getElementById('ipDisplay').textContent)
+    .then(()=>showToast('✓ ¡IP copiada!'));
+}
+
+/* PAGE NAV */
+const pages=['home','lookup','vpns','blog','quiz','breach','speed'];
+function showPage(id){
+  pages.forEach(p=>{
+    const el=document.getElementById('page-'+p);
+    if(el) el.style.display=p===id?'block':'none';
+  });
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const active={home:0,lookup:1,vpns:2,blog:3}[id];
+  if(active!==undefined) document.querySelectorAll('.nav-link')[active]?.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* IP LOOKUP */
+function doLookup(){
+  const v=document.getElementById('lookupInput').value.trim();
+  if(!v)return;
+  document.getElementById('lookupIPLabel').textContent=v;
+  document.getElementById('lookupMeta').innerHTML='<div style="color:var(--t2);font-size:13px;grid-column:1/-1;">Consultando…</div>';
+  document.getElementById('lookupResult').style.display='block';
+  fetch(`https://ipapi.co/${v}/json/`)
+    .then(r=>r.json())
+    .then(d=>{
+      document.getElementById('lookupMeta').innerHTML=[
+        ['ISP / Org',d.org||'—'],['País',(d.country_flag_emoji||'')+' '+(d.country_name||'—')],
+        ['Ciudad',d.city||'—'],['Región',d.region||'—'],
+        ['Zona Horaria',d.timezone||'—'],['Coordenadas',(d.latitude||'—')+', '+(d.longitude||'—')],
+        ['ASN',d.asn||'—'],['Moneda',d.currency_name||'—'],
+      ].map(([k,v])=>`<div class="rbox"><div class="rk">${k}</div><div class="rv">${v}</div></div>`).join('');
+    })
+    .catch(()=>{document.getElementById('lookupMeta').innerHTML='<div style="color:var(--red);font-size:13px;grid-column:1/-1;">No se pudo consultar esta dirección IP.</div>';});
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const li=document.getElementById('lookupInput');
+  if(li) li.addEventListener('keydown',e=>{if(e.key==='Enter')doLookup();});
+});
+
+/* TABS */
+function switchTab(btn,id){
+  btn.closest('.lookup-card').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.closest('.lookup-card').querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+/* TOAST */
+function showToast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2000);
+}
+
+/* COOKIE */
+function setCookies(yes){
+  localStorage.setItem('cookieConsent',yes?'1':'0');
+  document.getElementById('cookieBanner').style.display='none';
+  if(yes)loadAnalytics();
+}
+function loadAnalytics(){
+  const s=document.createElement('script');
+  s.src='https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+  s.async=true;document.head.appendChild(s);
+  s.onload=()=>{window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');};
+}
+const consent=localStorage.getItem('cookieConsent');
+if(consent==='1')loadAnalytics();
+else if(consent===null)document.getElementById('cookieBanner').style.display='flex';
+</script>
+</body>
+</html>

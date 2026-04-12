@@ -1,0 +1,14 @@
+{
+  "name": "¿Cuál Es Mi IP?",
+  "short_name": "QualesMiIP",
+  "description": "Verificador de IP gratis, herramientas de privacidad y reseñas de VPN",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07090f",
+  "theme_color": "#00d4ff",
+  "lang": "es",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
