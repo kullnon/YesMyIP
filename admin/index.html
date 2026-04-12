@@ -263,9 +263,10 @@ canvas{width:100%!important;height:100%!important;}
       <button onclick="closeSettings()" style="background:none;border:none;color:var(--t2);font-size:20px;cursor:pointer;">✕</button>
     </div>
 
-    <!-- Change Own Password -->
-    <div style="margin-bottom:28px;">
-      <h3 style="font-size:14px;color:var(--cyan);margin-bottom:12px;">🔑 Change Your Password</h3>
+    <!-- Change Password (admin only) -->
+    <div id="changePassSection" style="display:none;margin-bottom:28px;">
+      <h3 style="font-size:14px;color:var(--cyan);margin-bottom:12px;">🔑 Change Password</h3>
+      <select id="changePassUser" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:8px;"></select>
       <input type="password" id="newPass1" placeholder="New password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:8px;">
       <input type="password" id="newPass2" placeholder="Confirm password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:10px;">
       <button onclick="changePassword()" style="background:var(--cyan);color:#000;border:none;padding:8px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Outfit',sans-serif;">Update Password</button>
@@ -360,28 +361,41 @@ function openSettings(){
   document.getElementById('settingsModal').style.display='flex';
   if(currentUser && currentUser.role==='admin'){
     document.getElementById('adminSection').style.display='block';
+    document.getElementById('changePassSection').style.display='block';
     renderUserList();
+    // Populate password change dropdown
+    const users = getUsers();
+    const sel = document.getElementById('changePassUser');
+    sel.innerHTML = users.map(u => '<option value="'+u.username+'">'+u.name+' ('+u.role+')</option>').join('');
+  } else {
+    document.getElementById('adminSection').style.display='none';
+    document.getElementById('changePassSection').style.display='none';
   }
 }
 function closeSettings(){ document.getElementById('settingsModal').style.display='none'; }
 document.getElementById('settingsModal').addEventListener('click', function(e){ if(e.target===this) closeSettings(); });
 
 function changePassword(){
+  if(!currentUser || currentUser.role!=='admin') return;
+  const targetUser = document.getElementById('changePassUser').value;
   const p1 = document.getElementById('newPass1').value;
   const p2 = document.getElementById('newPass2').value;
   const msg = document.getElementById('passMsg');
   if(!p1 || p1.length < 4){ msg.textContent='Min 4 characters'; msg.style.color='var(--red)'; return; }
   if(p1 !== p2){ msg.textContent='Passwords don\'t match'; msg.style.color='var(--red)'; return; }
   const users = getUsers();
-  const idx = users.findIndex(u => u.username === currentUser.username);
+  const idx = users.findIndex(u => u.username === targetUser);
   if(idx>=0){
     users[idx].password = p1;
     saveUsers(users);
-    currentUser.password = p1;
-    sessionStorage.setItem('ymip_auth', JSON.stringify(currentUser));
-    msg.textContent='✓ Password updated!'; msg.style.color='var(--green)';
+    if(targetUser === currentUser.username){
+      currentUser.password = p1;
+      sessionStorage.setItem('ymip_auth', JSON.stringify(currentUser));
+    }
+    msg.textContent='✓ Password updated for '+users[idx].name+'!'; msg.style.color='var(--green)';
     document.getElementById('newPass1').value='';
     document.getElementById('newPass2').value='';
+    setTimeout(()=>msg.textContent='',3000);
   }
 }
 
