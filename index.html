@@ -322,22 +322,22 @@ function countryFlag(code){
   if(!code||code.length!==2) return '';
   return String.fromCodePoint(...[...code.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65));
 }
-async function fetchIP(){
+async function fetchIP(){ console.log('YesMyIP: starting IP detection...');
   const apis = [
     {
       url: 'https://ipwho.is/',
       parse: (d) => {
         if(!d.success) throw new Error('fail');
-        return { ip:d.ip, org:d.connection&&d.connection.isp||d.connection&&d.connection.org||'Unknown', country:countryFlag(d.country_code)+' '+d.country, city:d.city||'\u2014', region:d.region||'', version:d.type||'IPv4' };
+        return { ip:d.ip, org:d.connection&&d.connection.isp||d.connection&&d.connection.org||'Unknown', country:countryFlag(d.country_code)+' '+d.country, city:d.city||'—', region:d.region||'', version:d.type||'IPv4' };
       }
     },
     {
       url: 'https://ipinfo.io/json',
-      parse: (d) => ({ ip:d.ip, org:(d.org||'Unknown').replace(/^AS\d+\s*/,''), country:countryFlag(d.country)+' '+(d.country||''), city:d.city||'\u2014', region:d.region||'', version:d.ip&&d.ip.includes(':')?'IPv6':'IPv4' })
+      parse: (d) => ({ ip:d.ip, org:(d.org||'Unknown').replace(/^AS\d+\s*/,''), country:countryFlag(d.country)+' '+(d.country||''), city:d.city||'—', region:d.region||'', version:d.ip&&d.ip.includes(':')?'IPv6':'IPv4' })
     },
     {
       url: 'https://api.db-ip.com/v2/free/self',
-      parse: (d) => ({ ip:d.ipAddress, org:d.isp||'Unknown', country:countryFlag(d.countryCode)+' '+(d.countryName||''), city:d.city||'\u2014', region:d.stateProv||'', version:d.ipAddress&&d.ipAddress.includes(':')?'IPv6':'IPv4' })
+      parse: (d) => ({ ip:d.ipAddress, org:d.isp||'Unknown', country:countryFlag(d.countryCode)+' '+(d.countryName||''), city:d.city||'—', region:d.stateProv||'', version:d.ipAddress&&d.ipAddress.includes(':')?'IPv6':'IPv4' })
     }
   ];
   for(const api of apis){
@@ -345,7 +345,7 @@ async function fetchIP(){
       const r=await fetch(api.url);const d=await r.json();const info=api.parse(d);
       if(!info.ip) continue;
       window._ip=info.ip;
-      document.getElementById('ipDisplay').textContent=info.ip;
+      document.getElementById('ipDisplay').textContent=info.ip; console.log('YesMyIP: detected',info.ip,info.country);
       document.getElementById('metaISP').textContent=info.org;
       document.getElementById('metaCountry').textContent=info.country;
       document.getElementById('metaCity').textContent=info.city+', '+info.region;
@@ -353,7 +353,7 @@ async function fetchIP(){
       return;
     }catch(e){continue;}
   }
-  document.getElementById('ipDisplay').textContent='Unable to detect';
+  document.getElementById('ipDisplay').textContent='Unable to detect'; console.log('YesMyIP: all APIs failed');
 }
 fetchIP();
 function copyIP(){navigator.clipboard.writeText(window._ip||'').then(()=>showToast('✓ Copied!'));}
