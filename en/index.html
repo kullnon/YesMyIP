@@ -302,8 +302,42 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 </footer>
 
 <script>
+function countryFlag(code){
+  if(!code||code.length!==2) return '';
+  return String.fromCodePoint(...[...code.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65));
+}
 async function fetchIP(){
-  try{const r=await fetch('https://ipapi.co/json/');const d=await r.json();window._ip=d.ip;document.getElementById('ipDisplay').textContent=d.ip||'Unavailable';document.getElementById('metaISP').textContent=d.org||'Unknown';document.getElementById('metaCountry').textContent=(d.country_flag_emoji||'')+' '+(d.country_name||'Unknown');document.getElementById('metaCity').textContent=(d.city||'—')+', '+(d.region||'');document.getElementById('ipType').textContent=(d.version||'IPv4')+' Address · Detected via ipapi.co';}catch(e){document.getElementById('ipDisplay').textContent='Unable to detect';}
+  const apis = [
+    {
+      url: 'https://ipwho.is/',
+      parse: (d) => {
+        if(!d.success) throw new Error('fail');
+        return { ip:d.ip, org:d.connection&&d.connection.isp||d.connection&&d.connection.org||'Unknown', country:countryFlag(d.country_code)+' '+d.country, city:d.city||'—', region:d.region||'', version:d.type||'IPv4' };
+      }
+    },
+    {
+      url: 'https://ipinfo.io/json',
+      parse: (d) => ({ ip:d.ip, org:(d.org||'Unknown').replace(/^AS\d+\s*/,''), country:countryFlag(d.country)+' '+(d.country||''), city:d.city||'—', region:d.region||'', version:d.ip&&d.ip.includes(':')?'IPv6':'IPv4' })
+    },
+    {
+      url: 'https://api.db-ip.com/v2/free/self',
+      parse: (d) => ({ ip:d.ipAddress, org:d.isp||'Unknown', country:countryFlag(d.countryCode)+' '+(d.countryName||''), city:d.city||'—', region:d.stateProv||'', version:d.ipAddress&&d.ipAddress.includes(':')?'IPv6':'IPv4' })
+    }
+  ];
+  for(const api of apis){
+    try{
+      const r=await fetch(api.url);const d=await r.json();const info=api.parse(d);
+      if(!info.ip) continue;
+      window._ip=info.ip;
+      document.getElementById('ipDisplay').textContent=info.ip;
+      document.getElementById('metaISP').textContent=info.org;
+      document.getElementById('metaCountry').textContent=info.country;
+      document.getElementById('metaCity').textContent=info.city+', '+info.region;
+      document.getElementById('ipType').textContent=info.version+' Address';
+      return;
+    }catch(e){continue;}
+  }
+  document.getElementById('ipDisplay').textContent='Unable to detect';
 }
 fetchIP();
 function copyIP(){navigator.clipboard.writeText(window._ip||'').then(()=>showToast('✓ Copied!'));}

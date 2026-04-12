@@ -322,7 +322,7 @@ function countryFlag(code){
   if(!code||code.length!==2) return '';
   return String.fromCodePoint(...[...code.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65));
 }
-async function fetchIP(){ console.log('YesMyIP: starting IP detection...');
+async function fetchIP(){
   const apis = [
     {
       url: 'https://ipwho.is/',
@@ -345,7 +345,7 @@ async function fetchIP(){ console.log('YesMyIP: starting IP detection...');
       const r=await fetch(api.url);const d=await r.json();const info=api.parse(d);
       if(!info.ip) continue;
       window._ip=info.ip;
-      document.getElementById('ipDisplay').textContent=info.ip; console.log('YesMyIP: detected',info.ip,info.country);
+      document.getElementById('ipDisplay').textContent=info.ip;
       document.getElementById('metaISP').textContent=info.org;
       document.getElementById('metaCountry').textContent=info.country;
       document.getElementById('metaCity').textContent=info.city+', '+info.region;
@@ -353,7 +353,7 @@ async function fetchIP(){ console.log('YesMyIP: starting IP detection...');
       return;
     }catch(e){continue;}
   }
-  document.getElementById('ipDisplay').textContent='Unable to detect'; console.log('YesMyIP: all APIs failed');
+  document.getElementById('ipDisplay').textContent='Unable to detect';
 }
 fetchIP();
 function copyIP(){navigator.clipboard.writeText(window._ip||'').then(()=>showToast('✓ Copied!'));}
