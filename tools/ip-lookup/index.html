@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Lookup Tool — Find Location of Any IP Address | YesMyIP.com</title>
+<meta name="description" content="Look up any IP address to find its location, ISP, timezone, and more. Free IP geolocation tool. No signup required.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yesmyip.com/tools/ip-lookup/">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<style>
+:root{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--s3:#141d2e;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--cd:rgba(0,212,255,.1);--green:#00e676;--red:#ff4757;--orange:#ff9f43;--purple:#845ef7;--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
+nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
+.nav-link{background:none;border:none;color:var(--t2);font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;text-decoration:none;transition:all .18s;}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.06);}.nav-link.active{color:var(--text);background:rgba(255,255,255,.06);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
+.lang-btn{color:var(--t2);font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;text-decoration:none;}.lang-btn.active{background:var(--cyan);color:#000;}
+.shield-btn{background:var(--red);color:white;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;text-decoration:none;}
+.page{max-width:720px;margin:0 auto;padding:40px 20px 80px;}
+.page h1{font-size:clamp(26px,5vw,40px);font-weight:800;text-align:center;margin-bottom:6px;}
+.page h1 span{color:var(--cyan);}
+.page-sub{text-align:center;color:var(--t2);font-size:14px;margin-bottom:32px;}
+
+.search-box{display:flex;gap:10px;margin-bottom:32px;}
+.search-input{flex:1;background:var(--s1);border:1px solid var(--border2);border-radius:12px;padding:14px 18px;font-size:15px;font-family:monospace;color:var(--cyan);outline:none;transition:border-color .2s;}
+.search-input:focus{border-color:var(--cyan);}
+.search-input::placeholder{color:var(--t3);font-family:Arial,sans-serif;font-size:14px;}
+.search-btn{background:var(--cyan);color:#000;border:none;padding:14px 24px;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.search-btn:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(0,212,255,.3);}
+.search-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.or-line{text-align:center;color:var(--t3);font-size:12px;margin-bottom:20px;}
+.my-ip-btn{display:block;width:100%;background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;margin-bottom:32px;}
+.my-ip-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+
+.result-card{display:none;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:24px;animation:fadeUp .3s ease;}
+.result-card.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+.result-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;}
+.result-ip{font-family:monospace;font-size:20px;font-weight:800;color:var(--cyan);}
+.result-flag{font-size:28px;}
+.result-loc{font-size:13px;color:var(--t2);}
+
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.result-cell{background:var(--s1);padding:16px 20px;}
+.result-label{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--t3);font-weight:700;margin-bottom:4px;}
+.result-value{font-size:14px;font-weight:600;color:var(--text);word-break:break-all;}
+
+.alert-box{background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.2);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:none;align-items:center;gap:10px;}
+.alert-box.show{display:flex;}
+.alert-box .pulse{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;animation:pd 2s infinite;}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
+.alert-box span{font-size:13px;color:#ff8a95;}
+.alert-box a{color:var(--cyan);}
+
+.cta-box{background:linear-gradient(135deg,#120a28,#091b30);border:1px solid rgba(123,94,167,.25);border-radius:var(--r);padding:24px;text-align:center;margin-bottom:24px;}
+.cta-box h3{margin-bottom:6px;font-size:16px;}
+.cta-box p{color:var(--t2);font-size:13px;margin-bottom:14px;}
+.cta-btn{display:inline-block;background:var(--cyan);color:#000;font-weight:700;font-size:14px;padding:11px 24px;border-radius:10px;text-decoration:none;}
+
+.info-section{margin-top:40px;}
+.info-section h2{font-size:20px;font-weight:700;color:var(--cyan);margin-bottom:12px;}
+.info-section p{font-size:13px;color:var(--t2);margin-bottom:12px;line-height:1.75;}
+.info-section strong{color:var(--text);}
+
+.error-msg{display:none;text-align:center;padding:20px;color:var(--red);font-size:14px;}
+.error-msg.show{display:block;}
+
+.loading{display:none;text-align:center;padding:32px;}
+.loading.show{display:block;}
+.spinner{width:36px;height:36px;border:3px solid var(--s2);border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:13px;color:var(--t3);}
+
+.recent{margin-top:32px;}
+.recent h3{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--t3);}
+.recent-list{display:flex;flex-wrap:wrap;gap:8px;}
+.recent-tag{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;font-family:monospace;color:var(--t2);cursor:pointer;transition:all .15s;text-decoration:none;}
+.recent-tag:hover{border-color:var(--cyan);color:var(--cyan);}
+
+footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;text-align:center;color:var(--t3);font-size:12px;}
+footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color:var(--cyan);}
+@media(max-width:900px){nav .nav-link{display:none;}}
+@media(max-width:500px){.search-box{flex-direction:column;}.result-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/"><img src="/assets/logo.png" style="height:38px;width:auto;" alt="YesMyIP.com"></a>
+  <a class="nav-link" href="/">My IP</a>
+  <a class="nav-link active" href="/tools/ip-lookup/">IP Lookup</a>
+  <a class="nav-link" href="/#vpn-compare">VPNs</a>
+  <a class="nav-link" href="/blog/">Blog</a>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <a href="/es/" class="lang-btn">🇪🇸 ES</a>
+      <span class="lang-btn active">🇺🇸 EN</span>
+      <a href="/fr/" class="lang-btn">🇫🇷 FR</a>
+    </div>
+    <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="shield-btn">🛡️ Hide My IP</a>
+  </div>
+</nav>
+
+<div class="page">
+  <h1>🔍 IP Address <span>Lookup</span></h1>
+  <p class="page-sub">Enter any IP address to find its location, ISP, timezone, and more.</p>
+
+  <div class="search-box">
+    <input type="text" class="search-input" id="ipInput" placeholder="Enter an IP address (e.g. 8.8.8.8)" autocomplete="off" spellcheck="false">
+    <button class="search-btn" id="lookupBtn" onclick="lookupIP()">Look Up</button>
+  </div>
+
+  <div class="or-line">— or —</div>
+  <button class="my-ip-btn" onclick="lookupMyIP()">🎯 Look Up My Own IP Address</button>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Looking up IP address...</div>
+  </div>
+
+  <div class="error-msg" id="error"></div>
+
+  <div class="result-card" id="result">
+    <div class="result-header">
+      <span class="result-flag" id="rFlag"></span>
+      <div>
+        <div class="result-ip" id="rIP"></div>
+        <div class="result-loc" id="rLoc"></div>
+      </div>
+    </div>
+    <div class="result-grid">
+      <div class="result-cell"><div class="result-label">Country</div><div class="result-value" id="rCountry">—</div></div>
+      <div class="result-cell"><div class="result-label">City / Region</div><div class="result-value" id="rCity">—</div></div>
+      <div class="result-cell"><div class="result-label">ISP / Organization</div><div class="result-value" id="rISP">—</div></div>
+      <div class="result-cell"><div class="result-label">IP Version</div><div class="result-value" id="rVersion">—</div></div>
+      <div class="result-cell"><div class="result-label">Timezone</div><div class="result-value" id="rTZ">—</div></div>
+      <div class="result-cell"><div class="result-label">Latitude / Longitude</div><div class="result-value" id="rCoords">—</div></div>
+      <div class="result-cell"><div class="result-label">ASN</div><div class="result-value" id="rASN">—</div></div>
+      <div class="result-cell"><div class="result-label">Postal Code</div><div class="result-value" id="rPostal">—</div></div>
+    </div>
+  </div>
+
+  <div class="alert-box" id="alert">
+    <div class="pulse"></div>
+    <span id="alertText">⚠️ This is your IP address — your location is exposed. <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener">Hide it with a VPN →</a></span>
+  </div>
+
+  <div class="cta-box">
+    <h3>🛡️ Want to Hide Your IP?</h3>
+    <p>NordVPN masks your IP in 60 seconds. 67% off + 3 months free.</p>
+    <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" class="cta-btn">Get NordVPN →</a>
+  </div>
+
+  <div class="recent" id="recentSection" style="display:none;">
+    <h3>Recent Lookups</h3>
+    <div class="recent-list" id="recentList"></div>
+  </div>
+
+  <div class="info-section">
+    <h2>What Is an IP Lookup?</h2>
+    <p>An IP lookup (also called IP geolocation) reveals the approximate physical location and network information associated with any IP address. When you enter an IP above, we query geolocation databases to find the country, city, ISP, timezone, and coordinates linked to that address.</p>
+
+    <h2>How Accurate Is IP Geolocation?</h2>
+    <p><strong>Country-level:</strong> 99%+ accuracy. We can almost always determine which country an IP belongs to.</p>
+    <p><strong>City-level:</strong> 50-80% accuracy. The city shown is an approximation based on ISP data — it could be off by 10-50 miles, especially in rural areas.</p>
+    <p><strong>Street-level:</strong> Not possible. IP addresses do not reveal home addresses, apartment numbers, or precise locations. Only your ISP can link your IP to your physical address, and they require a legal warrant to share that information.</p>
+
+    <h2>Common IP Addresses to Look Up</h2>
+    <p><strong>8.8.8.8</strong> — Google's public DNS server, located in the United States.</p>
+    <p><strong>1.1.1.1</strong> — Cloudflare's public DNS server, the fastest DNS resolver.</p>
+    <p><strong>208.67.222.222</strong> — OpenDNS server by Cisco.</p>
+    <p>Try looking up your own IP to see what information is publicly visible about your connection.</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 YesMyIP.com · All Rights Reserved</p>
+  <p style="margin-top:8px;"><a href="/">Home</a><a href="/tools/ip-lookup/">IP Lookup</a><a href="/tools/vpn-quiz/">VPN Quiz</a><a href="/blog/">Blog</a><a href="/en/legal/privacy-policy">Privacy</a></p>
+</footer>
+
+<script>
+const input = document.getElementById('ipInput');
+input.addEventListener('keydown', e => { if(e.key==='Enter') lookupIP(); });
+
+let myIP = null;
+
+async function lookupMyIP() {
+  show('loading');
+  hide('result','error','alert');
+  try {
+    const r = await fetch('https://ipapi.co/json/');
+    const d = await r.json();
+    myIP = d.ip;
+    input.value = d.ip;
+    displayResult(d, true);
+  } catch(e) {
+    showError('Unable to detect your IP. Please try again.');
+  }
+}
+
+async function lookupIP() {
+  const ip = input.value.trim();
+  if (!ip) { input.focus(); return; }
+  if (!isValidIP(ip)) { showError('Please enter a valid IPv4 or IPv6 address.'); return; }
+  
+  show('loading');
+  hide('result','error','alert');
+  document.getElementById('lookupBtn').disabled = true;
+  
+  try {
+    const r = await fetch(`https://ipapi.co/${ip}/json/`);
+    const d = await r.json();
+    if (d.error) { showError(d.reason || 'Could not find information for this IP.'); return; }
+    const isOwn = myIP && ip === myIP;
+    displayResult(d, isOwn);
+    saveRecent(ip);
+  } catch(e) {
+    showError('Lookup failed. Please check the IP and try again.');
+  } finally {
+    document.getElementById('lookupBtn').disabled = false;
+  }
+}
+
+function displayResult(d, isOwn) {
+  hide('loading','error');
+  document.getElementById('rFlag').textContent = d.country_flag_emoji || '🌐';
+  document.getElementById('rIP').textContent = d.ip;
+  document.getElementById('rLoc').textContent = `${d.city||'Unknown'}, ${d.region||''} · ${d.country_name||'Unknown'}`;
+  document.getElementById('rCountry').textContent = `${d.country_flag_emoji||''} ${d.country_name||'Unknown'} (${d.country_code||''})`;
+  document.getElementById('rCity').textContent = `${d.city||'Unknown'}, ${d.region||''}`;
+  document.getElementById('rISP').textContent = d.org || 'Unknown';
+  document.getElementById('rVersion').textContent = d.version || (d.ip.includes(':') ? 'IPv6' : 'IPv4');
+  document.getElementById('rTZ').textContent = d.timezone || 'Unknown';
+  document.getElementById('rCoords').textContent = d.latitude && d.longitude ? `${d.latitude}, ${d.longitude}` : 'Unknown';
+  document.getElementById('rASN').textContent = d.asn || 'Unknown';
+  document.getElementById('rPostal').textContent = d.postal || 'Unknown';
+  show('result');
+  
+  if (isOwn) {
+    document.getElementById('alertText').innerHTML = '⚠️ This is YOUR IP — your location is visible to every website. <a href="https://nordvpn.com" target="_blank" rel="nofollow noopener" style="color:var(--cyan);">Hide it with NordVPN →</a>';
+    show('alert');
+  }
+  
+  document.getElementById('lookupBtn').disabled = false;
+}
+
+function isValidIP(ip) {
+  const v4 = /^(\d{1,3}\.){3}\d{1,3}$/;
+  const v6 = /^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$/;
+  if (v4.test(ip)) {
+    return ip.split('.').every(n => parseInt(n) >= 0 && parseInt(n) <= 255);
+  }
+  return v6.test(ip);
+}
+
+function showError(msg) {
+  hide('loading','result','alert');
+  const el = document.getElementById('error');
+  el.textContent = msg;
+  el.classList.add('show');
+  document.getElementById('lookupBtn').disabled = false;
+}
+
+function show(...ids) { ids.forEach(id => document.getElementById(id).classList.add('show')); }
+function hide(...ids) { ids.forEach(id => document.getElementById(id).classList.remove('show')); }
+
+function saveRecent(ip) {
+  let list = JSON.parse(localStorage.getItem('recentIPs') || '[]');
+  list = list.filter(x => x !== ip);
+  list.unshift(ip);
+  list = list.slice(0, 8);
+  localStorage.setItem('recentIPs', JSON.stringify(list));
+  renderRecent();
+}
+
+function renderRecent() {
+  const list = JSON.parse(localStorage.getItem('recentIPs') || '[]');
+  if (!list.length) return;
+  document.getElementById('recentSection').style.display = 'block';
+  document.getElementById('recentList').innerHTML = list.map(ip => 
+    `<a class="recent-tag" onclick="document.getElementById('ipInput').value='${ip}';lookupIP();return false;" href="#">${ip}</a>`
+  ).join('');
+}
+
+// Auto-detect user's IP on load
+fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{myIP=d.ip;}).catch(()=>{});
+renderRecent();
+</script>
+</body>
+</html>
