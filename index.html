@@ -45,7 +45,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filte
 .ip-card{max-width:480px;background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:26px;position:relative;overflow:hidden;}
 .ip-card::after{content:'';position:absolute;top:-70px;right:-70px;width:210px;height:210px;background:radial-gradient(circle,rgba(0,212,255,.1) 0%,transparent 70%);pointer-events:none;}
 .ip-lbl{font-size:10px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;}
-.ip-big{font-family:Arial,sans-serif;font-size:clamp(13px,1.5vw,18px);word-break:break-all;letter-spacing:0;line-height:1.4;font-weight:800;color:var(--cyan);letter-spacing:-.5px;display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.ip-big{font-family:Arial,sans-serif;font-size:15px;word-break:break-all;letter-spacing:0;line-height:1.5;font-family:monospace;font-weight:800;color:var(--cyan);letter-spacing:-.5px;display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
 .copy-btn{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);color:var(--cyan);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}.copy-btn:hover{background:rgba(0,212,255,.2);}
 .ip-type{font-size:11px;color:var(--t3);margin-bottom:18px;}
 .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
@@ -74,7 +74,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filte
 .container{max-width:1100px;margin:0 auto;padding:0 20px 60px;}
 .two-col{display:grid;grid-template-columns:1fr 300px;gap:24px;}
 .sidebar{display:flex;flex-direction:column;gap:14px;}
-.ad{background:var(--s1);border:1px dashed rgba(255,255,255,.08);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:14px;color:var(--t3);font-size:12px;text-align:center;}
+.ad{background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.2);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:14px;color:var(--t3);font-size:12px;text-align:center;}
 .ad-lbl{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;opacity:.5;}
 .ad-top{min-height:90px;margin:16px 0;}.ad-rect{min-height:250px;}.ad-half{min-height:300px;}
 .lookup-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px;}
@@ -163,9 +163,8 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
         <button class="btn btn-ghost btn-sm">🔍 IP Lookup Tool</button>
         <div class="trust">🔒 No signup · No storage · 100% free</div>
       </div>
-      <div class="ad ad-top"><div class="ad-lbl">Advertisement · 728×90</div></div>
-    </div>
-    <div class="right-panel">
+      </div>
+      <div class="right-panel">
       <div class="card">
         <div class="card-title">⚡ Quick Tools</div>
         <div class="tools-grid">
