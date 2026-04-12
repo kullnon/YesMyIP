@@ -318,6 +318,8 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 </footer>
 
 <script>
+const countryNames={"AF":"Afghanistan","AL":"Albania","DZ":"Algeria","AR":"Argentina","AU":"Australia","AT":"Austria","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BO":"Bolivia","BR":"Brazil","BN":"Brunei","BG":"Bulgaria","KH":"Cambodia","CM":"Cameroon","CA":"Canada","CL":"Chile","CN":"China","CO":"Colombia","CR":"Costa Rica","HR":"Croatia","CU":"Cuba","CY":"Cyprus","CZ":"Czechia","DK":"Denmark","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","EE":"Estonia","ET":"Ethiopia","FI":"Finland","FR":"France","DE":"Germany","GH":"Ghana","GR":"Greece","GT":"Guatemala","GY":"Guyana","HT":"Haiti","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran","IQ":"Iraq","IE":"Ireland","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JO":"Jordan","KE":"Kenya","KW":"Kuwait","LV":"Latvia","LB":"Lebanon","LT":"Lithuania","LU":"Luxembourg","MG":"Madagascar","MY":"Malaysia","MX":"Mexico","MA":"Morocco","NL":"Netherlands","NZ":"New Zealand","NI":"Nicaragua","NG":"Nigeria","NO":"Norway","PK":"Pakistan","PA":"Panama","PY":"Paraguay","PE":"Peru","PH":"Philippines","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RO":"Romania","RU":"Russia","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SG":"Singapore","SK":"Slovakia","SI":"Slovenia","ZA":"South Africa","KR":"South Korea","ES":"Spain","LK":"Sri Lanka","SE":"Sweden","CH":"Switzerland","TW":"Taiwan","TH":"Thailand","TT":"Trinidad and Tobago","TN":"Tunisia","TR":"Turkey","UA":"Ukraine","AE":"UAE","GB":"United Kingdom","US":"United States","UY":"Uruguay","VE":"Venezuela","VN":"Vietnam"};
+function countryName(code){return countryNames[code]||code;}
 function countryFlag(code){
   if(!code||code.length!==2) return '';
   return String.fromCodePoint(...[...code.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65));
@@ -325,12 +327,12 @@ function countryFlag(code){
 async function fetchIP(){
   const apis = [
     {
-      url: 'https://api.db-ip.com/v2/free/self',
-      parse: (d) => ({ ip:d.ipAddress, org:d.isp||'—', country:countryFlag(d.countryCode)+' '+(d.countryName||'—'), city:d.city||'—', region:d.stateProv||'', version:d.ipAddress&&d.ipAddress.includes(':')?'IPv6':'IPv4' })
+      url: 'https://ipinfo.io/json',
+      parse: (d) => ({ ip:d.ip, org:(d.org||'—').replace(/^AS\d+\s*/,''), country:countryFlag(d.country)+' '+countryName(d.country), city:d.city||'—', region:d.region||'', version:d.ip&&d.ip.includes(':')?'IPv6':'IPv4' })
     },
     {
-      url: 'https://ipinfo.io/json',
-      parse: (d) => ({ ip:d.ip, org:(d.org||'—').replace(/^AS\d+\s*/,''), country:countryFlag(d.country)+' '+(d.country||''), city:d.city||'—', region:d.region||'', version:d.ip&&d.ip.includes(':')?'IPv6':'IPv4' })
+      url: 'https://api.db-ip.com/v2/free/self',
+      parse: (d) => ({ ip:d.ipAddress, org:d.isp||'—', country:countryFlag(d.countryCode)+' '+(d.countryName||countryName(d.countryCode)), city:d.city||'—', region:d.stateProv||'', version:d.ipAddress&&d.ipAddress.includes(':')?'IPv6':'IPv4' })
     }
   ];
   for(const api of apis){
