@@ -168,34 +168,36 @@ document.getElementById('loginEye').addEventListener('click', function(){
   if(input.type==='password'){input.type='text';this.textContent='🙈';}
   else{input.type='password';this.textContent='👁';}
 });
-document.getElementById('loginBtn').addEventListener('click', function(){ doLogin(); });
-document.getElementById('passInput').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
-document.getElementById('userInput').addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('passInput').focus(); });
 
-async function doLogin(){
+function doLogin(){
   var u = document.getElementById('userInput').value.trim().toLowerCase();
   var p = document.getElementById('passInput').value;
   var err = document.getElementById('loginError');
   if(!u||!p){ err.textContent='Enter username and password'; err.style.display='block'; return; }
-  try{
-    var r = await fetch('/admin/users.json?t='+Date.now());
-    var users = await r.json();
-    var found = users.find(function(x){ return x.username.toLowerCase()===u && x.password===p; });
-    if(!found) found = users.find(function(x){ return x.username.toLowerCase()===u && x.password===p.trim(); });
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/admin/users.json?t='+Date.now(), false);
+  xhr.send();
+  if(xhr.status===200){
+    var users = JSON.parse(xhr.responseText);
+    var found = null;
+    for(var i=0;i<users.length;i++){
+      if(users[i].username.toLowerCase()===u && users[i].password===p){ found=users[i]; break; }
+    }
     if(found){
       sessionStorage.setItem('ymip_auth', JSON.stringify(found));
       location.reload();
-    } else {
-      err.textContent='Invalid credentials';
-      err.style.display='block';
-      document.getElementById('passInput').value='';
-      setTimeout(function(){err.style.display='none';},3000);
+      return;
     }
-  }catch(e){
-    err.textContent='Error: '+e.message;
-    err.style.display='block';
   }
+  err.textContent='Invalid credentials';
+  err.style.display='block';
+  document.getElementById('passInput').value='';
+  setTimeout(function(){err.style.display='none';},3000);
 }
+
+document.getElementById('loginBtn').onclick = doLogin;
+document.getElementById('passInput').onkeydown = function(e){ if(e.key==='Enter') doLogin(); };
+document.getElementById('userInput').onkeydown = function(e){ if(e.key==='Enter') document.getElementById('passInput').focus(); };
 </script>
 
 <!-- DASHBOARD -->
