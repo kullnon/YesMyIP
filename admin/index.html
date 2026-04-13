@@ -168,15 +168,34 @@ document.getElementById('loginEye').addEventListener('click', function(){
   if(input.type==='password'){input.type='text';this.textContent='🙈';}
   else{input.type='password';this.textContent='👁';}
 });
-document.getElementById('loginBtn').addEventListener('click', function(){
-  if(typeof tryLogin==='function') tryLogin();
-});
-document.getElementById('passInput').addEventListener('keydown', function(e){
-  if(e.key==='Enter' && typeof tryLogin==='function') tryLogin();
-});
-document.getElementById('userInput').addEventListener('keydown', function(e){
-  if(e.key==='Enter') document.getElementById('passInput').focus();
-});
+document.getElementById('loginBtn').addEventListener('click', function(){ doLogin(); });
+document.getElementById('passInput').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('userInput').addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('passInput').focus(); });
+
+async function doLogin(){
+  var u = document.getElementById('userInput').value.trim().toLowerCase();
+  var p = document.getElementById('passInput').value;
+  var err = document.getElementById('loginError');
+  if(!u||!p){ err.textContent='Enter username and password'; err.style.display='block'; return; }
+  try{
+    var r = await fetch('/admin/users.json?t='+Date.now());
+    var users = await r.json();
+    var found = users.find(function(x){ return x.username.toLowerCase()===u && x.password===p; });
+    if(!found) found = users.find(function(x){ return x.username.toLowerCase()===u && x.password===p.trim(); });
+    if(found){
+      sessionStorage.setItem('ymip_auth', JSON.stringify(found));
+      location.reload();
+    } else {
+      err.textContent='Invalid credentials';
+      err.style.display='block';
+      document.getElementById('passInput').value='';
+      setTimeout(function(){err.style.display='none';},3000);
+    }
+  }catch(e){
+    err.textContent='Error: '+e.message;
+    err.style.display='block';
+  }
+}
 </script>
 
 <!-- DASHBOARD -->
