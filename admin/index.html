@@ -158,7 +158,7 @@ canvas{width:100%!important;height:100%!important;}
       <input type="password" class="login-input" id="passInput" placeholder="Password" maxlength="30" autocomplete="off" autocapitalize="none" autocorrect="off" style="margin-bottom:0;">
       <button type="button" class="pw-eye" id="loginEye">👁</button>
     </div>
-    <button class="login-btn" onclick="tryLogin()">Access Dashboard</button>
+    <button class="login-btn" id="loginBtn">Access Dashboard</button>
     <div class="login-error" id="loginError">Invalid credentials</div>
   </div>
 </div>
@@ -167,6 +167,15 @@ document.getElementById('loginEye').addEventListener('click', function(){
   var input = document.getElementById('passInput');
   if(input.type==='password'){input.type='text';this.textContent='🙈';}
   else{input.type='password';this.textContent='👁';}
+});
+document.getElementById('loginBtn').addEventListener('click', function(){
+  if(typeof tryLogin==='function') tryLogin();
+});
+document.getElementById('passInput').addEventListener('keydown', function(e){
+  if(e.key==='Enter' && typeof tryLogin==='function') tryLogin();
+});
+document.getElementById('userInput').addEventListener('keydown', function(e){
+  if(e.key==='Enter') document.getElementById('passInput').focus();
 });
 </script>
 
