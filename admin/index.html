@@ -371,19 +371,19 @@ canvas{width:100%!important;height:100%!important;}
           <div class="chart-title" style="margin-bottom:12px;">📊 Newsletter Stats</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             <div style="background:var(--s2);border-radius:10px;padding:12px;text-align:center;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--cyan);">247</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--cyan);">0</div>
               <div style="font-size:11px;color:var(--t3);margin-top:2px;">Subscribers</div>
             </div>
             <div style="background:var(--s2);border-radius:10px;padding:12px;text-align:center;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--green);">42%</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--green);">0%</div>
               <div style="font-size:11px;color:var(--t3);margin-top:2px;">Open Rate</div>
             </div>
             <div style="background:var(--s2);border-radius:10px;padding:12px;text-align:center;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--amber);">8.3%</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--amber);">0%</div>
               <div style="font-size:11px;color:var(--t3);margin-top:2px;">Click Rate</div>
             </div>
             <div style="background:var(--s2);border-radius:10px;padding:12px;text-align:center;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--purple);">12</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--purple);">0</div>
               <div style="font-size:11px;color:var(--t3);margin-top:2px;">Issues Sent</div>
             </div>
           </div>
@@ -749,54 +749,44 @@ function updateClock(){
 setInterval(updateClock,1000);
 updateClock();
 
-// SIMULATED DATA (replace with real GA4 API later)
+// REAL DATA — starts at zero. Connect GA4 API to populate.
 const ranges = {
-  today: { visitors:42, revenue:3.20, pageviews:187, clicks:8, conv:1.9, vChg:12, rChg:8, pChg:15, cChg:5, cvChg:2 },
-  '7d': { visitors:284, revenue:22.50, pageviews:1340, clicks:52, conv:2.1, vChg:18, rChg:24, pChg:20, cChg:15, cvChg:6 },
-  '30d': { visitors:1120, revenue:89.40, pageviews:5280, clicks:198, conv:2.3, vChg:34, rChg:42, pChg:28, cChg:38, cvChg:12 },
-  '90d': { visitors:3450, revenue:320.00, pageviews:16200, clicks:612, conv:2.5, vChg:156, rChg:180, pChg:145, cChg:170, cvChg:22 },
-  all: { visitors:4200, revenue:412.60, pageviews:19800, clicks:745, conv:2.4, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
+  today: { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
+  '7d': { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
+  '30d': { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
+  '90d': { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
+  all: { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
 };
 
 const revSources = [
-  { name:'NordVPN', icon:'🦁', clicks:312, convs:28, rev:196.00, status:'active', color:'#e33b5e' },
-  { name:'Surfshark', icon:'🦈', clicks:186, convs:15, rev:82.50, status:'active', color:'#1eb8c9' },
-  { name:'ExpressVPN', icon:'⚡', clicks:124, convs:8, rev:56.00, status:'pending', color:'#da3735' },
-  { name:'CyberGhost', icon:'👻', clicks:89, convs:6, rev:33.00, status:'active', color:'#f7c744' },
-  { name:'AdSense', icon:'📺', clicks:0, convs:0, rev:45.10, status:'active', color:'#4285f4' },
+  { name:'NordVPN', icon:'🦁', clicks:0, convs:0, rev:0, status:'pending', color:'#e33b5e' },
+  { name:'Surfshark', icon:'🦈', clicks:0, convs:0, rev:0, status:'pending', color:'#1eb8c9' },
+  { name:'ExpressVPN', icon:'⚡', clicks:0, convs:0, rev:0, status:'pending', color:'#da3735' },
+  { name:'CyberGhost', icon:'👻', clicks:0, convs:0, rev:0, status:'pending', color:'#f7c744' },
+  { name:'AdSense', icon:'📺', clicks:0, convs:0, rev:0, status:'pending', color:'#4285f4' },
 ];
 
 const topPages = [
-  { page:'/', views:4820, bounce:'42%' },
-  { page:'/blog/best-vpns-2026/', views:2340, bounce:'38%' },
-  { page:'/tools/vpn-quiz/', views:1890, bounce:'22%' },
-  { page:'/blog/nordvpn-review-2026/', views:1560, bounce:'35%' },
-  { page:'/tools/ip-lookup/', views:1240, bounce:'45%' },
-  { page:'/es/', views:980, bounce:'48%' },
-  { page:'/blog/what-is-a-vpn/', views:870, bounce:'40%' },
-  { page:'/fr/', views:620, bounce:'52%' },
+  { page:'/', views:0, bounce:'—' },
+  { page:'/blog/best-vpns-2026/', views:0, bounce:'—' },
+  { page:'/tools/vpn-quiz/', views:0, bounce:'—' },
+  { page:'/blog/nordvpn-review-2026/', views:0, bounce:'—' },
+  { page:'/es/', views:0, bounce:'—' },
+  { page:'/fr/', views:0, bounce:'—' },
 ];
 
 const geoData = [
-  { flag:'🇺🇸', country:'United States', pct:'32%' },
-  { flag:'🇭🇹', country:'Haiti', pct:'18%' },
-  { flag:'🇫🇷', country:'France', pct:'12%' },
-  { flag:'🇲🇽', country:'Mexico', pct:'8%' },
-  { flag:'🇨🇦', country:'Canada', pct:'7%' },
-  { flag:'🇬🇧', country:'United Kingdom', pct:'6%' },
-  { flag:'🇨🇴', country:'Colombia', pct:'5%' },
-  { flag:'🇧🇷', country:'Brazil', pct:'4%' },
+  { flag:'🇭🇹', country:'Haiti', pct:'—' },
+  { flag:'🇺🇸', country:'United States', pct:'—' },
+  { flag:'🇫🇷', country:'France', pct:'—' },
+  { flag:'🇲🇽', country:'Mexico', pct:'—' },
+  { flag:'🇨🇦', country:'Canada', pct:'—' },
 ];
 
 const feed = [
-  { dot:'var(--green)', text:'<strong>NordVPN</strong> conversion — $7.00 commission', time:'2m ago' },
-  { dot:'var(--cyan)', text:'New visitor from <strong>Port-au-Prince, HT</strong>', time:'5m ago' },
-  { dot:'var(--amber)', text:'<strong>VPN Quiz</strong> completed — recommended Surfshark', time:'12m ago' },
-  { dot:'var(--green)', text:'<strong>Surfshark</strong> conversion — $5.50 commission', time:'28m ago' },
-  { dot:'var(--cyan)', text:'Blog article ranked <strong>#8</strong> for "best vpns 2026"', time:'1h ago' },
-  { dot:'var(--purple)', text:'<strong>AdSense</strong> — $0.42 earned (3 clicks)', time:'2h ago' },
-  { dot:'var(--cyan)', text:'New visitor from <strong>Paris, FR</strong>', time:'3h ago' },
-  { dot:'var(--green)', text:'<strong>NordVPN</strong> conversion — $7.00 commission', time:'5h ago' },
+  { dot:'var(--cyan)', text:'<strong>YesMyIP.com</strong> launched', time:'Apr 12' },
+  { dot:'var(--cyan)', text:'Sitemap submitted to <strong>Google Search Console</strong>', time:'Apr 13' },
+  { dot:'var(--amber)', text:'Indexing requested for <strong>5 pages</strong>', time:'Apr 13' },
 ];
 
 let mainChartInstance, pieChartInstance;
@@ -897,10 +887,10 @@ function renderGeo(){
 function renderGoals(){
   const t = T[currentLang] || T.en;
   const goals = [
-    { label:t.month1, current:412, target:600, color:'var(--cyan)' },
-    { label:t.month3, current:412, target:3500, color:'var(--amber)' },
-    { label:t.month6, current:412, target:18000, color:'var(--purple)' },
-    { label:t.month12, current:412, target:60000, color:'var(--green)' },
+    { label:t.month1, current:0, target:600, color:'var(--cyan)' },
+    { label:t.month3, current:0, target:3500, color:'var(--amber)' },
+    { label:t.month6, current:0, target:18000, color:'var(--purple)' },
+    { label:t.month12, current:0, target:60000, color:'var(--green)' },
   ];
   document.getElementById('goalsSection').innerHTML = goals.map(g => {
     const pct = Math.min((g.current/g.target)*100, 100).toFixed(1);
@@ -929,8 +919,8 @@ function renderFeed(){
 function renderMainChart(){
   const ctx = document.getElementById('mainChart').getContext('2d');
   const labels = ['Mar 3','Mar 7','Mar 12','Mar 16','Mar 20','Mar 25','Mar 29','Apr 2','Apr 6','Apr 10','Apr 12'];
-  const visitors = [12,28,45,62,85,120,156,198,245,310,420];
-  const revenue = [0,0,1.2,3.5,5.8,12,18.5,28,42,58,89.4];
+  const visitors = [0,0,0,0,0,0,0,0,0,0,0];
+  const revenue = [0,0,0,0,0,0,0,0,0,0,0];
   
   if(mainChartInstance) mainChartInstance.destroy();
   mainChartInstance = new Chart(ctx, {
