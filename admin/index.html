@@ -619,19 +619,30 @@ async function tryLogin(){
     return;
   }
   const found = allUsers.find(x => x.username.toLowerCase()===u && x.password===p);
-  if(found){
-    currentUser = found;
-    document.getElementById('loginScreen').classList.add('hidden');
-    document.getElementById('dashboard').classList.add('show');
-    document.getElementById('currentUser').textContent = '👤 '+(found.name||found.username);
-    sessionStorage.setItem('ymip_auth', JSON.stringify(found));
-    initDashboard();
-  } else {
+  if(!found){
+    // Try trimming password too
+    const found2 = allUsers.find(x => x.username.toLowerCase()===u && x.password===p.trim());
+    if(found2){
+      loginSuccess(found2);
+      return;
+    }
+    document.getElementById('loginError').textContent='Invalid credentials (user: "'+u+'", '+allUsers.length+' users loaded)';
     document.getElementById('loginError').style.display='block';
     passInput.value='';
     passInput.focus();
-    setTimeout(()=>document.getElementById('loginError').style.display='none',2000);
+    setTimeout(()=>document.getElementById('loginError').style.display='none',4000);
+    return;
   }
+  loginSuccess(found);
+}
+
+function loginSuccess(found){
+  currentUser = found;
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('dashboard').classList.add('show');
+  document.getElementById('currentUser').textContent = '👤 '+(found.name||found.username);
+  sessionStorage.setItem('ymip_auth', JSON.stringify(found));
+  initDashboard();
 }
 function logout(){
   sessionStorage.removeItem('ymip_auth');

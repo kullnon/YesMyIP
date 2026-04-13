@@ -1,4 +1,4 @@
 [
-  { "username": "andy", "password": "@AliidL%$#1", "role": "admin", "name": "Andy" },
+  { "username": "andy", "password": "Maestro1", "role": "admin", "name": "Andy" },
   { "username": "jean", "password": "@Cherub1", "role": "viewer", "name": "Jean Cherubin" }
 ]
