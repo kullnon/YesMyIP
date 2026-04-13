@@ -186,6 +186,15 @@ canvas{width:100%!important;height:100%!important;}
     </div>
   </div>
 
+  <!-- TAB NAV -->
+  <div style="display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0;">
+    <button onclick="showTab('dashTab')" class="tab-nav active" id="tn-dashTab" style="background:none;border:none;color:var(--cyan);font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;padding:10px 18px;cursor:pointer;border-bottom:2px solid var(--cyan);margin-bottom:-1px;">📊 Dashboard</button>
+    <button onclick="showTab('nlTab')" class="tab-nav" id="tn-nlTab" style="background:none;border:none;color:var(--t3);font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;padding:10px 18px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;">📬 Newsletter</button>
+  </div>
+
+  <!-- DASHBOARD TAB -->
+  <div id="dashTab">
+
   <!-- DATE RANGE -->
   <div class="date-range">
     <button class="dr-btn active" onclick="setRange(this,'today')" data-t="today">Today</button>
@@ -283,6 +292,148 @@ canvas{width:100%!important;height:100%!important;}
       <div id="feedSection"></div>
     </div>
   </div>
+
+  </div><!-- end dashTab -->
+
+  <!-- NEWSLETTER TAB -->
+  <div id="nlTab" style="display:none;">
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start;">
+
+      <!-- LEFT: Generator -->
+      <div>
+        <div class="chart-card" style="margin-bottom:16px;">
+          <div class="chart-header">
+            <div><div class="chart-title">🤖 AI Newsletter Generator</div><div class="chart-subtitle">Claude writes your newsletter. You review and send.</div></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+            <div>
+              <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">ISSUE NUMBER</label>
+              <input type="number" id="nlIssueNum" value="13" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:14px;outline:none;font-family:'Outfit',sans-serif;">
+            </div>
+            <div>
+              <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">TOPIC FOCUS</label>
+              <select id="nlTopic" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;">
+                <option value="general">General — Mix of everything</option>
+                <option value="deals">VPN Deals & Discounts</option>
+                <option value="breach">Data Breach Alert</option>
+                <option value="privacy">Privacy Tips & How-To</option>
+                <option value="comparison">VPN Comparison & Reviews</option>
+                <option value="news">Privacy & Security News</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">CUSTOM NOTES (optional)</label>
+            <textarea id="nlNotes" placeholder="e.g. 'NordVPN has a new 75% off deal this week' or 'Focus on Surfshark for families'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;min-height:60px;resize:vertical;"></textarea>
+          </div>
+
+          <button onclick="generateNewsletter()" id="generateBtn" style="background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;border:none;padding:12px 24px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;font-family:'Outfit',sans-serif;width:100%;transition:all .2s;">
+            🤖 Generate Newsletter with AI
+          </button>
+          <div id="nlLoading" style="display:none;text-align:center;padding:20px;">
+            <div style="width:30px;height:30px;border:3px solid var(--s2);border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px;"></div>
+            <p style="color:var(--t2);font-size:13px;">Claude is writing your newsletter...</p>
+          </div>
+        </div>
+
+        <!-- EDITOR -->
+        <div class="chart-card" id="nlEditorCard" style="display:none;">
+          <div class="chart-header">
+            <div><div class="chart-title">✏️ Edit Newsletter</div><div class="chart-subtitle">Review and tweak before sending</div></div>
+            <div style="display:flex;gap:8px;">
+              <button onclick="regenerateNewsletter()" style="background:var(--s2);border:1px solid var(--border);color:var(--t2);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Outfit',sans-serif;">🔄 Regenerate</button>
+              <button onclick="copyNewsletterHTML()" style="background:var(--cyan);color:#000;border:none;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;">📋 Copy HTML</button>
+            </div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">SUBJECT LINE</label>
+            <input type="text" id="nlSubject" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:14px;outline:none;font-family:'Outfit',sans-serif;">
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">PREVIEW TEXT</label>
+            <input type="text" id="nlPreview" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;">
+          </div>
+
+          <div>
+            <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">NEWSLETTER CONTENT</label>
+            <textarea id="nlContent" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:14px;color:var(--text);font-size:13px;outline:none;font-family:'JetBrains Mono',monospace;min-height:400px;resize:vertical;line-height:1.6;"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Preview + Stats -->
+      <div>
+        <div class="chart-card" style="margin-bottom:16px;">
+          <div class="chart-title" style="margin-bottom:12px;">📊 Newsletter Stats</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="background:var(--s2);border-radius:10px;padding:12px;text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--cyan);">247</div>
+              <div style="font-size:11px;color:var(--t3);margin-top:2px;">Subscribers</div>
+            </div>
+            <div style="background:var(--s2);border-radius:10px;padding:12px;text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--green);">42%</div>
+              <div style="font-size:11px;color:var(--t3);margin-top:2px;">Open Rate</div>
+            </div>
+            <div style="background:var(--s2);border-radius:10px;padding:12px;text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--amber);">8.3%</div>
+              <div style="font-size:11px;color:var(--t3);margin-top:2px;">Click Rate</div>
+            </div>
+            <div style="background:var(--s2);border-radius:10px;padding:12px;text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--purple);">12</div>
+              <div style="font-size:11px;color:var(--t3);margin-top:2px;">Issues Sent</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-card" style="margin-bottom:16px;">
+          <div class="chart-title" style="margin-bottom:12px;">📬 Past Issues</div>
+          <div id="pastIssues">
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;justify-content:space-between;"><span style="color:var(--text);">#12 — NordVPN Flash Sale</span><span style="color:var(--t3);">Apr 8</span></div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;justify-content:space-between;"><span style="color:var(--text);">#11 — Surfshark Family Deal</span><span style="color:var(--t3);">Apr 1</span></div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;justify-content:space-between;"><span style="color:var(--text);">#10 — Your ISP Is Watching</span><span style="color:var(--t3);">Mar 25</span></div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;justify-content:space-between;"><span style="color:var(--text);">#9 — ExpressVPN 3 Months Free</span><span style="color:var(--t3);">Mar 18</span></div>
+            <div style="padding:8px 0;font-size:12px;display:flex;justify-content:space-between;"><span style="color:var(--text);">#8 — VPN Beginner Checklist</span><span style="color:var(--t3);">Mar 11</span></div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:12px;">👁 Live Preview</div>
+          <div id="nlPreviewFrame" style="background:#0a0e1a;border:1px solid var(--border);border-radius:10px;padding:16px;max-height:500px;overflow-y:auto;font-size:12px;">
+            <p style="color:var(--t3);text-align:center;padding:40px 0;">Generate a newsletter to see the preview</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MAILGUN SEND -->
+    <div class="chart-card" id="nlSendCard" style="display:none;margin-top:16px;">
+      <div class="chart-header">
+        <div><div class="chart-title">📤 Send Newsletter</div><div class="chart-subtitle">Send via Mailgun to all subscribers</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end;">
+        <div>
+          <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">MAILGUN API KEY</label>
+          <input type="password" id="mgApiKey" placeholder="key-xxxxxxxx" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;font-family:monospace;">
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">MAILGUN DOMAIN</label>
+          <input type="text" id="mgDomain" placeholder="mg.yesmyip.com" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;font-family:monospace;">
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600;">FROM EMAIL</label>
+          <input type="text" id="mgFrom" value="newsletter@yesmyip.com" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;font-family:monospace;">
+        </div>
+        <button onclick="sendNewsletter()" style="background:var(--green);color:#000;border:none;padding:10px 20px;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap;">🚀 Send Now</button>
+      </div>
+      <div id="sendMsg" style="font-size:12px;margin-top:8px;"></div>
+    </div>
+  </div><!-- end nlTab -->
 
   <div style="text-align:center;padding:24px 0 12px;font-size:12px;color:var(--t3);border-top:1px solid var(--border);margin-top:24px;">© 2026 Maestro Media Group · All Rights Reserved</div>
 
@@ -851,6 +1002,187 @@ function renderPieChart(){
       }
     }
   });
+}
+
+// TAB SWITCHING
+function showTab(tabId){
+  document.querySelectorAll('#dashTab,#nlTab').forEach(t=>t.style.display='none');
+  document.getElementById(tabId).style.display='block';
+  document.querySelectorAll('.tab-nav').forEach(b=>{b.style.color='var(--t3)';b.style.borderBottomColor='transparent';});
+  const btn=document.getElementById('tn-'+tabId);
+  btn.style.color='var(--cyan)';btn.style.borderBottomColor='var(--cyan)';
+}
+
+// AI NEWSLETTER GENERATOR
+let lastGeneratedHTML = '';
+
+async function generateNewsletter(){
+  const issue = document.getElementById('nlIssueNum').value;
+  const topic = document.getElementById('nlTopic').value;
+  const notes = document.getElementById('nlNotes').value;
+  
+  document.getElementById('generateBtn').style.display='none';
+  document.getElementById('nlLoading').style.display='block';
+
+  const topicPrompts = {
+    general: 'a well-rounded mix of VPN deals, a privacy tip, a security news item, and links to YesMyIP.com articles',
+    deals: 'focused on the best VPN deals and discounts this week, with pricing and coupon codes',
+    breach: 'leading with a major data breach alert, what was exposed, who is affected, and what readers should do',
+    privacy: 'focused on actionable privacy tips readers can implement today, step-by-step',
+    comparison: 'comparing 2-3 VPNs head to head with a clear winner recommendation',
+    news: 'covering the latest privacy and cybersecurity news stories this week'
+  };
+
+  const prompt = `You are writing Issue #${issue} of "Privacy Pulse", a weekly email newsletter by YesMyIP.com (owned by Maestro Media Group). 
+
+The newsletter should be ${topicPrompts[topic]}.
+
+${notes ? 'ADDITIONAL NOTES FROM THE EDITOR: ' + notes : ''}
+
+STRUCTURE (use these exact section headers):
+🔥 DEAL OF THE WEEK — Feature a VPN deal with specific pricing. Use NordVPN ($3.39/mo, 67% off), Surfshark ($2.29/mo, 87% off), or ExpressVPN ($4.99/mo, 3 months free).
+🚨 SECURITY ALERT — A breach, vulnerability, or security news item. Be specific with numbers.
+💡 TIP OF THE WEEK — One actionable privacy/security tip with exact steps.
+📚 FROM THE BLOG — 3 article links from yesmyip.com/blog/ with one-line descriptions.
+🛡️ CLOSING CTA — One sentence pushing readers to get a VPN with a link.
+
+RULES:
+- Write in a casual, direct tone. No fluff.
+- Be specific with numbers, prices, and steps.
+- Each section should be 2-4 sentences max.
+- Include affiliate-ready VPN mentions naturally.
+- Make it feel urgent and valuable — readers should feel they'd miss out by not reading.
+
+Also provide:
+SUBJECT: (compelling email subject line, under 50 chars)
+PREVIEW: (preview text for email clients, under 90 chars)
+
+Return the content in this exact format:
+SUBJECT: [subject line]
+PREVIEW: [preview text]
+CONTENT:
+[newsletter body with the sections above]`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await response.json();
+    const text = data.content[0].text;
+    
+    // Parse response
+    const subjectMatch = text.match(/SUBJECT:\s*(.+)/);
+    const previewMatch = text.match(/PREVIEW:\s*(.+)/);
+    const contentMatch = text.match(/CONTENT:\s*([\s\S]+)/);
+    
+    if(subjectMatch) document.getElementById('nlSubject').value = subjectMatch[1].trim();
+    if(previewMatch) document.getElementById('nlPreview').value = previewMatch[1].trim();
+    if(contentMatch) document.getElementById('nlContent').value = contentMatch[1].trim();
+    
+    document.getElementById('nlEditorCard').style.display='block';
+    document.getElementById('nlSendCard').style.display='block';
+    updatePreview();
+    
+  } catch(e) {
+    alert('Error generating newsletter: ' + e.message);
+  }
+  
+  document.getElementById('generateBtn').style.display='block';
+  document.getElementById('nlLoading').style.display='none';
+}
+
+function regenerateNewsletter(){ generateNewsletter(); }
+
+function updatePreview(){
+  const content = document.getElementById('nlContent').value;
+  const subject = document.getElementById('nlSubject').value;
+  const issue = document.getElementById('nlIssueNum').value;
+  
+  // Convert markdown-style content to HTML preview
+  let html = content
+    .replace(/^🔥 (.+)$/gm, '<h3 style="color:#00d4ff;font-size:13px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:1px;">🔥 $1</h3>')
+    .replace(/^🚨 (.+)$/gm, '<h3 style="color:#ff4757;font-size:13px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:1px;">🚨 $1</h3>')
+    .replace(/^💡 (.+)$/gm, '<h3 style="color:#a855f7;font-size:13px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:1px;">💡 $1</h3>')
+    .replace(/^📚 (.+)$/gm, '<h3 style="color:#00e676;font-size:13px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:1px;">📚 $1</h3>')
+    .replace(/^🛡️ (.+)$/gm, '<h3 style="color:#ffb300;font-size:13px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:1px;">🛡️ $1</h3>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#e8edf8;">$1</strong>')
+    .replace(/\n\n/g, '</p><p style="color:#7b8baa;font-size:12px;line-height:1.7;margin:0 0 8px;">')
+    .replace(/\n/g, '<br>');
+  
+  html = '<div style="border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:10px;margin-bottom:12px;">' +
+    '<div style="font-size:10px;color:#00d4ff;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Privacy Pulse · Issue #'+issue+'</div>' +
+    '<div style="font-size:15px;font-weight:700;color:#e8edf8;margin-top:4px;">'+subject+'</div></div>' +
+    '<p style="color:#7b8baa;font-size:12px;line-height:1.7;margin:0 0 8px;">' + html + '</p>';
+  
+  document.getElementById('nlPreviewFrame').innerHTML = html;
+}
+
+// Update preview on content edit
+document.getElementById('nlContent')?.addEventListener('input', updatePreview);
+document.getElementById('nlSubject')?.addEventListener('input', updatePreview);
+
+function copyNewsletterHTML(){
+  const content = document.getElementById('nlContent').value;
+  const subject = document.getElementById('nlSubject').value;
+  const issue = document.getElementById('nlIssueNum').value;
+  
+  // Build full email HTML
+  lastGeneratedHTML = buildEmailHTML(subject, content, issue);
+  navigator.clipboard.writeText(lastGeneratedHTML).then(()=>{
+    const btn = event.target;
+    btn.textContent = '✓ Copied!';
+    setTimeout(()=>btn.textContent='📋 Copy HTML', 2000);
+  });
+}
+
+function buildEmailHTML(subject, content, issue){
+  const sections = content
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n\n/g, '</p><p style="color:#7b8baa;font-size:14px;margin:0 0 10px;line-height:1.6;">')
+    .replace(/^🔥 (.+)$/gm, '</p><h2 style="color:#00d4ff;font-size:16px;margin:24px 0 10px;text-transform:uppercase;letter-spacing:1px;font-weight:700;">🔥 $1</h2><p style="color:#7b8baa;font-size:14px;margin:0 0 10px;line-height:1.6;">')
+    .replace(/^🚨 (.+)$/gm, '</p><h2 style="color:#ff4757;font-size:16px;margin:24px 0 10px;text-transform:uppercase;letter-spacing:1px;font-weight:700;">🚨 $1</h2><p style="color:#7b8baa;font-size:14px;margin:0 0 10px;line-height:1.6;">')
+    .replace(/^💡 (.+)$/gm, '</p><h2 style="color:#a855f7;font-size:16px;margin:24px 0 10px;text-transform:uppercase;letter-spacing:1px;font-weight:700;">💡 $1</h2><p style="color:#7b8baa;font-size:14px;margin:0 0 10px;line-height:1.6;">')
+    .replace(/^📚 (.+)$/gm, '</p><h2 style="color:#00e676;font-size:16px;margin:24px 0 10px;text-transform:uppercase;letter-spacing:1px;font-weight:700;">📚 $1</h2><p style="color:#7b8baa;font-size:14px;margin:0 0 10px;line-height:1.6;">')
+    .replace(/^🛡️ (.+)$/gm, '</p><h2 style="color:#ffb300;font-size:16px;margin:24px 0 10px;text-transform:uppercase;letter-spacing:1px;font-weight:700;">🛡️ $1</h2><p style="color:#7b8baa;font-size:14px;margin:0 0 10px;line-height:1.6;">');
+
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#06080e;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#06080e;"><tr><td align="center" style="padding:20px 10px;">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+<tr><td style="padding:24px 30px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06);">
+<img src="https://yesmyip.com/assets/logo.png" alt="YesMyIP" style="height:40px;"><br>
+<span style="color:#7b8baa;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Privacy Pulse · Issue #${issue}</span>
+</td></tr>
+<tr><td style="padding:28px 30px;background:linear-gradient(135deg,#0a1628,#1a0a28);">
+<h1 style="color:#e8edf8;font-size:24px;margin:0 0 6px;">${subject}</h1>
+</td></tr>
+<tr><td style="padding:24px 30px;background:#0a0e1a;">
+<p style="color:#7b8baa;font-size:14px;margin:0 0 10px;line-height:1.6;">${sections}</p>
+</td></tr>
+<tr><td style="padding:28px 30px;background:linear-gradient(135deg,#0a1628,#1a0a28);text-align:center;">
+<a href="https://nordvpn.com" style="display:inline-block;background:#00d4ff;color:#000;font-weight:700;font-size:15px;padding:12px 32px;border-radius:10px;text-decoration:none;">Get NordVPN — 67% Off →</a>
+</td></tr>
+<tr><td style="padding:20px 30px;text-align:center;border-top:1px solid rgba(255,255,255,.06);">
+<p style="color:#3a4560;font-size:11px;">You received this from <a href="https://yesmyip.com" style="color:#7b8baa;">YesMyIP.com</a> · <a href="#" style="color:#7b8baa;">Unsubscribe</a></p>
+<p style="color:#3a4560;font-size:11px;">© 2026 Maestro Media Group</p>
+</td></tr>
+</table></td></tr></table></body></html>`;
+}
+
+function sendNewsletter(){
+  const apiKey = document.getElementById('mgApiKey').value.trim();
+  const domain = document.getElementById('mgDomain').value.trim();
+  const from = document.getElementById('mgFrom').value.trim();
+  const msg = document.getElementById('sendMsg');
+  if(!apiKey||!domain){msg.textContent='Enter Mailgun API key and domain';msg.style.color='var(--red)';return;}
+  msg.textContent='⏳ Sending... (Mailgun integration coming soon — for now, copy the HTML and paste into Mailgun dashboard)';
+  msg.style.color='var(--amber)';
 }
 </script>
 </body>
