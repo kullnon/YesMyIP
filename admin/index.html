@@ -174,11 +174,8 @@ function doLogin(){
   var p = document.getElementById('passInput').value;
   var err = document.getElementById('loginError');
   if(!u||!p){ err.textContent='Enter username and password'; err.style.display='block'; return; }
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', '/admin/users.json?t='+Date.now(), false);
-  xhr.send();
-  if(xhr.status===200){
-    var users = JSON.parse(xhr.responseText);
+  try{
+    var users = JSON.parse(atob('W3sidXNlcm5hbWUiOiJhbmR5IiwicGFzc3dvcmQiOiJAQWxpaWRMJSQjMSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJBbmR5In0seyJ1c2VybmFtZSI6ImplYW4iLCJwYXNzd29yZCI6IkBDaGVydWIxIiwicm9sZSI6InZpZXdlciIsIm5hbWUiOiJKZWFuIENoZXJ1YmluIn1d'));
     var found = null;
     for(var i=0;i<users.length;i++){
       if(users[i].username.toLowerCase()===u && users[i].password===p){ found=users[i]; break; }
@@ -188,7 +185,7 @@ function doLogin(){
       location.reload();
       return;
     }
-  }
+  }catch(e){}
   err.textContent='Invalid credentials';
   err.style.display='block';
   document.getElementById('passInput').value='';
@@ -531,17 +528,15 @@ document.getElementById('userInput').onkeydown = function(e){ if(e.key==='Enter'
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
 // MULTI-USER AUTH SYSTEM
-// Users stored in /admin/users.json on server
-// To change passwords or add users, edit that file and push to GitHub
-
+// Users encoded to prevent plain text exposure
+const _u = 'W3sidXNlcm5hbWUiOiJhbmR5IiwicGFzc3dvcmQiOiJAQWxpaWRMJSQjMSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJBbmR5In0seyJ1c2VybmFtZSI6ImplYW4iLCJwYXNzd29yZCI6IkBDaGVydWIxIiwicm9sZSI6InZpZXdlciIsIm5hbWUiOiJKZWFuIENoZXJ1YmluIn1d';
 let allUsers = [];
 
 async function loadUsers(){
   try{
-    const r = await fetch('/admin/users.json?t='+Date.now());
-    allUsers = await r.json();
+    allUsers = JSON.parse(atob(_u));
   }catch(e){
-    allUsers = [{ username:'andy', password:'maestro2026', role:'admin', name:'Andy' }];
+    allUsers = [];
   }
 }
 function getUsers(){ return allUsers; }
