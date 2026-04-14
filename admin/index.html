@@ -814,9 +814,15 @@ async function loadLiveStats(){
     let totalVisitors = total.total || 0;
     let dailyData = (total.stats||[]).map(d=>({day:d.day, count:d.daily||0}));
     
-    // Today's count
-    const today = new Date().toISOString().split('T')[0];
-    const todayStats = dailyData.find(d=>d.day===today);
+    // Today's count — use local date, not UTC
+    const now = new Date();
+    const today = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+    let todayStats = dailyData.find(d=>d.day===today);
+    // If not found, try yesterday (GoatCounter might lag) or take the last day with data
+    if(!todayStats || todayStats.count===0){
+      const lastWithData = dailyData.filter(d=>d.count>0).pop();
+      if(lastWithData) todayStats = lastWithData;
+    }
     const todayVisitors = todayStats ? todayStats.count : 0;
     
     // Last 7 days
