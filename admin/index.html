@@ -797,7 +797,87 @@ function updateClock(){
 setInterval(updateClock,1000);
 updateClock();
 
-// REAL DATA — starts at zero. Connect GA4 API to populate.
+// GOATCOUNTER API
+const GC_TOKEN = '1wjeluv2hg97jls31ztzix2p2ky0yv472iokx9v3nel42ewrn';
+const GC_URL = 'https://yesmyip.goatcounter.com/api/v0';
+async function gcFetch(endpoint){
+  const r = await fetch(GC_URL+endpoint, {headers:{'Authorization':'Bearer '+GC_TOKEN,'Content-Type':'application/json'}});
+  return r.json();
+}
+
+let liveData = { visitors:0, pageviews:0, topPages:[], countries:[], daily:[] };
+
+async function loadLiveStats(){
+  try{
+    // Total stats
+    const total = await gcFetch('/stats/total');
+    let totalVisitors = total.total || 0;
+    let dailyData = (total.stats||[]).map(d=>({day:d.day, count:d.daily||0}));
+    
+    // Today's count
+    const today = new Date().toISOString().split('T')[0];
+    const todayStats = dailyData.find(d=>d.day===today);
+    const todayVisitors = todayStats ? todayStats.count : 0;
+    
+    // Last 7 days
+    const last7 = dailyData.slice(-8,-1).reduce((a,d)=>a+(d.count||0),0) + todayVisitors;
+    // Last 30 days
+    const last30 = totalVisitors;
+    
+    // Page stats
+    const hits = await gcFetch('/stats/hits?limit=20');
+    let topPages = (hits.hits||[]).map(h=>({page:h.path, views:h.count, title:h.title}));
+    
+    // Locations
+    const locs = await gcFetch('/stats/locations');
+    let countries = (locs.stats||[]).map(l=>({id:l.id, name:l.name, count:l.count}));
+    
+    // Update ranges
+    ranges.today.visitors = todayVisitors;
+    ranges.today.pageviews = todayVisitors;
+    ranges['7d'].visitors = last7;
+    ranges['7d'].pageviews = last7;
+    ranges['30d'].visitors = last30;
+    ranges['30d'].pageviews = last30;
+    ranges['90d'].visitors = last30;
+    ranges['90d'].pageviews = last30;
+    ranges.all.visitors = totalVisitors;
+    ranges.all.pageviews = totalVisitors;
+    
+    // Update top pages
+    topPages.forEach((p,i) => {
+      if(i < 8) liveTopPages[i] = { page:p.page, views:p.views, bounce:'—' };
+    });
+    
+    // Update countries
+    const flags = {'HT':'🇭🇹','US':'🇺🇸','FR':'🇫🇷','CA':'🇨🇦','MX':'🇲🇽','GB':'🇬🇧','CO':'🇨🇴','BR':'🇧🇷','DE':'🇩🇪','ES':'🇪🇸','DO':'🇩🇴','JM':'🇯🇲','IN':'🇮🇳','NG':'🇳🇬','SN':'🇸🇳'};
+    countries.forEach((c,i) => {
+      if(i < 8){
+        const total = countries.reduce((a,x)=>a+x.count,0);
+        const pct = total>0 ? Math.round(c.count/total*100)+'%' : '—';
+        liveGeoData[i] = { flag:flags[c.id]||'🌍', country:c.name, pct:pct };
+      }
+    });
+    
+    // Update daily chart data
+    liveChartLabels = dailyData.slice(-10).map(d=>d.day.slice(5));
+    liveChartData = dailyData.slice(-10).map(d=>d.count);
+    
+    // Update feed
+    liveFeed = [
+      { dot:'var(--cyan)', text:'<strong>'+totalVisitors+'</strong> total visitors tracked', time:'live' },
+      { dot:'var(--cyan)', text:'<strong>'+todayVisitors+'</strong> visitors today', time:'live' },
+      { dot:'var(--cyan)', text:'<strong>'+topPages.length+'</strong> pages visited', time:'live' },
+      { dot:'var(--cyan)', text:'<strong>'+countries.length+'</strong> countries reached', time:'live' },
+    ];
+    if(countries.length>0) liveFeed.push({ dot:'var(--green)', text:'Top country: <strong>'+countries[0].name+'</strong> ('+countries[0].count+' visitors)', time:'live' });
+    
+  }catch(e){
+    console.error('GoatCounter API error:', e);
+    liveFeed = [{ dot:'var(--red)', text:'Failed to load analytics: '+e.message, time:'now' }];
+  }
+}
+
 const ranges = {
   today: { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
   '7d': { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
@@ -805,6 +885,23 @@ const ranges = {
   '90d': { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
   all: { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
 };
+
+let liveTopPages = [
+  { page:'/', views:0, bounce:'—' },
+  { page:'/blog/best-vpns-2026/', views:0, bounce:'—' },
+  { page:'/tools/vpn-quiz/', views:0, bounce:'—' },
+  { page:'/es/', views:0, bounce:'—' },
+  { page:'/fr/', views:0, bounce:'—' },
+];
+let liveGeoData = [
+  { flag:'🇭🇹', country:'Haiti', pct:'—' },
+  { flag:'🇺🇸', country:'United States', pct:'—' },
+];
+let liveChartLabels = [];
+let liveChartData = [];
+let liveFeed = [
+  { dot:'var(--cyan)', text:'Loading live data...', time:'now' },
+];
 
 const revSources = [
   { name:'NordVPN', icon:'🦁', clicks:0, convs:0, rev:0, status:'pending', color:'#e33b5e' },
@@ -839,8 +936,9 @@ const feed = [
 
 let mainChartInstance, pieChartInstance;
 
-function initDashboard(){
+async function initDashboard(){
   setLang(currentLang);
+  await loadLiveStats();
   updateStats('today');
   renderRevTable();
   renderPagesTable();
@@ -849,6 +947,8 @@ function initDashboard(){
   renderFeed();
   renderMainChart();
   renderPieChart();
+  // Refresh every 60 seconds
+  setInterval(async()=>{ await loadLiveStats(); updateStats(document.querySelector('.dr-btn.active')?.getAttribute('data-t')==='today'?'today':'all'); renderPagesTable(); renderGeo(); renderFeed(); },60000);
 }
 
 function setRange(btn, range){
@@ -914,17 +1014,17 @@ function renderRevTable(){
 
 function renderPagesTable(){
   const tbody = document.getElementById('pagesTableBody');
-  tbody.innerHTML = topPages.map(p => `
+  tbody.innerHTML = liveTopPages.filter(p=>p.views>0||liveTopPages.indexOf(p)<5).map(p => `
     <tr>
       <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);">${p.page}</td>
       <td style="font-family:'JetBrains Mono',monospace;">${p.views.toLocaleString()}</td>
-      <td style="font-family:'JetBrains Mono',monospace;color:${parseInt(p.bounce)>45?'var(--amber)':'var(--green)'};">${p.bounce}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--t2);">${p.bounce}</td>
     </tr>
   `).join('');
 }
 
 function renderGeo(){
-  document.getElementById('geoList').innerHTML = geoData.map(g => `
+  document.getElementById('geoList').innerHTML = liveGeoData.map(g => `
     <div class="geo-item">
       <div><span class="geo-flag">${g.flag}</span><span class="geo-country">${g.country}</span></div>
       <span class="geo-pct">${g.pct}</span>
@@ -955,7 +1055,7 @@ function renderGoals(){
 }
 
 function renderFeed(){
-  document.getElementById('feedSection').innerHTML = feed.map(f => `
+  document.getElementById('feedSection').innerHTML = liveFeed.map(f => `
     <div class="feed-item">
       <div class="feed-dot" style="background:${f.dot};"></div>
       <div class="feed-text">${f.text}</div>
@@ -966,9 +1066,9 @@ function renderFeed(){
 
 function renderMainChart(){
   const ctx = document.getElementById('mainChart').getContext('2d');
-  const labels = ['Mar 3','Mar 7','Mar 12','Mar 16','Mar 20','Mar 25','Mar 29','Apr 2','Apr 6','Apr 10','Apr 12'];
-  const visitors = [0,0,0,0,0,0,0,0,0,0,0];
-  const revenue = [0,0,0,0,0,0,0,0,0,0,0];
+  const labels = liveChartLabels.length > 0 ? liveChartLabels : ['—'];
+  const visitors = liveChartData.length > 0 ? liveChartData : [0];
+  const revenue = visitors.map(()=>0);
   
   if(mainChartInstance) mainChartInstance.destroy();
   mainChartInstance = new Chart(ctx, {
