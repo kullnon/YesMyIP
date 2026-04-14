@@ -174,22 +174,31 @@ function doLogin(){
   var p = document.getElementById('passInput').value;
   var err = document.getElementById('loginError');
   if(!u||!p){ err.textContent='Enter username and password'; err.style.display='block'; return; }
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/login', false);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.send(JSON.stringify({username:u,password:p}));
   try{
-    var users = JSON.parse(atob('W3sidXNlcm5hbWUiOiJhbmR5IiwicGFzc3dvcmQiOiJAQWxpaWRMJSQjMSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJBbmR5In0seyJ1c2VybmFtZSI6ImplYW4iLCJwYXNzd29yZCI6IkBDaGVydWIxIiwicm9sZSI6InZpZXdlciIsIm5hbWUiOiJKZWFuIENoZXJ1YmluIn1d'));
-    var found = null;
-    for(var i=0;i<users.length;i++){
-      if(users[i].username.toLowerCase()===u && users[i].password===p){ found=users[i]; break; }
-    }
-    if(found){
-      sessionStorage.setItem('ymip_auth', JSON.stringify(found));
+    var data = JSON.parse(xhr.responseText);
+    if(xhr.status===200 && data.token){
+      sessionStorage.setItem('ymip_auth', JSON.stringify(data.user));
+      sessionStorage.setItem('ymip_token', data.token);
       location.reload();
       return;
     }
-  }catch(e){}
-  err.textContent='Invalid credentials';
+    if(data.locked){
+      err.textContent='Account locked. Try again in 15 minutes.';
+    } else if(data.remaining !== undefined){
+      err.textContent='Invalid credentials ('+data.remaining+' attempts left)';
+    } else {
+      err.textContent=data.error||'Invalid credentials';
+    }
+  }catch(e){
+    err.textContent='Connection error';
+  }
   err.style.display='block';
   document.getElementById('passInput').value='';
-  setTimeout(function(){err.style.display='none';},3000);
+  setTimeout(function(){err.style.display='none';},4000);
 }
 
 document.getElementById('loginBtn').onclick = doLogin;
@@ -527,17 +536,13 @@ document.getElementById('userInput').onkeydown = function(e){ if(e.key==='Enter'
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-// MULTI-USER AUTH SYSTEM
-// Users encoded to prevent plain text exposure
-const _u = 'W3sidXNlcm5hbWUiOiJhbmR5IiwicGFzc3dvcmQiOiJAQWxpaWRMJSQjMSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJBbmR5In0seyJ1c2VybmFtZSI6ImplYW4iLCJwYXNzd29yZCI6IkBDaGVydWIxIiwicm9sZSI6InZpZXdlciIsIm5hbWUiOiJKZWFuIENoZXJ1YmluIn1d';
+// MULTI-USER AUTH SYSTEM — server-side via /api/login
 let allUsers = [];
 
 async function loadUsers(){
-  try{
-    allUsers = JSON.parse(atob(_u));
-  }catch(e){
-    allUsers = [];
-  }
+  // Users are now authenticated server-side
+  // This function kept for settings panel compatibility
+  allUsers = [];
 }
 function getUsers(){ return allUsers; }
 function saveUsers(users){
@@ -792,11 +797,10 @@ function updateClock(){
 setInterval(updateClock,1000);
 updateClock();
 
-// GOATCOUNTER API
-const GC_TOKEN = '1wjeluv2hg97jls31ztzix2p2ky0yv472iokx9v3nel42ewrn';
-const GC_URL = 'https://yesmyip.goatcounter.com/api/v0';
-async function gcFetch(endpoint){
-  const r = await fetch(GC_URL+endpoint, {headers:{'Authorization':'Bearer '+GC_TOKEN,'Content-Type':'application/json'}});
+// ANALYTICS via server-side proxy (token never exposed to browser)
+async function gcFetch(){
+  const token = sessionStorage.getItem('ymip_token');
+  const r = await fetch('/api/stats', {headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}});
   return r.json();
 }
 
@@ -804,8 +808,11 @@ let liveData = { visitors:0, pageviews:0, topPages:[], countries:[], daily:[] };
 
 async function loadLiveStats(){
   try{
-    // Total stats
-    const total = await gcFetch('/stats/total');
+    const data = await gcFetch();
+    const total = data.total || {};
+    const hits = data.hits || {};
+    const locs = data.locations || {};
+    
     let totalVisitors = total.total || 0;
     let dailyData = (total.stats||[]).map(d=>({day:d.day, count:d.daily||0}));
     
@@ -826,12 +833,10 @@ async function loadLiveStats(){
     const last30 = totalVisitors;
     
     // Page stats
-    const hits = await gcFetch('/stats/hits?limit=20');
-    let topPages = (hits.hits||[]).map(h=>({page:h.path, views:h.count, title:h.title}));
+    let topPages = ((hits.hits)||[]).map(h=>({page:h.path, views:h.count, title:h.title}));
     
     // Locations
-    const locs = await gcFetch('/stats/locations');
-    let countries = (locs.stats||[]).map(l=>({id:l.id, name:l.name, count:l.count}));
+    let countries = ((locs.stats)||[]).map(l=>({id:l.id, name:l.name, count:l.count}));
     
     // Update ranges
     ranges.today.visitors = todayVisitors;
