@@ -800,7 +800,7 @@ updateClock();
 // ANALYTICS via server-side proxy (token never exposed to browser)
 async function gcFetch(){
   const token = sessionStorage.getItem('ymip_token');
-  const r = await fetch('/api/stats', {headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}});
+  const r = await fetch('/api/stats/', {headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}});
   return r.json();
 }
 
