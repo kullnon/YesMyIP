@@ -814,39 +814,27 @@ async function loadLiveStats(){
     const locs = data.locations || {};
     
     let totalVisitors = total.total || 0;
+    let todayVisitors = total.today || 0;
+    let last7 = total.last7 || 0;
+    let last30 = total.last30 || 0;
+    let last90 = total.last90 || 0;
     let dailyData = (total.stats||[]).map(d=>({day:d.day, count:d.daily||0}));
     
-    // Today's count — use local date, not UTC
-    const now = new Date();
-    const today = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
-    let todayStats = dailyData.find(d=>d.day===today);
-    // If not found, try yesterday (GoatCounter might lag) or take the last day with data
-    if(!todayStats || todayStats.count===0){
-      const lastWithData = dailyData.filter(d=>d.count>0).pop();
-      if(lastWithData) todayStats = lastWithData;
-    }
-    const todayVisitors = todayStats ? todayStats.count : 0;
-    
-    // Last 7 days
-    const last7 = dailyData.slice(-8,-1).reduce((a,d)=>a+(d.count||0),0) + todayVisitors;
-    // Last 30 days
-    const last30 = totalVisitors;
-    
     // Page stats
-    let topPages = ((hits.hits)||[]).map(h=>({page:h.path, views:h.count, title:h.title}));
+    let topPages = ((hits.hits)||[]).map(h=>({page:h.path, views:h.count}));
     
     // Locations
     let countries = ((locs.stats)||[]).map(l=>({id:l.id, name:l.name, count:l.count}));
     
-    // Update ranges
+    // Update ranges with true numbers
     ranges.today.visitors = todayVisitors;
     ranges.today.pageviews = todayVisitors;
     ranges['7d'].visitors = last7;
     ranges['7d'].pageviews = last7;
     ranges['30d'].visitors = last30;
     ranges['30d'].pageviews = last30;
-    ranges['90d'].visitors = last30;
-    ranges['90d'].pageviews = last30;
+    ranges['90d'].visitors = last90;
+    ranges['90d'].pageviews = last90;
     ranges.all.visitors = totalVisitors;
     ranges.all.pageviews = totalVisitors;
     
@@ -960,48 +948,37 @@ async function initDashboard(){
 function setRange(btn, range){
   document.querySelectorAll('.dr-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+  currentRange = range;
   updateStats(range);
 }
 
-function animateValue(el, target, prefix='', suffix=''){
-  const start = 0;
-  const duration = 800;
-  const startTime = performance.now();
+var currentRange = 'today';
+
+function animateValue(el, target, prefix, suffix){
+  prefix=prefix||''; suffix=suffix||'';
+  var start=0, duration=800, startTime=performance.now();
   function update(now){
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed/duration, 1);
-    const eased = 1 - Math.pow(1-progress, 3);
-    const current = Math.round(start + (target-start)*eased);
-    el.textContent = prefix + current.toLocaleString() + suffix;
-    if(progress < 1) requestAnimationFrame(update);
+    var elapsed=now-startTime, progress=Math.min(elapsed/duration,1);
+    var eased=1-Math.pow(1-progress,3);
+    el.textContent=prefix+Math.round(start+(target-start)*eased).toLocaleString()+suffix;
+    if(progress<1) requestAnimationFrame(update);
   }
   requestAnimationFrame(update);
 }
 
 function updateStats(range){
   const d = ranges[range];
+  const rangeLabels = {today:'today','7d':'7 days','30d':'30 days','90d':'90 days',all:'all time'};
+  const label = rangeLabels[range] || range;
   animateValue(document.getElementById('sVisitors'), d.visitors);
   document.getElementById('sRevenue').textContent = '$'+d.revenue.toFixed(2);
   animateValue(document.getElementById('sPageviews'), d.pageviews);
   animateValue(document.getElementById('sClicks'), d.clicks);
   document.getElementById('sConv').textContent = d.conv+'%';
   
-  const fields = ['Visitors','Revenue','Pageviews','Clicks','Conv'];
-  const chgKeys = ['vChg','rChg','pChg','cChg','cvChg'];
-  fields.forEach((f,i) => {
-    const el = document.getElementById('s'+f+'Chg');
-    const val = d[chgKeys[i]];
-    if(val > 0){
-      el.className = 'stat-change stat-up';
-      el.textContent = '↑ '+val+'%';
-    } else if(val < 0){
-      el.className = 'stat-change stat-down';
-      el.textContent = '↓ '+Math.abs(val)+'%';
-    } else {
-      el.className = 'stat-change';
-      el.textContent = '— all time';
-      el.style.color = 'var(--t3)';
-    }
+  document.querySelectorAll('.stat-change').forEach(el => {
+    el.textContent = '— '+label;
+    el.style.color = 'var(--t3)';
   });
 }
 
