@@ -1,6 +1,6 @@
 {
-  "name": "¿Cuál Es Mi IP?",
-  "short_name": "QualesMiIP",
+  "name": "YesMyIP",
+  "short_name": "YesMyIP",
   "description": "Verificador de IP gratis, herramientas de privacidad y reseñas de VPN",
   "start_url": "/",
   "display": "standalone",

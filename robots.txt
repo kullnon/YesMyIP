@@ -1,4 +1,4 @@
-# robots.txt — qualesmiip.com
+# robots.txt — yesmyip.com
 User-agent: *
 Allow: /
 
@@ -23,4 +23,4 @@ Disallow: /
 User-agent: CCBot
 Disallow: /
 
-Sitemap: https://qualesmiip.com/sitemap.xml
+Sitemap: https://yesmyip.com/sitemap.xml
