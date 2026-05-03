@@ -2,6 +2,17 @@
   "cleanUrls": true,
   "trailingSlash": true,
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?xn--culesmiip-11a\\.com"
+        }
+      ],
+      "destination": "https://yesmyip.com/es/:path*",
+      "permanent": true
+    },
     { "source": "/admin/users.json", "destination": "/", "statusCode": 404 }
   ],
   "headers": [
