@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <script>(function(){var d=document.documentElement;var t;try{t=localStorage.getItem('ymi-theme');}catch(e){}d.dataset.theme=(t==='dark')?'dark':'light';window.toggleTheme=function(){var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('ymi-theme',n);}catch(e){}var b=document.getElementById('themeToggle');if(b){b.setAttribute('aria-pressed',n==='dark');}};}());</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Is My VPN Working? How to Test Your VPN in 2026 | YesMyIP.com</title>
-<meta name="description" content="Not sure if your VPN is actually protecting you? Here's how to test if your VPN is working properly and fix common issues.">
+<title>Is My VPN Working? Free VPN & IP Leak Test (2026) | YesMyIP.com</title>
+<meta name="description" content="Free VPN test tool — instantly see the IP, city and ISP that websites detect for you, run a WebRTC leak check, and find out if your VPN is actually working.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://yesmyip.com/blog/is-my-vpn-working/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://yesmyip.com/blog/is-my-vpn-working/">
-<meta property="og:title" content="Is My VPN Working? How to Test Your VPN in 2026">
-<meta property="og:description" content="Not sure if your VPN is actually protecting you? Here's how to test if your VPN is working properly and fix common issues.">
+<meta property="og:title" content="Is My VPN Working? Free VPN & IP Leak Test (2026)">
+<meta property="og:description" content="Free VPN test tool — instantly see the IP, city and ISP that websites detect for you, run a WebRTC leak check, and find out if your VPN is actually working.">
 <link rel="icon" href="/assets/logo.png" type="image/png">
 <style>
 :root{--bg:#f4f6fb;--s1:#ffffff;--s2:#eef1f7;--s3:#e3e8f1;--border:rgba(15,23,42,.10);--border2:rgba(15,23,42,.16);--cyan:#0277a8;--cd:rgba(2,119,168,.10);--green:#0a8f4f;--gd:rgba(10,143,79,.10);--red:#dc2640;--rd:rgba(220,38,64,.10);--orange:#c2700a;--od:rgba(194,112,10,.12);--purple:#6741d9;--pd:rgba(103,65,217,.12);--amber:#b06f00;--text:#16202e;--t2:#55617a;--t3:#6c7689;--danger-text:#c01530;--warn-text:#b45309;--ok-text:#0a8f4f;--nav-bg:rgba(255,255,255,.92);--overlay-bg:rgba(255,255,255,.97);--r:16px;--rsm:10px;color-scheme:light;}[data-theme="dark"]{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--s3:#141d2e;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--cd:rgba(0,212,255,.1);--green:#00e676;--red:#ff4757;--orange:#ff9f43;--purple:#845ef7;--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;--rsm:10px;--danger-text:#ff8a95;--warn-text:#ffd082;--ok-text:#69f0ae;--nav-bg:rgba(7,9,15,.95);--overlay-bg:rgba(10,14,26,.97);color-scheme:dark;}.theme-toggle{background:none;border:1px solid var(--border);color:var(--text);width:34px;height:30px;border-radius:16px;cursor:pointer;font-size:15px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;padding:0;}.theme-toggle:hover{background:var(--s2);border-color:var(--border2);}.theme-toggle .ti-moon{display:none;}.theme-toggle .ti-sun{display:inline;}[data-theme="dark"] .theme-toggle .ti-sun{display:none;}[data-theme="dark"] .theme-toggle .ti-moon{display:inline;}
@@ -50,6 +50,31 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color
 .footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--t3);}
 .footer-legal{display:flex;gap:14px;flex-wrap:wrap;}.footer-legal a{color:var(--t3);text-decoration:none;font-size:12px;}.footer-legal a:hover{color:var(--cyan);}
 @media(max-width:600px){.footer-grid{grid-template-columns:1fr;}}
+.vt-tool{background:var(--s1);border:1px solid var(--border);border-radius:var(--r,16px);padding:24px;margin:0 0 32px;}
+.vt-title{font-size:21px;font-weight:800;color:var(--text);margin:10px 0 4px;}
+.vt-sub{font-size:13px;color:var(--t2);margin:0;}
+.vt-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--t2);background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px 10px;}
+.vt-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);display:inline-block;}
+.vt-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--rsm,10px);padding:16px;margin:16px 0 14px;}
+.vt-card-label{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--t3);margin-bottom:6px;}
+.vt-ip{font-family:monospace;font-size:23px;font-weight:700;color:var(--text);word-break:break-all;line-height:1.25;}
+.vt-meta{font-size:13px;color:var(--t2);margin-top:5px;}
+.vt-verdict{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--border);border-radius:var(--rsm,10px);padding:14px 16px;margin-bottom:14px;background:var(--s2);}
+.vt-v-icon{font-size:20px;line-height:1.3;flex-shrink:0;}
+.vt-v-title{font-weight:700;font-size:15px;color:var(--text);margin-bottom:2px;}
+.vt-v-desc{font-size:13px;color:var(--t2);}
+.vt-rtc{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--t2);border:1px solid var(--border);border-radius:var(--rsm,10px);padding:11px 14px;margin-bottom:14px;background:var(--s2);}
+.vt-rtc-icon{font-size:15px;flex-shrink:0;}
+.vt-ok{background:var(--gd,rgba(10,143,79,.12));border-color:rgba(10,143,79,.35);}
+.vt-ok .vt-v-title{color:var(--ok-text);}
+.vt-rtc.vt-ok{color:var(--ok-text);}
+.vt-warn{background:var(--rd,rgba(220,38,64,.10));border-color:rgba(220,38,64,.32);}
+.vt-warn .vt-v-title{color:var(--danger-text);}
+.vt-rtc.vt-warn{color:var(--danger-text);}
+.vt-cta{background:linear-gradient(135deg,#120a28,#091b30);border:1px solid rgba(123,94,167,.3);border-radius:var(--rsm,10px);padding:18px;margin-bottom:14px;text-align:center;}
+.vt-cta-text{color:#fff;font-weight:600;font-size:14px;margin-bottom:12px;}
+.vt-cta-btn{display:inline-block;background:var(--cyan);color:#000;font-weight:800;font-size:14px;padding:12px 26px;border-radius:10px;text-decoration:none;}
+.vt-note{font-size:12px;color:var(--t3);line-height:1.6;margin:0;}
 </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6610691391899378" crossorigin="anonymous"></script>
 </head>
@@ -86,7 +111,7 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color
   </div>
   <div class="article-main">
   <div class="breadcrumb"><a href="/">Home</a> → <a href="/blog/">Blog</a> → Is My VPN Working?</div>
-  <h1>Is My VPN Working?</h1>
+  <h1>Is My VPN Working? Free VPN &amp; IP Leak Test (2026)</h1>
   <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:16px;background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:12px;">
     <img src="/assets/authors/daniel-reeves.jpg" alt="Daniel Reeves" style="width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;">
     <div>
@@ -96,6 +121,33 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color
     </div>
   </div>
   
+  <section class="vt-tool" aria-label="VPN and IP leak test">
+    <span class="vt-badge" id="vtBadge"><span class="vt-dot"></span> Running test…</span>
+    <h2 class="vt-title">VPN &amp; IP Leak Test</h2>
+    <p class="vt-sub">This shows what websites and your ISP can currently see about your connection.</p>
+    <div class="vt-card">
+      <div class="vt-card-label">What websites currently see</div>
+      <div class="vt-ip" id="vtIp">Detecting…</div>
+      <div class="vt-meta" id="vtMeta">—</div>
+    </div>
+    <div class="vt-verdict" id="vtVerdict">
+      <span class="vt-v-icon" id="vtVIcon">⏳</span>
+      <div>
+        <div class="vt-v-title" id="vtVTitle">Checking your connection…</div>
+        <div class="vt-v-desc" id="vtVDesc">Fetching your public IP and network details.</div>
+      </div>
+    </div>
+    <div class="vt-rtc" id="vtRtc">
+      <span class="vt-rtc-icon" id="vtRtcIcon">⏳</span>
+      <span id="vtRtcText">Checking for WebRTC leaks…</span>
+    </div>
+    <div class="vt-cta" id="vtCta" hidden>
+      <div class="vt-cta-text">Your connection isn't protected — your real location and ISP are visible.</div>
+      <a class="vt-cta-btn" href="https://nordvpn.com" target="_blank" rel="sponsored nofollow noopener">Get NordVPN →</a>
+    </div>
+    <p class="vt-note">This test reflects what the internet sees right now. If you expect a VPN to be active but it shows your home city and ISP, your VPN isn't working.</p>
+  </section>
+
         <p>You've connected your VPN and see the green icon — but is it actually working? VPN leaks are more common than you think, and they can expose your real IP address, location, and browsing activity even when you think you're protected.</p>
 
         <h2>Quick VPN Test (30 Seconds)</h2>
@@ -170,6 +222,75 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color
     </div>
   </div>
 </footer>
+<script>
+(function(){
+  var L={LIVE:"Live result",IPFAIL:"Unable to detect",
+    VYES:["VPN detected — your real location appears hidden","Websites see a VPN or datacenter IP, not a residential ISP. Your real location and ISP appear hidden."],
+    VNO:["No VPN detected — sites can see your real location/ISP","Your connection looks like a regular residential ISP. If you expect a VPN to be on, it isn't working."],
+    VERR:["Couldn't detect your connection","We couldn't reach the IP service. Check your connection and reload the page."],
+    RLEAK:"WebRTC leak detected — a public IP is exposed via WebRTC",RCLEAN:"No WebRTC leak detected",RNA:"WebRTC not available in this browser"};
+  function $(id){return document.getElementById(id);}
+  var DC=/(vpn|proxy|hosting|datacenter|data ?center|colo|colocation|cloud|server|m247|datacamp|leaseweb|ovh|digitalocean|linode|akamai|cloudflare|amazon|aws|google llc|microsoft|azure|oracle|vultr|choopa|hetzner|contabo|scaleway|nord|express ?vpn|surfshark|cyberghost|mullvad|private internet|protonvpn|tunnel|gcore|g-core|fastly|quadranet|psychz|frantech|zenlayer|packethub|tefincom|limelight|cdn77)/i;
+  var apiIp=null,rtcDone=false,rtcIps=[];
+  function getJSON(u){return fetch(u,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(j&&j.error)throw 0;return j;});}
+  function normalize(d){
+    if(!d)return null;
+    if(d.connection&&d.ip)return{ip:d.ip,city:d.city||'',country:d.country||'',org:d.connection.isp||d.connection.org||''};
+    if(d.ip&&(d.country_name!==undefined||d.org!==undefined||d.asn!==undefined))return{ip:d.ip,city:d.city||'',country:d.country_name||d.country||'',org:(d.org||'').replace(/^AS\d+\s*/,'')};
+    if(d.ip)return{ip:d.ip,city:d.city||'',country:d.country||'',org:(d.org||'').replace(/^AS\d+\s*/,'')};
+    return null;
+  }
+  function loadIP(){return getJSON('https://ipapi.co/json/').catch(function(){return getJSON('https://ipwho.is/');}).catch(function(){return getJSON('https://ipinfo.io/json');}).then(normalize);}
+  function setVerdict(state){
+    var v=$('vtVerdict');v.classList.remove('vt-ok','vt-warn');
+    var b=$('vtBadge');if(b)b.innerHTML='<span class="vt-dot"></span> '+L.LIVE;
+    if(state==='yes'){v.classList.add('vt-ok');$('vtVIcon').textContent='🟢';$('vtVTitle').textContent=L.VYES[0];$('vtVDesc').textContent=L.VYES[1];}
+    else if(state==='no'){v.classList.add('vt-warn');$('vtVIcon').textContent='🟠';$('vtVTitle').textContent=L.VNO[0];$('vtVDesc').textContent=L.VNO[1];$('vtCta').hidden=false;}
+    else{v.classList.add('vt-warn');$('vtVIcon').textContent='⚠️';$('vtVTitle').textContent=L.VERR[0];$('vtVDesc').textContent=L.VERR[1];}
+  }
+  function showIP(info){
+    if(!info){$('vtIp').textContent=L.IPFAIL;$('vtMeta').textContent='—';setVerdict('err');if(rtcDone)evalRtc();return;}
+    apiIp=info.ip;$('vtIp').textContent=info.ip;
+    var loc=[info.city,info.country].filter(Boolean).join(', ');
+    $('vtMeta').textContent=[loc,info.org].filter(Boolean).join('  ·  ')||'—';
+    setVerdict(DC.test(info.org||'')?'yes':'no');
+    if(rtcDone)evalRtc();
+  }
+  function isPublic(ip){
+    if(ip.indexOf(':')>-1){var l=ip.toLowerCase();return!(l==='::1'||l.indexOf('fe80')===0||l.indexOf('fc')===0||l.indexOf('fd')===0);}
+    var p=ip.split('.').map(Number);
+    if(p[0]===10||p[0]===127||p[0]===0)return false;
+    if(p[0]===192&&p[1]===168)return false;
+    if(p[0]===172&&p[1]>=16&&p[1]<=31)return false;
+    if(p[0]===169&&p[1]===254)return false;
+    if(p[0]===100&&p[1]>=64&&p[1]<=127)return false;
+    return true;
+  }
+  function evalRtc(){
+    var r=$('vtRtc');r.classList.remove('vt-ok','vt-warn');
+    var leaks=rtcIps.filter(function(ip){return apiIp?ip!==apiIp:false;});
+    if(leaks.length){r.classList.add('vt-warn');$('vtRtcIcon').textContent='⚠️';$('vtRtcText').textContent=L.RLEAK+': '+leaks.join(', ');$('vtCta').hidden=false;}
+    else{r.classList.add('vt-ok');$('vtRtcIcon').textContent='✅';$('vtRtcText').textContent=L.RCLEAN;}
+  }
+  function checkRTC(){
+    var RTC=window.RTCPeerConnection||window.webkitRTCPeerConnection||window.mozRTCPeerConnection;
+    if(!RTC){$('vtRtcIcon').textContent='—';$('vtRtcText').textContent=L.RNA;return;}
+    try{
+      var pc=new RTC({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+      pc.createDataChannel('');
+      pc.onicecandidate=function(e){
+        if(!e||!e.candidate||!e.candidate.candidate)return;
+        var m=e.candidate.candidate.match(/([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|([a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/i);
+        if(m&&isPublic(m[0])&&rtcIps.indexOf(m[0])<0)rtcIps.push(m[0]);
+      };
+      pc.createOffer().then(function(o){return pc.setLocalDescription(o);}).catch(function(){});
+      setTimeout(function(){try{pc.close();}catch(e){}rtcDone=true;evalRtc();},3000);
+    }catch(e){$('vtRtcIcon').textContent='—';$('vtRtcText').textContent=L.RNA;}
+  }
+  loadIP().then(showIP).catch(function(){showIP(null);});
+  checkRTC();
+})();
+</script>
 <script data-goatcounter="https://yesmyip.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
