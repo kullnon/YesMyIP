@@ -196,10 +196,10 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}
     VYES:["VPN détecté — votre localisation réelle semble masquée","Les sites web voient une IP de VPN ou de centre de données, pas celle d'un FAI résidentiel. Votre localisation et votre FAI réels semblent masqués."],
     VNO:["Aucun VPN détecté — les sites voient votre localisation et votre FAI réels","Votre connexion ressemble à celle d'un FAI résidentiel normal. Si vous pensiez avoir un VPN actif, il ne fonctionne pas."],
     VERR:["Impossible de détecter votre connexion","Impossible de joindre le service d'IP. Vérifiez votre connexion et rechargez la page."],
-    RLEAK:"Fuite WebRTC détectée — une IP publique est exposée via WebRTC",RCLEAN:"Aucune fuite WebRTC",RNA:"WebRTC non disponible dans ce navigateur"};
+    RLEAK:"Fuite WebRTC détectée — votre VPN expose une IP publique différente via WebRTC",RCLEAN:"Aucune fuite WebRTC",RNOVPN:"Votre IP est visible via WebRTC — normal lorsque vous n'utilisez pas de VPN.",RNA:"WebRTC non disponible dans ce navigateur"};
   function $(id){return document.getElementById(id);}
   var DC=/(vpn|proxy|hosting|datacenter|data ?center|colo|colocation|cloud|server|m247|datacamp|leaseweb|ovh|digitalocean|linode|akamai|cloudflare|amazon|aws|google llc|microsoft|azure|oracle|vultr|choopa|hetzner|contabo|scaleway|nord|express ?vpn|surfshark|cyberghost|mullvad|private internet|protonvpn|tunnel|gcore|g-core|fastly|quadranet|psychz|frantech|zenlayer|packethub|tefincom|limelight|cdn77)/i;
-  var apiIp=null,rtcDone=false,rtcIps=[];
+  var apiIp=null,vpnDetected=false,rtcDone=false,rtcIps=[];
   function getJSON(u){return fetch(u,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(j&&j.error)throw 0;return j;});}
   function normalize(d){
     if(!d)return null;
@@ -221,7 +221,7 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}
     apiIp=info.ip;$('vtIp').textContent=info.ip;
     var loc=[info.city,info.country].filter(Boolean).join(', ');
     $('vtMeta').textContent=[loc,info.org].filter(Boolean).join('  ·  ')||'—';
-    setVerdict(DC.test(info.org||'')?'yes':'no');
+    vpnDetected=DC.test(info.org||'');setVerdict(vpnDetected?'yes':'no');
     if(rtcDone)evalRtc();
   }
   function isPublic(ip){
@@ -236,8 +236,10 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}
   }
   function evalRtc(){
     var r=$('vtRtc');r.classList.remove('vt-ok','vt-warn');
-    var leaks=rtcIps.filter(function(ip){return apiIp?ip!==apiIp:false;});
-    if(leaks.length){r.classList.add('vt-warn');$('vtRtcIcon').textContent='⚠️';$('vtRtcText').textContent=L.RLEAK+': '+leaks.join(', ');$('vtCta').hidden=false;}
+    function fam(ip){return ip.indexOf(':')>-1?6:4;}
+    var leaks=apiIp?rtcIps.filter(function(ip){return fam(ip)===fam(apiIp)&&ip!==apiIp;}):[];
+    if(vpnDetected&&leaks.length){r.classList.add('vt-warn');$('vtRtcIcon').textContent='⚠️';$('vtRtcText').textContent=L.RLEAK+': '+leaks.join(', ');$('vtCta').hidden=false;}
+    else if(!vpnDetected&&rtcIps.length){$('vtRtcIcon').textContent='🌐';$('vtRtcText').textContent=L.RNOVPN;}
     else{r.classList.add('vt-ok');$('vtRtcIcon').textContent='✅';$('vtRtcText').textContent=L.RCLEAN;}
   }
   function checkRTC(){
