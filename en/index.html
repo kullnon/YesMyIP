@@ -2,6 +2,7 @@
 <html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
+<script>(function(){var d=document.documentElement;var t;try{t=localStorage.getItem('ymi-theme');}catch(e){}d.dataset.theme=(t==='dark')?'dark':'light';window.toggleTheme=function(){var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('ymi-theme',n);}catch(e){}var b=document.getElementById('themeToggle');if(b){b.setAttribute('aria-pressed',n==='dark');}};}());</script>
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>What Is My IP Address? Free IP Checker | YesMyIP.com</title>
@@ -27,10 +28,10 @@
 <link rel="manifest" href="/manifest.json">
 <style>
 /* Same CSS as Spanish — copy from index.html styles */
-:root{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--s3:#141d2e;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--cd:rgba(0,212,255,.1);--green:#00e676;--gd:rgba(0,230,118,.1);--red:#ff4757;--rd:rgba(255,71,87,.1);--orange:#ff9f43;--od:rgba(255,159,67,.1);--purple:#845ef7;--pd:rgba(132,94,247,.12);--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;--rsm:10px;}
+:root{--bg:#f4f6fb;--s1:#ffffff;--s2:#eef1f7;--s3:#e3e8f1;--border:rgba(15,23,42,.10);--border2:rgba(15,23,42,.16);--cyan:#0277a8;--cd:rgba(2,119,168,.10);--green:#0a8f4f;--gd:rgba(10,143,79,.10);--red:#dc2640;--rd:rgba(220,38,64,.10);--orange:#c2700a;--od:rgba(194,112,10,.12);--purple:#6741d9;--pd:rgba(103,65,217,.12);--amber:#b06f00;--text:#16202e;--t2:#55617a;--t3:#6c7689;--danger-text:#c01530;--warn-text:#b45309;--ok-text:#0a8f4f;--nav-bg:rgba(255,255,255,.92);--overlay-bg:rgba(255,255,255,.97);--r:16px;--rsm:10px;color-scheme:light;}[data-theme="dark"]{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--s3:#141d2e;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--cd:rgba(0,212,255,.1);--green:#00e676;--gd:rgba(0,230,118,.1);--red:#ff4757;--rd:rgba(255,71,87,.1);--orange:#ff9f43;--od:rgba(255,159,67,.1);--purple:#845ef7;--pd:rgba(132,94,247,.12);--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;--rsm:10px;--danger-text:#ff8a95;--warn-text:#ffd082;--ok-text:#69f0ae;--nav-bg:rgba(7,9,15,.95);--overlay-bg:rgba(10,14,26,.97);color-scheme:dark;}.theme-toggle{background:none;border:1px solid var(--border);color:var(--text);width:34px;height:30px;border-radius:16px;cursor:pointer;font-size:15px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;padding:0;}.theme-toggle:hover{background:var(--s2);border-color:var(--border2);}.theme-toggle .ti-moon{display:none;}.theme-toggle .ti-sun{display:inline;}[data-theme="dark"] .theme-toggle .ti-sun{display:none;}[data-theme="dark"] .theme-toggle .ti-moon{display:inline;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 [id]{scroll-margin-top:80px;}body{overflow-x:hidden;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
-nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
+nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
 .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--text);text-decoration:none;margin-right:12px;white-space:nowrap;}.logo span{color:var(--cyan);}
 .nav-link{background:none;border:none;color:var(--t2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;cursor:pointer;transition:all .18s;white-space:nowrap;}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.06);}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
@@ -54,7 +55,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filte
 .meta-box .mk{font-size:9px;text-transform:uppercase;letter-spacing:1.2px;color:var(--t3);font-weight:700;margin-bottom:3px;}.meta-box .mv{font-size:13px;font-weight:500;color:var(--text);}
 .alert{display:flex;align-items:center;gap:8px;background:var(--rd);border:1px solid rgba(255,71,87,.2);border-radius:10px;padding:10px 13px;margin-bottom:14px;}
 .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;animation:pd 2s infinite;}@keyframes pd{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
-.alert span{font-size:12px;color:#ff8a95;}
+.alert span{font-size:12px;color:var(--danger-text);}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:var(--rsm);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:none;transition:all .2s;text-decoration:none;width:100%;margin-bottom:8px;}
 .btn-cyan{background:var(--cyan);color:#000;}.btn-cyan:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,212,255,.3);}
 .btn-ghost{background:var(--s2);border:1px solid var(--border2);color:var(--text);}.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
@@ -97,9 +98,9 @@ nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filte
 .score-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px;}
 .ring-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:12px;position:relative;}.ring-wrap svg{transform:rotate(-90deg);}.ring-num{position:absolute;font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--red);}
 .ring-sub{text-align:center;font-size:11px;color:var(--t3);margin-bottom:12px;font-weight:700;letter-spacing:.5px;}
-.chk-list{display:flex;flex-direction:column;gap:6px;}.chk{display:flex;align-items:center;gap:8px;font-size:11px;padding:7px 10px;border-radius:8px;background:var(--s2);}.chk.fail{color:#ff8a95;}.chk.pass{color:#69f0ae;}.chk.warn{color:#ffd082;}.chk-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}.fail .chk-dot{background:var(--red);}.pass .chk-dot{background:var(--green);}.warn .chk-dot{background:var(--orange);}
+.chk-list{display:flex;flex-direction:column;gap:6px;}.chk{display:flex;align-items:center;gap:8px;font-size:11px;padding:7px 10px;border-radius:8px;background:var(--s2);}.chk.fail{color:var(--danger-text);}.chk.pass{color:var(--ok-text);}.chk.warn{color:var(--warn-text);}.chk-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}.fail .chk-dot{background:var(--red);}.pass .chk-dot{background:var(--green);}.warn .chk-dot{background:var(--orange);}
 .toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#000;padding:9px 16px;border-radius:9px;font-size:12px;font-weight:700;opacity:0;transform:translateY(10px);transition:all .3s;z-index:9999;pointer-events:none;}.toast.show{opacity:1;transform:translateY(0);}
-#cookieBanner{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9998;background:rgba(10,14,26,.97);border-top:1px solid var(--border2);padding:14px 20px;flex-wrap:wrap;align-items:center;gap:14px;}
+#cookieBanner{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9998;background:var(--overlay-bg);border-top:1px solid var(--border2);padding:14px 20px;flex-wrap:wrap;align-items:center;gap:14px;}
 .cb-text{flex:1;min-width:200px;}.cb-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}.cb-desc{font-size:11px;color:var(--t2);}
 .cb-accept{background:var(--cyan);color:#000;border:none;padding:9px 18px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;cursor:pointer;}.cb-reject{background:none;border:1px solid var(--border2);color:var(--t2);padding:9px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;}
@@ -135,6 +136,7 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
   <a class="nav-link" href="#vpn-compare" style="text-decoration:none;">VPNs</a>
   <a class="nav-link" href="#learn" style="text-decoration:none;">Learn</a>
   <div class="nav-right">
+    <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Toggle light and dark theme"><span class="ti-sun">☀️</span><span class="ti-moon">🌙</span></button>
     <div class="lang-switcher">
       <a href="/" class="lang-btn">🇪🇸 ES</a>
       <span class="lang-btn active">🇺🇸 EN</span>

@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<script>(function(){var d=document.documentElement;var t;try{t=localStorage.getItem('ymi-theme');}catch(e){}d.dataset.theme=(t==='dark')?'dark':'light';window.toggleTheme=function(){var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('ymi-theme',n);}catch(e){}var b=document.getElementById('themeToggle');if(b){b.setAttribute('aria-pressed',n==='dark');}};}());</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Qu'est-ce qu'un VPN ? Guide Complet 2026 | YesMyIP.com</title>
 <meta name="description" content="Découvrez ce qu'est un VPN, comment ça fonctionne et pourquoi vous en avez besoin en 2026.">
@@ -9,9 +10,9 @@
 <link rel="canonical" href="https://yesmyip.com/fr/blog/quest-ce-quun-vpn/">
 <link rel="icon" href="/assets/logo.png" type="image/png">
 <style>
-:root{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--green:#00e676;--red:#ff4757;--purple:#845ef7;--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;}
+:root{--bg:#f4f6fb;--s1:#ffffff;--s2:#eef1f7;--s3:#e3e8f1;--border:rgba(15,23,42,.10);--border2:rgba(15,23,42,.16);--cyan:#0277a8;--cd:rgba(2,119,168,.10);--green:#0a8f4f;--gd:rgba(10,143,79,.10);--red:#dc2640;--rd:rgba(220,38,64,.10);--orange:#c2700a;--od:rgba(194,112,10,.12);--purple:#6741d9;--pd:rgba(103,65,217,.12);--amber:#b06f00;--text:#16202e;--t2:#55617a;--t3:#6c7689;--danger-text:#c01530;--warn-text:#b45309;--ok-text:#0a8f4f;--nav-bg:rgba(255,255,255,.92);--overlay-bg:rgba(255,255,255,.97);--r:16px;--rsm:10px;color-scheme:light;}[data-theme="dark"]{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--green:#00e676;--red:#ff4757;--purple:#845ef7;--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;--danger-text:#ff8a95;--warn-text:#ffd082;--ok-text:#69f0ae;--nav-bg:rgba(7,9,15,.95);--overlay-bg:rgba(10,14,26,.97);color-scheme:dark;}.theme-toggle{background:none;border:1px solid var(--border);color:var(--text);width:34px;height:30px;border-radius:16px;cursor:pointer;font-size:15px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;padding:0;}.theme-toggle:hover{background:var(--s2);border-color:var(--border2);}.theme-toggle .ti-moon{display:none;}.theme-toggle .ti-sun{display:inline;}[data-theme="dark"] .theme-toggle .ti-sun{display:none;}[data-theme="dark"] .theme-toggle .ti-moon{display:inline;}
 *{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px;line-height:1.65;}
-nav{position:sticky;top:0;z-index:200;background:rgba(7,9,15,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
+nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
 .nav-link{color:var(--t2);font-size:13px;padding:6px 10px;border-radius:8px;text-decoration:none;}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.06);}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
 .lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
@@ -52,6 +53,7 @@ footer a{color:var(--t3);text-decoration:none;margin:0 8px;}
   <a class="nav-link" href="/fr/#vpn-compare">VPNs</a>
   <a class="nav-link" href="/fr/blog/">Blog</a>
   <div class="nav-right">
+    <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Basculer entre le thème clair et sombre"><span class="ti-sun">☀️</span><span class="ti-moon">🌙</span></button>
     <div class="lang-switcher">
       <a href='/es/' class="lang-btn">🇪🇸 ES</a>
       <a href="/" class="lang-btn">🇺🇸 EN</a>
