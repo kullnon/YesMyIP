@@ -83,6 +83,9 @@ nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:b
 .ad-banner-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0;}
 .ad-placeholder{background:var(--s1);border:1px dashed var(--t3);border-radius:var(--r);min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;color:var(--t3);text-align:center;}
 .ad-size{font-size:12px;opacity:.4;}
+.banner-slot{display:block;border-radius:var(--r);overflow:hidden;line-height:0;transition:transform .2s ease,opacity .2s ease;}
+.banner-slot:hover{transform:scale(1.02);opacity:.95;}
+.banner-slot img{width:100%;height:auto;display:block;}
 @media(max-width:700px){.ad-banner-row{grid-template-columns:1fr;}}
 .lookup-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px;overflow:hidden;}
 .lookup-card h2{font-family:Arial,sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;}
@@ -174,14 +177,12 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 
       <!-- Ad placeholders below IP card -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;max-width:480px;">
-        <div class="ad-placeholder" id="ad-mid-1">
-          <div class="ad-lbl">ADVERTISEMENT</div>
-          <div class="ad-size">336×280</div>
-        </div>
-        <div class="ad-placeholder" id="ad-mid-2">
-          <div class="ad-lbl">ADVERTISEMENT</div>
-          <div class="ad-size">336×280</div>
-        </div>
+        <a class="banner-slot" id="ad-mid-1" href="https://www.yesbundles.com" target="_blank" rel="noopener sponsored">
+          <img src="/assets/banners/yesbundles-336x280.png" width="336" height="280" alt="YesBundles — Get paid more. Pay debt faster." loading="lazy">
+        </a>
+        <a class="banner-slot" id="ad-mid-2" href="https://www.tropicatlas.com" target="_blank" rel="noopener sponsored">
+          <img src="/assets/banners/tropicatlas-336x280.png" width="336" height="280" alt="TropicAtlas — 23 Caribbean islands. One smart guide." loading="lazy">
+        </a>
       </div>
 
       </div>
