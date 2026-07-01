@@ -83,6 +83,8 @@ nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:b
 .ad-banner-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0;}
 .ad-placeholder{background:var(--s1);border:1px dashed var(--t3);border-radius:var(--r);min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;color:var(--t3);text-align:center;}
 .ad-size{font-size:12px;opacity:.4;}
+.promo-card{height:387px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;box-sizing:border-box;}
+@media(max-width:900px){.promo-card{height:auto;}}
 @media(max-width:700px){.ad-banner-row{grid-template-columns:1fr;}}
 .lookup-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:16px;overflow:hidden;}
 .lookup-card h2{font-family:Arial,sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;}
@@ -181,45 +183,57 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
       </div>
 
       <!-- Ad placeholders below IP card -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;max-width:480px;">
-        <a class="banner-slot" id="ad-mid-1" href="https://www.yesbundles.com" target="_blank" rel="noopener sponsored" style="display:block;text-decoration:none;border-radius:16px;overflow:hidden;background:linear-gradient(160deg,#0f2a52 0%,#0a1f3f 100%);padding:18px 16px;color:#fff;font-family:inherit;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-            <div style="width:34px;height:34px;border-radius:9px;background:#fff;color:#0a1f3f;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;">Y</div>
-            <div style="font-size:20px;font-weight:800;">Yes<span style="color:#3b9dff;">Bundles</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;max-width:480px;align-items:stretch;">
+        <a class="banner-slot promo-card" id="ad-mid-1" href="https://www.yesbundles.com" target="_blank" rel="noopener sponsored" style="text-decoration:none;border-radius:16px;overflow:hidden;background:linear-gradient(160deg,#0f2a52 0%,#0a1f3f 100%);padding:15px 14px;color:#fff;font-family:inherit;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <div style="width:28px;height:28px;border-radius:7px;background:#fff;color:#0a1f3f;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;">Y</div>
+              <div style="font-size:17px;font-weight:800;">Yes<span style="color:#3b9dff;">Bundles</span></div>
+            </div>
+            <div style="color:#3b9dff;font-size:9px;font-weight:700;letter-spacing:1.5px;margin-bottom:6px;">OUTILS PRO · NOUVEAU</div>
+            <div style="font-size:17px;line-height:1.12;font-weight:800;">Gagnez plus. Remboursez plus vite.</div>
+            <div style="width:36px;height:3px;background:#3b9dff;border-radius:2px;margin-top:9px;"></div>
           </div>
-          <div style="color:#3b9dff;font-size:11px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">OUTILS PRO · NOUVEAU</div>
-          <div style="font-size:23px;line-height:1.12;font-weight:800;margin-bottom:14px;">Gagnez plus. Remboursez plus vite.</div>
-          <div style="width:44px;height:3px;background:#3b9dff;border-radius:2px;margin-bottom:14px;"></div>
-          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:8px;">
-            <div style="font-weight:700;font-size:14px;">Simulateur de Sortie de Dettes</div>
-            <div style="color:#9fb4d4;font-size:12px;">Boule de neige vs Avalanche, côte à côte</div>
+          <div>
+            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:7px 9px;margin-bottom:6px;">
+              <div style="font-weight:700;font-size:12px;">Simulateur de Sortie de Dettes</div>
+              <div style="color:#9fb4d4;font-size:10px;">Boule de neige vs Avalanche, côte à côte</div>
+            </div>
+            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:7px 9px;">
+              <div style="font-weight:700;font-size:12px;">Coach de Négociation Salariale</div>
+              <div style="color:#9fb4d4;font-size:10px;">Script de contre-offre par IA</div>
+            </div>
           </div>
-          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin-bottom:14px;">
-            <div style="font-weight:700;font-size:14px;">Coach de Négociation Salariale</div>
-            <div style="color:#9fb4d4;font-size:12px;">Script de contre-offre par IA</div>
+          <div>
+            <div style="color:#9fb4d4;font-size:10px;margin-bottom:8px;">29 $ chacun · Paiement unique · Sans abonnement</div>
+            <div style="background:#4db4ff;color:#0a1f3f;font-weight:800;text-align:center;padding:10px;border-radius:20px;font-size:13px;">Explorer les outils Pro →</div>
+            <div style="text-align:center;color:#6f88ad;font-size:10px;margin-top:8px;">yesbundles.com</div>
           </div>
-          <div style="color:#9fb4d4;font-size:12px;margin-bottom:12px;">29 $ chacun · Paiement unique · Sans abonnement</div>
-          <div style="background:#4db4ff;color:#0a1f3f;font-weight:800;text-align:center;padding:12px;border-radius:24px;font-size:14px;">Explorer les outils Pro →</div>
-          <div style="text-align:center;color:#6f88ad;font-size:12px;margin-top:12px;">yesbundles.com</div>
         </a>
-        <a class="banner-slot" id="ad-mid-2" href="https://www.tropicatlas.com" target="_blank" rel="noopener sponsored" style="display:block;text-decoration:none;border-radius:16px;overflow:hidden;background:linear-gradient(160deg,#1799b0 0%,#3fb6a8 55%,#c9c98a 100%);padding:18px 16px;color:#fff;font-family:inherit;">
-          <div style="font-size:12px;font-weight:800;letter-spacing:2px;margin-bottom:10px;">TROPICATLAS</div>
-          <div style="font-size:24px;line-height:1.08;font-weight:800;margin-bottom:6px;">23 îles des Caraïbes.</div>
-          <div style="font-size:18px;font-weight:800;color:#f6d67a;margin-bottom:16px;">Un seul guide intelligent.</div>
-          <div style="background:rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
-            <div style="min-width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;">$</div>
-            <div><div style="font-weight:700;font-size:14px;">Prix réels</div><div style="font-size:12px;color:#e8f6f3;">Vols, hôtels, nourriture — ce que ça coûte vraiment</div></div>
+        <a class="banner-slot promo-card" id="ad-mid-2" href="https://www.tropicatlas.com" target="_blank" rel="noopener sponsored" style="text-decoration:none;border-radius:16px;overflow:hidden;background:linear-gradient(160deg,#1799b0 0%,#3fb6a8 55%,#c9c98a 100%);padding:15px 14px;color:#fff;font-family:inherit;">
+          <div>
+            <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;margin-bottom:8px;">TROPICATLAS</div>
+            <div style="font-size:19px;line-height:1.08;font-weight:800;margin-bottom:5px;">23 îles des Caraïbes.</div>
+            <div style="font-size:15px;font-weight:800;color:#f6d67a;">Un seul guide intelligent.</div>
           </div>
-          <div style="background:rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
-            <div style="min-width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;">★</div>
-            <div><div style="font-weight:700;font-size:14px;">Conseils d'initiés</div><div style="font-size:12px;color:#e8f6f3;">Plages, cuisine et trésors cachés sur chaque île</div></div>
+          <div>
+            <div style="background:rgba(255,255,255,.14);border-radius:8px;padding:6px 9px;display:flex;gap:8px;align-items:flex-start;margin-bottom:6px;">
+              <div style="min-width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">$</div>
+              <div><div style="font-weight:700;font-size:12px;">Prix réels</div><div style="font-size:10px;color:#e8f6f3;">Vols, hôtels, nourriture — ce que ça coûte vraiment</div></div>
+            </div>
+            <div style="background:rgba(255,255,255,.14);border-radius:8px;padding:6px 9px;display:flex;gap:8px;align-items:flex-start;margin-bottom:6px;">
+              <div style="min-width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">★</div>
+              <div><div style="font-weight:700;font-size:12px;">Conseils d'initiés</div><div style="font-size:10px;color:#e8f6f3;">Plages, cuisine et trésors cachés sur chaque île</div></div>
+            </div>
+            <div style="background:rgba(255,255,255,.14);border-radius:8px;padding:6px 9px;display:flex;gap:8px;align-items:flex-start;">
+              <div style="min-width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">✓</div>
+              <div><div style="font-weight:700;font-size:12px;">Planifiez votre voyage</div><div style="font-size:10px;color:#e8f6f3;">Comparez les îles. Choisissez la vôtre. Partez.</div></div>
+            </div>
           </div>
-          <div style="background:rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;">
-            <div style="min-width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:800;">✓</div>
-            <div><div style="font-weight:700;font-size:14px;">Planifiez votre voyage</div><div style="font-size:12px;color:#e8f6f3;">Comparez les îles. Choisissez la vôtre. Partez.</div></div>
+          <div>
+            <div style="background:linear-gradient(90deg,#f6934a,#f6b24a);color:#fff;font-weight:800;text-align:center;padding:10px;border-radius:20px;font-size:13px;">Planifiez votre voyage →</div>
+            <div style="text-align:center;color:#22493a;font-size:10px;margin-top:8px;font-weight:600;">tropicatlas.com</div>
           </div>
-          <div style="background:linear-gradient(90deg,#f6934a,#f6b24a);color:#fff;font-weight:800;text-align:center;padding:12px;border-radius:24px;font-size:14px;">Planifiez votre voyage →</div>
-          <div style="text-align:center;color:#22493a;font-size:12px;margin-top:12px;font-weight:600;">tropicatlas.com</div>
         </a>
       </div>
 
