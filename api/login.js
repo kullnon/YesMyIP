@@ -1,114 +1,62 @@
-const crypto = require('crypto');
+// api/login.js — POST {username, password} → {token, user}
+//
+// Credentials come from the ADMIN_USERS env var (scrypt hashes, see
+// api/_lib/auth.js). The token is HMAC-signed, so /api/verify and /api/stats
+// can check it on any lambda instance without shared session state.
+//
+// Rate limiting is per-instance in-memory: good enough to blunt a password
+// spray against a low-traffic admin, not a substitute for strong passwords.
 
-// Hashed passwords — never exposed to the client
-const SALT = 'ymip_2026_salt';
-const USERS = [
-  { username: 'andy', hash: 'a8d2c5ebb3d53c202bb9d40d773971847d5d1aa5627376a524de56e3a02b698d', role: 'admin', name: 'Andy' },
-  { username: 'jean', hash: '2e7b44038aeabeb9d4dd6d6f216123c1adf19c71594acd8c333e99cf25833146', role: 'viewer', name: 'Jean Cherubin' },
-];
+const { authenticateUser, signToken, SESSION_TTL_MS } = require('./_lib/auth');
 
-// Session tokens (in-memory, resets on cold start — fine for low traffic)
-const sessions = new Map();
-const SESSION_TTL = 24 * 60 * 60 * 1000; // 24 hours
-
-// Rate limiting (in-memory)
 const attempts = new Map();
 const MAX_ATTEMPTS = 5;
-const LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes
+const LOCKOUT_MS = 15 * 60 * 1000;
 
-function hashPw(pw) {
-  return crypto.createHash('sha256').update(SALT + pw).digest('hex');
+function clientIp(req) {
+  const xf = req.headers['x-forwarded-for'];
+  return (xf ? String(xf).split(',')[0] : req.headers['x-real-ip'] || 'unknown').trim();
 }
-
-function generateToken() {
-  return crypto.randomBytes(32).toString('hex');
+function isLocked(ip) {
+  const r = attempts.get(ip);
+  if (!r) return false;
+  if (Date.now() - r.first > LOCKOUT_MS) { attempts.delete(ip); return false; }
+  return r.count >= MAX_ATTEMPTS;
 }
-
-function isRateLimited(ip) {
-  const record = attempts.get(ip);
-  if (!record) return false;
-  if (Date.now() - record.firstAttempt > LOCKOUT_MS) {
-    attempts.delete(ip);
-    return false;
-  }
-  return record.count >= MAX_ATTEMPTS;
-}
-
-function recordAttempt(ip) {
-  const record = attempts.get(ip) || { count: 0, firstAttempt: Date.now() };
-  record.count++;
-  attempts.set(ip, record);
-}
-
-function clearAttempts(ip) {
-  attempts.delete(ip);
-}
-
-// Clean expired sessions periodically
-function cleanSessions() {
-  const now = Date.now();
-  for (const [token, session] of sessions) {
-    if (now - session.created > SESSION_TTL) sessions.delete(token);
-  }
+function recordFailure(ip) {
+  const r = attempts.get(ip) || { count: 0, first: Date.now() };
+  r.count += 1;
+  attempts.set(ip, r);
+  return Math.max(0, MAX_ATTEMPTS - r.count);
 }
 
 module.exports = async (req, res) => {
-  // CORS
-  res.setHeader('Access-Control-Allow-Origin', 'https://yesmyip.com');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  
-  if (req.method === 'OPTIONS') return res.status(200).end();
+  res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown';
-  
-  // Check rate limit
-  if (isRateLimited(ip)) {
-    return res.status(429).json({ 
-      error: 'Too many attempts. Try again in 15 minutes.',
-      locked: true 
-    });
+  const ip = clientIp(req);
+  if (isLocked(ip)) {
+    return res.status(429).json({ error: 'Too many attempts. Try again in 15 minutes.', locked: true });
   }
 
   try {
-    const { username, password } = req.body;
-    
-    if (!username || !password) {
-      return res.status(400).json({ error: 'Username and password required' });
-    }
+    const { username, password } = req.body || {};
+    if (!username || !password) return res.status(400).json({ error: 'Username and password required' });
 
-    const hash = hashPw(password);
-    const user = USERS.find(u => u.username.toLowerCase() === username.toLowerCase() && u.hash === hash);
-
+    const user = authenticateUser(username, password);
     if (!user) {
-      recordAttempt(ip);
-      const record = attempts.get(ip);
-      const remaining = MAX_ATTEMPTS - (record ? record.count : 0);
-      return res.status(401).json({ 
-        error: 'Invalid credentials',
-        remaining: Math.max(0, remaining)
-      });
+      const remaining = recordFailure(ip);
+      return res.status(401).json({ error: 'Invalid credentials', remaining });
     }
 
-    // Success — clear rate limit, create session
-    clearAttempts(ip);
-    cleanSessions();
-    
-    const token = generateToken();
-    sessions.set(token, {
-      username: user.username,
-      role: user.role,
-      name: user.name,
-      created: Date.now()
-    });
-
+    attempts.delete(ip);
     return res.status(200).json({
-      token,
-      user: { username: user.username, role: user.role, name: user.name }
+      token: signToken(user),
+      user,
+      expiresAt: Date.now() + SESSION_TTL_MS,
     });
-
   } catch (e) {
+    console.error('[login]', e.message);
     return res.status(500).json({ error: 'Server error' });
   }
 };

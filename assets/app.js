@@ -33,7 +33,6 @@ setTimeout(fetchIP,3000);
 function copyIP(){navigator.clipboard.writeText(window._ip||'').then(()=>showToast('✓ Copied!'));}
 function switchTab(btn,id){btn.closest('.lookup-card').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.closest('.lookup-card').querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
 function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
-function setCookies(yes){localStorage.setItem('cookieConsent',yes?'1':'0');document.getElementById('cookieBanner').style.display='none';if(yes)loadAnalytics();}
-function loadAnalytics(){const s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=G-J2Z9RR5FJ3';s.async=true;document.head.appendChild(s);s.onload=()=>{window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J2Z9RR5FJ3');};}
+function setCookies(yes){localStorage.setItem('cookieConsent',yes?'1':'0');document.getElementById('cookieBanner').style.display='none';}
 const consent=localStorage.getItem('cookieConsent');
-if(consent==='1')loadAnalytics();else if(consent===null)document.getElementById('cookieBanner').style.display='flex';
+if(consent===null)document.getElementById('cookieBanner').style.display='flex';

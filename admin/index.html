@@ -75,7 +75,9 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 .chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
 .chart-title{font-size:14px;font-weight:700;}
 .chart-subtitle{font-size:11px;color:var(--t3);}
-.chart-area{width:100%;height:220px;position:relative;}
+.chart-area{width:100%;height:260px;position:relative;}
+.chart-empty{display:none;position:absolute;inset:0;align-items:center;justify-content:center;font-size:12px;color:var(--t3);text-align:center;padding:20px;}
+.chart-empty.show{display:flex;}
 canvas{width:100%!important;height:100%!important;}
 
 /* REVENUE TABLE */
@@ -281,15 +283,15 @@ document.getElementById('userInput').onkeydown = function(e){ if(e.key==='Enter'
   <div class="charts">
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title" data-t="trafficrev">Traffic &amp; Revenue</div><div class="chart-subtitle" data-t="trafficrevsub">Daily visitors and revenue over time</div></div>
+        <div><div class="chart-title" data-t="trafficrev">Traffic &amp; Affiliate Clicks</div><div class="chart-subtitle" data-t="trafficrevsub">Affiliate clicks use the right-hand axis — on the same scale as page views the line would sit flat on zero.</div></div>
       </div>
-      <div class="chart-area"><canvas id="mainChart"></canvas></div>
+      <div class="chart-area"><canvas id="mainChart"></canvas><div class="chart-empty" id="mainChartEmpty">No data to show for this period.</div></div>
     </div>
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title" data-t="revsources">Revenue Sources</div><div class="chart-subtitle" data-t="revsourcessub">Breakdown by affiliate partner</div></div>
+        <div><div class="chart-title" data-t="revsources">Clicks by Partner</div><div class="chart-subtitle" data-t="revsourcessub">Affiliate clicks this period</div></div>
       </div>
-      <div class="chart-area"><canvas id="pieChart"></canvas></div>
+      <div class="chart-area"><canvas id="pieChart"></canvas><div class="chart-empty" id="pieChartEmpty">No affiliate clicks yet.</div></div>
     </div>
   </div>
 
@@ -297,10 +299,10 @@ document.getElementById('userInput').onkeydown = function(e){ if(e.key==='Enter'
   <div class="pages-grid">
     <div class="chart-card">
       <div class="chart-header">
-        <div><div class="chart-title" data-t="revbysource">💰 Revenue by Source</div><div class="chart-subtitle" data-t="revbysourcesub">Affiliate commissions &amp; ad revenue</div></div>
+        <div><div class="chart-title" data-t="revbysource">🔗 Affiliate Partners</div><div class="chart-subtitle" data-t="revbysourcesub">Clicks and share by partner</div></div>
       </div>
       <table class="rev-table">
-        <thead><tr><th data-t="source">Source</th><th data-t="clicks">Clicks</th><th data-t="conversions">Conversions</th><th data-t="revenue">Revenue</th><th data-t="status">Status</th></tr></thead>
+        <thead><tr><th data-t="source">Source</th><th data-t="clicks">Clicks</th><th data-t="share">Share</th></tr></thead>
         <tbody id="revTableBody"></tbody>
       </table>
     </div>
@@ -309,7 +311,7 @@ document.getElementById('userInput').onkeydown = function(e){ if(e.key==='Enter'
         <div><div class="chart-title" data-t="toppages">📊 Top Pages</div><div class="chart-subtitle" data-t="toppagessub">Most visited pages this period</div></div>
       </div>
       <table class="rev-table">
-        <thead><tr><th data-t="page">Page</th><th data-t="views">Views</th><th data-t="bounce">Bounce</th></tr></thead>
+        <thead><tr><th data-t="page">Page</th><th data-t="views">Views</th><th data-t="sessions">Sessions</th></tr></thead>
         <tbody id="pagesTableBody"></tbody>
       </table>
     </div>
@@ -489,121 +491,69 @@ document.getElementById('userInput').onkeydown = function(e){ if(e.key==='Enter'
       <button onclick="closeSettings()" style="background:none;border:none;color:var(--t2);font-size:20px;cursor:pointer;">✕</button>
     </div>
 
-    <!-- Change Password (admin only) -->
-    <div id="changePassSection" style="display:none;margin-bottom:28px;">
-      <h3 style="font-size:14px;color:var(--cyan);margin-bottom:12px;">🔑 Change Password</h3>
-      <select id="changePassUser" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:8px;"></select>
-      <div class="pw-wrap">
-        <input type="password" id="newPass1" placeholder="New password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:0;">
-        <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
-      </div>
-      <div class="pw-wrap">
-        <input type="password" id="newPass2" placeholder="Confirm password" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;margin-bottom:0;">
-        <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
-      </div>
-      <button onclick="changePassword()" style="background:var(--cyan);color:#000;border:none;padding:8px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Outfit',sans-serif;">Update Password</button>
-      <span id="passMsg" style="margin-left:10px;font-size:12px;"></span>
-    </div>
-
-    <!-- User Management (admin only) -->
-    <div id="adminSection" style="display:none;">
-      <h3 style="font-size:14px;color:var(--cyan);margin-bottom:12px;">👥 Manage Users</h3>
-      <div id="userList" style="margin-bottom:16px;"></div>
-
-      <div style="background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:12px;">
-        <div style="font-size:12px;color:var(--t2);font-weight:600;margin-bottom:10px;">Add New User</div>
-        <input type="text" id="newUserName" placeholder="Username" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;margin-bottom:8px;">
-        <div class="pw-wrap">
-          <input type="password" id="newUserPass" placeholder="Password" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;margin-bottom:0;">
-          <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
-        </div>
-        <div class="pw-wrap">
-          <input type="password" id="newUserPass2" placeholder="Confirm password" style="width:100%;background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;margin-bottom:0;">
-          <button type="button" class="pw-eye" onclick="togglePw(this)">👁</button>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
-          <select id="newUserRole" style="background:var(--s3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;font-family:'Outfit',sans-serif;flex:1;">
-            <option value="viewer">Viewer</option>
-            <option value="editor">Editor</option>
-            <option value="admin">Admin</option>
-          </select>
-          <button onclick="addUser()" style="background:var(--green);color:#000;border:none;padding:8px 16px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;font-family:'Outfit',sans-serif;">+ Add User</button>
-        </div>
-        <span id="addUserMsg" style="font-size:11px;margin-top:6px;display:block;"></span>
-      </div>
+    <div style="font-size:13px;color:var(--t2);line-height:1.6;">
+      <div style="margin-bottom:14px;">Signed in as <strong id="settingsUser" style="color:var(--cyan);"></strong></div>
+      <h3 style="font-size:14px;color:var(--cyan);margin-bottom:8px;">🔑 Access</h3>
+      <p style="margin-bottom:10px;">Admin accounts are not stored on this site. They live in the Vercel project's environment variables, so nothing about them is in the repo or reachable from the browser.</p>
+      <ul style="padding-left:18px;margin-bottom:10px;">
+        <li><code style="font-family:'JetBrains Mono',monospace;font-size:11px;">ADMIN_USERS</code> — JSON list of users with scrypt password hashes</li>
+        <li><code style="font-family:'JetBrains Mono',monospace;font-size:11px;">ADMIN_SESSION_SECRET</code> — signs the 24-hour session token</li>
+      </ul>
+      <p>To add a user or change a password, run <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">node api/_lib/hash-password.js '&lt;password&gt;'</code>, put the hash in <code style="font-family:'JetBrains Mono',monospace;font-size:11px;">ADMIN_USERS</code> in Vercel, and redeploy.</p>
     </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-// MULTI-USER AUTH SYSTEM — server-side via /api/login
-let allUsers = [];
+// AUTH — credentials and sessions are server-side (/api/login, /api/verify).
+// Users come from the ADMIN_USERS env var; nothing user-related lives here.
 
-async function loadUsers(){
-  // Users are now authenticated server-side
-  // This function kept for settings panel compatibility
-  allUsers = [];
-}
-function getUsers(){ return allUsers; }
-function saveUsers(users){
-  allUsers = users;
-  // Show the updated JSON so Andy can push to GitHub
-  const json = JSON.stringify(users, null, 2);
-  const w = window.open('','_blank','width=500,height=400');
-  w.document.write('<html><head><title>Updated users.json</title><style>body{background:#0a0e1a;color:#e8edf8;font-family:monospace;padding:20px;}pre{background:#0f1525;padding:16px;border-radius:10px;font-size:13px;overflow:auto;}h3{margin-bottom:10px;}p{color:#7b8baa;font-size:13px;margin-bottom:16px;}</style></head><body>');
-  w.document.write('<h3>Updated users.json</h3>');
-  w.document.write('<p>Copy this and replace the content of /admin/users.json in your GitHub repo, then push.</p>');
-  w.document.write('<pre>'+json+'</pre>');
-  w.document.write('</body></html>');
-}
-
-// TRANSLATION SYSTEM
 let currentLang = localStorage.getItem('ymip_lang') || 'en';
 const T = {
   en: {
     cmdcenter:'Command Center', entercode:'Enter your access code', live:'Live', settings:'Settings', logout:'Log Out',
     visitors:'Visitors', revenue:'Revenue', pageviews:'Page Views', affclicks:'Affiliate Clicks', convrate:'Conversion Rate',
-    trafficrev:'Traffic & Revenue', trafficrevsub:'Daily visitors and revenue over time',
-    revsources:'Revenue Sources', revsourcessub:'Breakdown by affiliate partner',
-    revbysource:'💰 Revenue by Source', revbysourcesub:'Affiliate commissions & ad revenue',
+    trafficrev:'Traffic & Affiliate Clicks', trafficrevsub:'Affiliate clicks use the right-hand axis — on the same scale as page views the line would sit flat on zero.',
+    revsources:'Clicks by Partner', revsourcessub:'Affiliate clicks this period',
+    revbysource:'🔗 Affiliate Partners', revbysourcesub:'Clicks and share by partner',
     toppages:'📊 Top Pages', toppagessub:'Most visited pages this period',
     topcountries:'🌍 Top Countries', visitorsgeo:'Visitor geography',
     revgoals:'🎯 Revenue Goals', monthlytargets:'Monthly targets',
     activityfeed:'⚡ Activity Feed', recentevents:'Recent events',
     today:'Today', '7days':'7 Days', '30days':'30 Days', '90days':'90 Days', alltime:'All Time',
-    source:'Source', clicks:'Clicks', conversions:'Conversions', status:'Status',
-    page:'Page', views:'Views', bounce:'Bounce',
+    source:'Source', clicks:'Clicks', share:'Share',
+    page:'Page', views:'Views', sessions:'Sessions',
     month1:'Month 1 Target', month3:'Month 3 Target', month6:'Month 6 Target', month12:'Month 12 Target',
   },
   es: {
     cmdcenter:'Centro de Comando', entercode:'Ingresa tu código de acceso', live:'En Vivo', settings:'Ajustes', logout:'Cerrar Sesión',
     visitors:'Visitantes', revenue:'Ingresos', pageviews:'Páginas Vistas', affclicks:'Clics de Afiliados', convrate:'Tasa de Conversión',
-    trafficrev:'Tráfico e Ingresos', trafficrevsub:'Visitantes diarios e ingresos',
-    revsources:'Fuentes de Ingresos', revsourcessub:'Desglose por socio afiliado',
-    revbysource:'💰 Ingresos por Fuente', revbysourcesub:'Comisiones de afiliados y publicidad',
+    trafficrev:'Tráfico y Clics de Afiliados', trafficrevsub:'Los clics de afiliados usan el eje derecho: en la escala de páginas vistas la línea quedaría aplastada en cero.',
+    revsources:'Clics por Socio', revsourcessub:'Clics de afiliados en este período',
+    revbysource:'🔗 Socios Afiliados', revbysourcesub:'Clics y proporción por socio',
     toppages:'📊 Páginas Principales', toppagessub:'Páginas más visitadas en este período',
     topcountries:'🌍 Principales Países', visitorsgeo:'Geografía de visitantes',
     revgoals:'🎯 Metas de Ingresos', monthlytargets:'Objetivos mensuales',
     activityfeed:'⚡ Actividad Reciente', recentevents:'Eventos recientes',
     today:'Hoy', '7days':'7 Días', '30days':'30 Días', '90days':'90 Días', alltime:'Todo',
-    source:'Fuente', clicks:'Clics', conversions:'Conversiones', status:'Estado',
-    page:'Página', views:'Vistas', bounce:'Rebote',
+    source:'Fuente', clicks:'Clics', share:'Proporción',
+    page:'Página', views:'Vistas', sessions:'Sesiones',
     month1:'Meta Mes 1', month3:'Meta Mes 3', month6:'Meta Mes 6', month12:'Meta Mes 12',
   },
   fr: {
     cmdcenter:'Centre de Commande', entercode:'Entrez votre code d\'accès', live:'En Direct', settings:'Paramètres', logout:'Déconnexion',
     visitors:'Visiteurs', revenue:'Revenus', pageviews:'Pages Vues', affclicks:'Clics Affiliés', convrate:'Taux de Conversion',
-    trafficrev:'Trafic et Revenus', trafficrevsub:'Visiteurs quotidiens et revenus',
-    revsources:'Sources de Revenus', revsourcessub:'Répartition par partenaire affilié',
-    revbysource:'💰 Revenus par Source', revbysourcesub:'Commissions d\'affiliation et publicité',
+    trafficrev:'Trafic et Clics Affiliés', trafficrevsub:'Les clics affiliés sont sur l’axe de droite : sur la même échelle que les pages vues, la courbe serait écrasée sur zéro.',
+    revsources:'Clics par Partenaire', revsourcessub:'Clics affiliés sur cette période',
+    revbysource:'🔗 Partenaires Affiliés', revbysourcesub:'Clics et part par partenaire',
     toppages:'📊 Pages Principales', toppagessub:'Pages les plus visitées',
     topcountries:'🌍 Principaux Pays', visitorsgeo:'Géographie des visiteurs',
     revgoals:'🎯 Objectifs de Revenus', monthlytargets:'Objectifs mensuels',
     activityfeed:'⚡ Fil d\'Activité', recentevents:'Événements récents',
     today:'Aujourd\'hui', '7days':'7 Jours', '30days':'30 Jours', '90days':'90 Jours', alltime:'Tout',
-    source:'Source', clicks:'Clics', conversions:'Conversions', status:'Statut',
-    page:'Page', views:'Vues', bounce:'Rebond',
+    source:'Source', clicks:'Clics', share:'Part',
+    page:'Page', views:'Vues', sessions:'Sessions',
     month1:'Objectif Mois 1', month3:'Objectif Mois 3', month6:'Objectif Mois 6', month12:'Objectif Mois 12',
   }
 };
@@ -617,10 +567,8 @@ function setLang(lang){
   const active = document.getElementById('lang-'+lang);
   if(active){ active.style.background='var(--cyan)'; active.style.color='#000'; }
   applyTranslations();
-  renderRevTable();
-  renderPagesTable();
-  renderGoals();
-  renderFeed();
+  // Re-render translated widgets, but only once the dashboard is visible.
+  if(document.getElementById('dashboard').classList.contains('show')) renderAll();
 }
 
 function applyTranslations(){
@@ -633,161 +581,44 @@ function applyTranslations(){
 
 let currentUser = null;
 
-const passInput = document.getElementById('passInput');
-const userInput = document.getElementById('userInput');
-passInput.addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
-userInput.addEventListener('keydown', e => { if(e.key==='Enter') passInput.focus(); });
-
-async function tryLogin(){
-  await loadUsers();
-  const u = userInput.value.trim().toLowerCase();
-  const p = passInput.value;
-  if(!u || !p){
-    document.getElementById('loginError').textContent='Enter username and password';
-    document.getElementById('loginError').style.display='block';
-    setTimeout(()=>document.getElementById('loginError').style.display='none',3000);
-    return;
-  }
-  const found = allUsers.find(x => x.username.toLowerCase()===u && x.password===p);
-  if(!found){
-    // Try trimming password too
-    const found2 = allUsers.find(x => x.username.toLowerCase()===u && x.password===p.trim());
-    if(found2){
-      loginSuccess(found2);
-      return;
-    }
-    document.getElementById('loginError').textContent='Invalid credentials (user: "'+u+'", '+allUsers.length+' users loaded)';
-    document.getElementById('loginError').style.display='block';
-    passInput.value='';
-    passInput.focus();
-    setTimeout(()=>document.getElementById('loginError').style.display='none',4000);
-    return;
-  }
-  loginSuccess(found);
-}
-
-function loginSuccess(found){
-  currentUser = found;
-  document.getElementById('loginScreen').classList.add('hidden');
-  document.getElementById('dashboard').classList.add('show');
-  document.getElementById('currentUser').textContent = '👤 '+(found.name||found.username);
-  sessionStorage.setItem('ymip_auth', JSON.stringify(found));
-  initDashboard();
-}
-function logout(){
-  sessionStorage.removeItem('ymip_auth');
-  currentUser = null;
-  location.reload();
-}
-// Auto-login from session
-const savedAuth = sessionStorage.getItem('ymip_auth');
-if(savedAuth){
+// Session restore: the first <script> block posts to /api/login and stores
+// the HMAC-signed token in sessionStorage. On every load we ask the server to
+// verify it; a forged or expired token gets the login screen, not the data.
+async function restoreSession(){
+  const token = sessionStorage.getItem('ymip_token');
+  const saved = sessionStorage.getItem('ymip_auth');
+  if(!token || !saved) return;
   try{
-    currentUser = JSON.parse(savedAuth);
+    const r = await fetch('/api/verify', { method:'POST', headers:{ 'Authorization':'Bearer '+token } });
+    if(!r.ok){ sessionStorage.removeItem('ymip_token'); sessionStorage.removeItem('ymip_auth'); return; }
+    const data = await r.json();
+    currentUser = data.user || JSON.parse(saved);
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('dashboard').classList.add('show');
     document.getElementById('currentUser').textContent = '👤 '+(currentUser.name||currentUser.username);
-    loadUsers().then(()=>initDashboard());
-  }catch(e){}
-} else {
-  loadUsers();
+    initDashboard();
+  }catch(e){ console.error('Session verify failed:', e); }
 }
+function logout(){
+  sessionStorage.removeItem('ymip_auth');
+  sessionStorage.removeItem('ymip_token');
+  currentUser = null;
+  location.reload();
+}
+restoreSession();
 
-// SETTINGS
+// SETTINGS — read-only; user management moved to Vercel env vars (see modal).
 function openSettings(){
   document.getElementById('settingsModal').style.display='flex';
-  if(currentUser && currentUser.role==='admin'){
-    document.getElementById('adminSection').style.display='block';
-    document.getElementById('changePassSection').style.display='block';
-    renderUserList();
-    // Populate password change dropdown
-    const users = getUsers();
-    const sel = document.getElementById('changePassUser');
-    sel.innerHTML = users.map(u => '<option value="'+u.username+'">'+u.name+' ('+u.role+')</option>').join('');
-  } else {
-    document.getElementById('adminSection').style.display='none';
-    document.getElementById('changePassSection').style.display='none';
-  }
+  document.getElementById('settingsUser').textContent = currentUser ? (currentUser.name+' · '+currentUser.role) : '';
 }
 function closeSettings(){ document.getElementById('settingsModal').style.display='none'; }
 document.getElementById('settingsModal').addEventListener('click', function(e){ if(e.target===this) closeSettings(); });
-
-function changePassword(){
-  if(!currentUser || currentUser.role!=='admin') return;
-  const targetUser = document.getElementById('changePassUser').value;
-  const p1 = document.getElementById('newPass1').value;
-  const p2 = document.getElementById('newPass2').value;
-  const msg = document.getElementById('passMsg');
-  if(!p1 || p1.length < 4){ msg.textContent='Min 4 characters'; msg.style.color='var(--red)'; return; }
-  if(p1 !== p2){ msg.textContent='Passwords don\'t match'; msg.style.color='var(--red)'; return; }
-  const users = getUsers();
-  const idx = users.findIndex(u => u.username === targetUser);
-  if(idx>=0){
-    users[idx].password = p1;
-    saveUsers(users);
-    if(targetUser === currentUser.username){
-      currentUser.password = p1;
-      sessionStorage.setItem('ymip_auth', JSON.stringify(currentUser));
-    }
-    msg.textContent='✓ Password updated for '+users[idx].name+'!'; msg.style.color='var(--green)';
-    document.getElementById('newPass1').value='';
-    document.getElementById('newPass2').value='';
-    setTimeout(()=>msg.textContent='',3000);
-  }
-}
-
-function renderUserList(){
-  const users = getUsers();
-  document.getElementById('userList').innerHTML = users.map((u,i) => {
-    const roleColors = {admin:'var(--cyan)',editor:'var(--amber)',viewer:'var(--t2)'};
-    const isMe = u.username === currentUser.username;
-    return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border:1px solid var(--border);border-radius:10px;margin-bottom:6px;">' +
-      '<div style="display:flex;align-items:center;gap:10px;">' +
-        '<div style="width:32px;height:32px;border-radius:50%;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:14px;">👤</div>' +
-        '<div><div style="font-size:13px;font-weight:600;">'+u.name+(isMe?' <span style="color:var(--cyan);font-size:10px;">(you)</span>':'')+'</div>' +
-        '<div style="font-size:11px;color:'+roleColors[u.role]+';font-weight:600;text-transform:uppercase;letter-spacing:.5px;">'+u.role+'</div></div>' +
-      '</div>' +
-      (isMe ? '' : '<button onclick="removeUser('+i+')" style="background:none;border:1px solid var(--border);color:var(--red);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:\'Outfit\',sans-serif;">Remove</button>') +
-    '</div>';
-  }).join('');
-}
 
 function togglePw(btn){
   const input = btn.parentElement.querySelector('input');
   if(input.type==='password'){input.type='text';btn.textContent='🙈';}
   else{input.type='password';btn.textContent='👁';}
-}
-
-function addUser(){
-  const name = document.getElementById('newUserName').value.trim();
-  const pass = document.getElementById('newUserPass').value.trim();
-  const pass2 = document.getElementById('newUserPass2').value.trim();
-  const role = document.getElementById('newUserRole').value;
-  const msg = document.getElementById('addUserMsg');
-  if(!name || !pass){ msg.textContent='Fill in all fields'; msg.style.color='var(--red)'; return; }
-  if(name.length < 2){ msg.textContent='Username too short'; msg.style.color='var(--red)'; return; }
-  if(pass.length < 4){ msg.textContent='Password min 4 chars'; msg.style.color='var(--red)'; return; }
-  if(pass !== pass2){ msg.textContent='Passwords don\'t match'; msg.style.color='var(--red)'; return; }
-  const users = getUsers();
-  if(users.length >= 6){ msg.textContent='Max 6 users reached'; msg.style.color='var(--red)'; return; }
-  if(users.find(u => u.username.toLowerCase()===name.toLowerCase())){ msg.textContent='Username already exists'; msg.style.color='var(--red)'; return; }
-  users.push({ username:name.toLowerCase(), password:pass, role:role, name:name });
-  saveUsers(users);
-  document.getElementById('newUserName').value='';
-  document.getElementById('newUserPass').value='';
-  document.getElementById('newUserPass2').value='';
-  msg.textContent='✓ User added!'; msg.style.color='var(--green)';
-  renderUserList();
-  setTimeout(()=>msg.textContent='',2000);
-}
-
-function removeUser(idx){
-  const users = getUsers();
-  if(users[idx].username === currentUser.username) return;
-  if(!confirm('Remove user "'+users[idx].name+'"?')) return;
-  users.splice(idx,1);
-  saveUsers(users);
-  renderUserList();
 }
 
 // CLOCK
@@ -799,161 +630,92 @@ setInterval(updateClock,1000);
 updateClock();
 
 // ANALYTICS via server-side proxy (token never exposed to browser)
-async function gcFetch(){
-  const token = sessionStorage.getItem('ymip_token');
-  const r = await fetch('/api/stats/', {headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}});
-  return r.json();
-}
+// ============================================================================
+// LIVE DATA — GET /api/stats → admin_dashboard_summary() in Supabase.
+// Every number on this tab comes from that one payload (first-party
+// page_views / affiliate_clicks, aggregated in Postgres in America/New_York).
+// There is deliberately no placeholder or seed data: before the database is
+// wired the dashboard says so instead of drawing zeros that look like data.
+// ============================================================================
+let stats = null;        // last successful /api/stats payload
+let statsError = null;   // message when the last fetch failed
+let mainChartInstance, pieChartInstance;
+var currentRange = 'today';
 
-let liveData = { visitors:0, pageviews:0, topPages:[], countries:[], daily:[] };
+const PARTNERS = [
+  { key:'nordvpn',    name:'NordVPN',    icon:'🦁', color:'#e33b5e' },
+  { key:'surfshark',  name:'Surfshark',  icon:'🦈', color:'#1eb8c9' },
+  { key:'expressvpn', name:'ExpressVPN', icon:'⚡', color:'#da3735' },
+  { key:'cyberghost', name:'CyberGhost', icon:'👻', color:'#f7c744' },
+];
+// Same palette as TropicAtlas / bonjanjob's trend chart.
+const SERIES_COLOR = { pageviews:'#93c5fd', uniques:'#1a7ed4', clicks:'#10b981' };
+const FLAGS = {HT:'🇭🇹',US:'🇺🇸',FR:'🇫🇷',CA:'🇨🇦',MX:'🇲🇽',GB:'🇬🇧',CO:'🇨🇴',BR:'🇧🇷',DE:'🇩🇪',ES:'🇪🇸',DO:'🇩🇴',JM:'🇯🇲',IN:'🇮🇳',NG:'🇳🇬',SN:'🇸🇳',AR:'🇦🇷',CL:'🇨🇱',PE:'🇵🇪',VE:'🇻🇪',EC:'🇪🇨',IT:'🇮🇹',NL:'🇳🇱',BE:'🇧🇪',CH:'🇨🇭',PT:'🇵🇹',AU:'🇦🇺',PH:'🇵🇭',MA:'🇲🇦',DZ:'🇩🇿',TN:'🇹🇳',CI:'🇨🇮',CM:'🇨🇲'};
+const EMPTY_RANGE = { pageviews:0, visitors:0, clicks:0, revenue:0, clicks_by_source:{}, top_pages:[], top_countries:[] };
+
+async function fetchStats(){
+  const token = sessionStorage.getItem('ymip_token');
+  const r = await fetch('/api/stats/', { headers:{ 'Authorization':'Bearer '+token } });
+  if(r.status===401){ logout(); return null; }
+  const data = await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(data.error || ('HTTP '+r.status));
+  return data;
+}
 
 async function loadLiveStats(){
   try{
-    const data = await gcFetch();
-    const total = data.total || {};
-    const hits = data.hits || {};
-    const locs = data.locations || {};
-    
-    let totalVisitors = total.total || 0;
-    let todayVisitors = total.today || 0;
-    let last7 = total.last7 || 0;
-    let last30 = total.last30 || 0;
-    let last90 = total.last90 || 0;
-    let dailyData = (total.stats||[]).map(d=>({day:d.day, count:d.daily||0}));
-    
-    // Page stats
-    let topPages = ((hits.hits)||[]).map(h=>({page:h.path, views:h.count}));
-    
-    // Locations
-    let countries = ((locs.stats)||[]).map(l=>({id:l.id, name:l.name, count:l.count}));
-    
-    // Update ranges with true numbers
-    ranges.today.visitors = todayVisitors;
-    ranges.today.pageviews = todayVisitors;
-    ranges['7d'].visitors = last7;
-    ranges['7d'].pageviews = last7;
-    ranges['30d'].visitors = last30;
-    ranges['30d'].pageviews = last30;
-    ranges['90d'].visitors = last90;
-    ranges['90d'].pageviews = last90;
-    ranges.all.visitors = totalVisitors;
-    ranges.all.pageviews = totalVisitors;
-    
-    // Update top pages
-    topPages.forEach((p,i) => {
-      if(i < 8) liveTopPages[i] = { page:p.page, views:p.views, bounce:'—' };
-    });
-    
-    // Update countries
-    const flags = {'HT':'🇭🇹','US':'🇺🇸','FR':'🇫🇷','CA':'🇨🇦','MX':'🇲🇽','GB':'🇬🇧','CO':'🇨🇴','BR':'🇧🇷','DE':'🇩🇪','ES':'🇪🇸','DO':'🇩🇴','JM':'🇯🇲','IN':'🇮🇳','NG':'🇳🇬','SN':'🇸🇳'};
-    countries.forEach((c,i) => {
-      if(i < 8){
-        const total = countries.reduce((a,x)=>a+x.count,0);
-        const pct = total>0 ? Math.round(c.count/total*100)+'%' : '—';
-        liveGeoData[i] = { flag:flags[c.id]||'🌍', country:c.name, pct:pct };
-      }
-    });
-    
-    // Update daily chart data
-    liveChartLabels = dailyData.slice(-10).map(d=>d.day.slice(5));
-    liveChartData = dailyData.slice(-10).map(d=>d.count);
-    
-    // Update feed
-    liveFeed = [
-      { dot:'var(--cyan)', text:'<strong>'+totalVisitors+'</strong> total visitors tracked', time:'live' },
-      { dot:'var(--cyan)', text:'<strong>'+todayVisitors+'</strong> visitors today', time:'live' },
-      { dot:'var(--cyan)', text:'<strong>'+topPages.length+'</strong> pages visited', time:'live' },
-      { dot:'var(--cyan)', text:'<strong>'+countries.length+'</strong> countries reached', time:'live' },
-    ];
-    if(countries.length>0) liveFeed.push({ dot:'var(--green)', text:'Top country: <strong>'+countries[0].name+'</strong> ('+countries[0].count+' visitors)', time:'live' });
-    
+    const data = await fetchStats();
+    if(data){ stats = data; statsError = null; }
   }catch(e){
-    console.error('GoatCounter API error:', e);
-    liveFeed = [{ dot:'var(--red)', text:'Failed to load analytics: '+e.message, time:'now' }];
+    statsError = e.message;
+    console.error('Analytics load failed:', e);
   }
 }
 
-const ranges = {
-  today: { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
-  '7d': { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
-  '30d': { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
-  '90d': { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
-  all: { visitors:0, revenue:0, pageviews:0, clicks:0, conv:0, vChg:0, rChg:0, pChg:0, cChg:0, cvChg:0 },
-};
+function rangeData(range){
+  return (stats && stats.ranges && stats.ranges[range]) || EMPTY_RANGE;
+}
 
-let liveTopPages = [
-  { page:'/', views:0, bounce:'—' },
-  { page:'/blog/best-vpns-2026/', views:0, bounce:'—' },
-  { page:'/tools/vpn-quiz/', views:0, bounce:'—' },
-  { page:'/es/', views:0, bounce:'—' },
-  { page:'/fr/', views:0, bounce:'—' },
-];
-let liveGeoData = [
-  { flag:'🇭🇹', country:'Haiti', pct:'—' },
-  { flag:'🇺🇸', country:'United States', pct:'—' },
-];
-let liveChartLabels = [];
-let liveChartData = [];
-let liveFeed = [
-  { dot:'var(--cyan)', text:'Loading live data...', time:'now' },
-];
+function countryName(code){
+  try{ return new Intl.DisplayNames(['en'], {type:'region'}).of(code) || code; }catch(e){ return code; }
+}
 
-const revSources = [
-  { name:'NordVPN', icon:'🦁', clicks:0, convs:0, rev:0, status:'pending', color:'#e33b5e' },
-  { name:'Surfshark', icon:'🦈', clicks:0, convs:0, rev:0, status:'pending', color:'#1eb8c9' },
-  { name:'ExpressVPN', icon:'⚡', clicks:0, convs:0, rev:0, status:'pending', color:'#da3735' },
-  { name:'CyberGhost', icon:'👻', clicks:0, convs:0, rev:0, status:'pending', color:'#f7c744' },
-  { name:'AdSense', icon:'📺', clicks:0, convs:0, rev:0, status:'pending', color:'#4285f4' },
-];
-
-const topPages = [
-  { page:'/', views:0, bounce:'—' },
-  { page:'/blog/best-vpns-2026/', views:0, bounce:'—' },
-  { page:'/tools/vpn-quiz/', views:0, bounce:'—' },
-  { page:'/blog/nordvpn-review-2026/', views:0, bounce:'—' },
-  { page:'/es/', views:0, bounce:'—' },
-  { page:'/fr/', views:0, bounce:'—' },
-];
-
-const geoData = [
-  { flag:'🇭🇹', country:'Haiti', pct:'—' },
-  { flag:'🇺🇸', country:'United States', pct:'—' },
-  { flag:'🇫🇷', country:'France', pct:'—' },
-  { flag:'🇲🇽', country:'Mexico', pct:'—' },
-  { flag:'🇨🇦', country:'Canada', pct:'—' },
-];
-
-const feed = [
-  { dot:'var(--cyan)', text:'<strong>YesMyIP.com</strong> launched', time:'Apr 12' },
-  { dot:'var(--cyan)', text:'Sitemap submitted to <strong>Google Search Console</strong>', time:'Apr 13' },
-  { dot:'var(--amber)', text:'Indexing requested for <strong>5 pages</strong>', time:'Apr 13' },
-];
-
-let mainChartInstance, pieChartInstance;
+function timeAgo(iso){
+  const ms = Date.now() - new Date(iso).getTime();
+  if(!(ms >= 0)) return '';
+  const m = Math.floor(ms/60000);
+  if(m < 1) return 'just now';
+  if(m < 60) return m+'m ago';
+  const h = Math.floor(m/60);
+  if(h < 24) return h+'h ago';
+  return Math.floor(h/24)+'d ago';
+}
 
 async function initDashboard(){
   setLang(currentLang);
   await loadLiveStats();
-  updateStats('today');
-  renderRevTable();
+  renderAll();
+  // Refresh every 60 seconds
+  setInterval(async()=>{ await loadLiveStats(); renderAll(); }, 60000);
+}
+
+function renderAll(){
+  updateStats(currentRange);
+  renderPartnerTable();
   renderPagesTable();
   renderGeo();
   renderGoals();
   renderFeed();
   renderMainChart();
   renderPieChart();
-  // Refresh every 60 seconds
-  setInterval(async()=>{ await loadLiveStats(); updateStats(document.querySelector('.dr-btn.active')?.getAttribute('data-t')==='today'?'today':'all'); renderPagesTable(); renderGeo(); renderFeed(); },60000);
 }
 
 function setRange(btn, range){
   document.querySelectorAll('.dr-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   currentRange = range;
-  updateStats(range);
+  renderAll();
 }
-
-var currentRange = 'today';
 
 function animateValue(el, target, prefix, suffix){
   prefix=prefix||''; suffix=suffix||'';
@@ -968,69 +730,88 @@ function animateValue(el, target, prefix, suffix){
 }
 
 function updateStats(range){
-  const d = ranges[range];
+  const d = rangeData(range);
   const rangeLabels = {today:'today','7d':'7 days','30d':'30 days','90d':'90 days',all:'all time'};
   const label = rangeLabels[range] || range;
   animateValue(document.getElementById('sVisitors'), d.visitors);
-  document.getElementById('sRevenue').textContent = '$'+d.revenue.toFixed(2);
+  document.getElementById('sRevenue').textContent = '$'+Number(d.revenue).toFixed(2);
   animateValue(document.getElementById('sPageviews'), d.pageviews);
   animateValue(document.getElementById('sClicks'), d.clicks);
-  document.getElementById('sConv').textContent = d.conv+'%';
-  
+  // Conversion = affiliate clicks per unique visitor.
+  const conv = d.visitors > 0 ? (d.clicks / d.visitors * 100).toFixed(1) : '0.0';
+  document.getElementById('sConv').textContent = conv+'%';
+
   document.querySelectorAll('.stat-change').forEach(el => {
-    el.textContent = '— '+label;
-    el.style.color = 'var(--t3)';
+    el.textContent = statsError ? '— unavailable' : '— '+label;
+    el.style.color = statsError ? 'var(--red)' : 'var(--t3)';
   });
 }
 
-function renderRevTable(){
-  const tbody = document.getElementById('revTableBody');
-  tbody.innerHTML = revSources.map(s => `
+function renderPartnerTable(){
+  const by = rangeData(currentRange).clicks_by_source || {};
+  const total = PARTNERS.reduce((s,p)=>s+(by[p.key]||0), 0);
+  document.getElementById('revTableBody').innerHTML = PARTNERS.map(p => {
+    const n = by[p.key] || 0;
+    const share = total > 0 ? Math.round(n/total*100)+'%' : '—';
+    return `
     <tr>
-      <td><span class="source-icon" style="background:${s.color}22;border:1px solid ${s.color}44;">${s.icon}</span>${s.name}</td>
-      <td style="font-family:'JetBrains Mono',monospace;">${s.clicks.toLocaleString()}</td>
-      <td style="font-family:'JetBrains Mono',monospace;">${s.convs}</td>
-      <td style="font-family:'JetBrains Mono',monospace;color:var(--green);font-weight:700;">$${s.rev.toFixed(2)}</td>
-      <td><span class="badge ${s.status==='active'?'badge-green':s.status==='pending'?'badge-amber':'badge-red'}">${s.status.toUpperCase()}</span></td>
-    </tr>
-  `).join('');
+      <td><span class="source-icon" style="background:${p.color}22;border:1px solid ${p.color}44;">${p.icon}</span>${p.name}</td>
+      <td style="font-family:'JetBrains Mono',monospace;">${n.toLocaleString()}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--t2);">${share}</td>
+    </tr>`;
+  }).join('');
 }
 
 function renderPagesTable(){
+  const pages = rangeData(currentRange).top_pages || [];
   const tbody = document.getElementById('pagesTableBody');
-  tbody.innerHTML = liveTopPages.filter(p=>p.views>0||liveTopPages.indexOf(p)<5).map(p => `
+  if(pages.length === 0){
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--t3);padding:16px 0;">No page views in this period</td></tr>';
+    return;
+  }
+  tbody.innerHTML = pages.map(p => `
     <tr>
-      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);">${p.page}</td>
-      <td style="font-family:'JetBrains Mono',monospace;">${p.views.toLocaleString()}</td>
-      <td style="font-family:'JetBrains Mono',monospace;color:var(--t2);">${p.bounce}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);">${p.path}</td>
+      <td style="font-family:'JetBrains Mono',monospace;">${Number(p.views).toLocaleString()}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--t2);">${Number(p.sessions).toLocaleString()}</td>
     </tr>
   `).join('');
 }
 
 function renderGeo(){
-  document.getElementById('geoList').innerHTML = liveGeoData.map(g => `
+  const countries = rangeData(currentRange).top_countries || [];
+  const total = countries.reduce((s,c)=>s+Number(c.count), 0);
+  const el = document.getElementById('geoList');
+  if(countries.length === 0){
+    el.innerHTML = '<div style="text-align:center;color:var(--t3);font-size:12px;padding:16px 0;">No visitors in this period</div>';
+    return;
+  }
+  el.innerHTML = countries.map(c => `
     <div class="geo-item">
-      <div><span class="geo-flag">${g.flag}</span><span class="geo-country">${g.country}</span></div>
-      <span class="geo-pct">${g.pct}</span>
+      <div><span class="geo-flag">${FLAGS[c.country]||'🌍'}</span><span class="geo-country">${countryName(c.country)}</span></div>
+      <span class="geo-pct">${total>0 ? Math.round(Number(c.count)/total*100)+'%' : '—'}</span>
     </div>
   `).join('');
 }
 
 function renderGoals(){
   const t = T[currentLang] || T.en;
+  // Monthly targets from the README, measured against real revenue logged in
+  // revenue_entries over the last 30 days.
+  const current = Number(rangeData('30d').revenue) || 0;
   const goals = [
-    { label:t.month1, current:0, target:600, color:'var(--cyan)' },
-    { label:t.month3, current:0, target:3500, color:'var(--amber)' },
-    { label:t.month6, current:0, target:18000, color:'var(--purple)' },
-    { label:t.month12, current:0, target:60000, color:'var(--green)' },
+    { label:t.month1, target:8,    color:'var(--cyan)' },
+    { label:t.month3, target:320,  color:'var(--amber)' },
+    { label:t.month6, target:3100, color:'var(--purple)' },
+    { label:t.month12, target:9200, color:'var(--green)' },
   ];
   document.getElementById('goalsSection').innerHTML = goals.map(g => {
-    const pct = Math.min((g.current/g.target)*100, 100).toFixed(1);
+    const pct = Math.min((current/g.target)*100, 100).toFixed(1);
     return `
       <div class="goal">
         <div class="goal-header">
           <span class="goal-label">${g.label}</span>
-          <span class="goal-value">$${g.current} / $${g.target.toLocaleString()}</span>
+          <span class="goal-value">$${current.toFixed(0)} / $${g.target.toLocaleString()}</span>
         </div>
         <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:${g.color};"></div></div>
       </div>
@@ -1039,7 +820,27 @@ function renderGoals(){
 }
 
 function renderFeed(){
-  document.getElementById('feedSection').innerHTML = liveFeed.map(f => `
+  let items = [];
+  if(statsError){
+    items.push({ dot:'var(--red)', text:'Analytics unavailable: '+statsError, time:'now' });
+  }
+  if(stats){
+    const today = rangeData('today');
+    items.push({ dot:'var(--cyan)', text:'<strong>'+today.pageviews.toLocaleString()+'</strong> page views · <strong>'+today.visitors.toLocaleString()+'</strong> visitors today', time:'live' });
+    (stats.recent_clicks || []).forEach(c => {
+      const p = PARTNERS.find(x => x.key === c.source);
+      items.push({
+        dot:'var(--green)',
+        text:'<strong>'+(p ? p.name : c.source)+'</strong> click from '+(c.path||'?')+(c.country ? ' ('+(FLAGS[c.country]||c.country)+')' : ''),
+        time: timeAgo(c.created_at),
+      });
+    });
+    if(stats.first_pageview_at){
+      items.push({ dot:'var(--t3)', text:'Tracking since <strong>'+new Date(stats.first_pageview_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+'</strong>', time:'' });
+    }
+  }
+  if(items.length === 0) items.push({ dot:'var(--t3)', text:'No events yet', time:'' });
+  document.getElementById('feedSection').innerHTML = items.map(f => `
     <div class="feed-item">
       <div class="feed-dot" style="background:${f.dot};"></div>
       <div class="feed-text">${f.text}</div>
@@ -1048,79 +849,117 @@ function renderFeed(){
   `).join('');
 }
 
+// ----------------------------------------------------------------------------
+// TREND CHART — Chart.js port of TropicAtlas's recharts TrendChart.
+// Page views = filled area (left axis), unique visitors = line (left axis),
+// affiliate clicks = line on a SEPARATE right axis: clicks are orders of
+// magnitude below page views and would be pinned flat to zero otherwise.
+// Buckets arrive zero-filled and keyed in New York time; labels are built
+// from the key string, never through a Date the browser could re-zone.
+// ----------------------------------------------------------------------------
+function chartPoints(range){
+  if(!stats || !stats.series) return { bucket:'day', rows:[] };
+  if(range === 'today'){
+    const hk = stats.hour_key || '';
+    // Midnight through the current hour; future hours would read as a crash.
+    return { bucket:'hour', rows:(stats.series.hourly||[]).filter(r => !hk || r.bucket <= hk) };
+  }
+  const daily = stats.series.daily || [];
+  const n = { '7d':7, '30d':30, '90d':90 }[range];
+  return { bucket:'day', rows: n ? daily.slice(-n) : daily };
+}
+
+function bucketDate(key){
+  const y = +key.slice(0,4), m = +key.slice(5,7), d = +key.slice(8,10);
+  // Noon UTC keeps the date away from either midnight, so formatting cannot
+  // roll it to a neighbouring day whatever zone the browser is in.
+  return new Date(Date.UTC(y, m-1, d, 12));
+}
+function fmtBucketLabel(key, bucket){
+  if(bucket === 'hour'){ const h = +key.slice(11,13); return (h%12||12)+(h<12?'am':'pm'); }
+  return bucketDate(key).toLocaleDateString('en-US', { month:'short', day:'numeric', timeZone:'UTC' });
+}
+function fmtBucketTitle(key, bucket){
+  const day = bucketDate(key).toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', timeZone:'UTC' });
+  return bucket === 'hour' ? day+', '+fmtBucketLabel(key, 'hour') : day;
+}
+
+const MONO = { family:'JetBrains Mono', size:10 };
+
 function renderMainChart(){
+  const { bucket, rows } = chartPoints(currentRange);
+  const hasData = rows.some(r => r.page_views > 0 || r.unique_visitors > 0 || r.clicks > 0);
+  document.getElementById('mainChartEmpty').classList.toggle('show', !hasData);
+
   const ctx = document.getElementById('mainChart').getContext('2d');
-  const labels = liveChartLabels.length > 0 ? liveChartLabels : ['—'];
-  const visitors = liveChartData.length > 0 ? liveChartData : [0];
-  const revenue = visitors.map(()=>0);
-  
   if(mainChartInstance) mainChartInstance.destroy();
   mainChartInstance = new Chart(ctx, {
     type:'line',
     data:{
-      labels,
+      labels: rows.map(r => fmtBucketLabel(r.bucket, bucket)),
       datasets:[
-        {
-          label:'Visitors',
-          data:visitors,
-          borderColor:'#00d4ff',
-          backgroundColor:'rgba(0,212,255,.08)',
-          fill:true,
-          tension:.4,
-          borderWidth:2,
-          pointRadius:3,
-          pointBackgroundColor:'#00d4ff',
-          yAxisID:'y',
-        },
-        {
-          label:'Revenue ($)',
-          data:revenue,
-          borderColor:'#00e676',
-          backgroundColor:'rgba(0,230,118,.08)',
-          fill:true,
-          tension:.4,
-          borderWidth:2,
-          pointRadius:3,
-          pointBackgroundColor:'#00e676',
-          yAxisID:'y1',
-        }
+        { label:'Page views', data: rows.map(r => r.page_views),
+          borderColor:SERIES_COLOR.pageviews, backgroundColor:'rgba(147,197,253,.22)', fill:true,
+          tension:.4, borderWidth:1.5, pointRadius:0, pointHitRadius:10, yAxisID:'y', order:3 },
+        { label:'Unique visitors', data: rows.map(r => r.unique_visitors),
+          borderColor:SERIES_COLOR.uniques, fill:false,
+          tension:.4, borderWidth:2, pointRadius:0, pointHitRadius:10, yAxisID:'y', order:2 },
+        { label:'Affiliate clicks', data: rows.map(r => r.clicks),
+          borderColor:SERIES_COLOR.clicks, fill:false,
+          tension:.4, borderWidth:2, pointRadius:0, pointHitRadius:10, yAxisID:'y1', order:1 },
       ]
     },
     options:{
-      responsive:true,
-      maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{legend:{labels:{color:'#7b8baa',font:{family:'Outfit',size:11}}}},
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{
+        legend:{ position:'bottom', labels:{ color:'#7b8baa', usePointStyle:true, pointStyle:'circle', boxWidth:8, boxHeight:8, padding:14, font:{ family:'Outfit', size:11 } } },
+        tooltip:{
+          backgroundColor:'#0f1525', borderColor:'rgba(148,163,184,.25)', borderWidth:1,
+          titleColor:'#e8edf8', bodyColor:'#e8edf8', padding:10, usePointStyle:true,
+          titleFont:{ family:'Outfit', size:12, weight:'600' }, bodyFont:{ family:'JetBrains Mono', size:11 },
+          callbacks:{
+            title: items => items.length ? fmtBucketTitle(rows[items[0].dataIndex].bucket, bucket) : '',
+            label: item => ' '+item.dataset.label+': '+Number(item.parsed.y).toLocaleString('en-US'),
+          }
+        }
+      },
       scales:{
-        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#3a4560',font:{family:'JetBrains Mono',size:10}}},
-        y:{position:'left',grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#00d4ff',font:{family:'JetBrains Mono',size:10}}},
-        y1:{position:'right',grid:{display:false},ticks:{color:'#00e676',font:{family:'JetBrains Mono',size:10},callback:v=>'$'+v}}
+        x:{ grid:{ display:false }, border:{ color:'rgba(255,255,255,.08)' },
+            ticks:{ color:'#6b7280', font:MONO, maxTicksLimit:8, maxRotation:0, autoSkip:true } },
+        y:{ position:'left', beginAtZero:true, grid:{ color:'rgba(255,255,255,.05)' }, border:{ display:false },
+            ticks:{ color:'#6b7280', font:MONO, precision:0 } },
+        y1:{ position:'right', beginAtZero:true, grid:{ display:false }, border:{ display:false },
+             ticks:{ color:SERIES_COLOR.clicks, font:MONO, precision:0 } },
       }
     }
   });
 }
 
 function renderPieChart(){
+  const by = rangeData(currentRange).clicks_by_source || {};
+  const data = PARTNERS.map(p => by[p.key] || 0);
+  document.getElementById('pieChartEmpty').classList.toggle('show', data.every(n => n === 0));
+
   const ctx = document.getElementById('pieChart').getContext('2d');
   if(pieChartInstance) pieChartInstance.destroy();
   pieChartInstance = new Chart(ctx, {
     type:'doughnut',
     data:{
-      labels: revSources.map(s=>s.name),
+      labels: PARTNERS.map(p => p.name),
       datasets:[{
-        data: revSources.map(s=>s.rev),
-        backgroundColor: revSources.map(s=>s.color+'cc'),
-        borderColor: revSources.map(s=>s.color),
+        data,
+        backgroundColor: PARTNERS.map(p => p.color+'cc'),
+        borderColor: PARTNERS.map(p => p.color),
         borderWidth:1,
         hoverOffset:6,
       }]
     },
     options:{
-      responsive:true,
-      maintainAspectRatio:false,
-      cutout:'62%',
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
       plugins:{
-        legend:{position:'bottom',labels:{color:'#7b8baa',font:{family:'Outfit',size:11},padding:12,usePointStyle:true,pointStyleWidth:8}},
+        legend:{ position:'bottom', labels:{ color:'#7b8baa', font:{ family:'Outfit', size:11 }, padding:12, usePointStyle:true, pointStyleWidth:8 } },
+        tooltip:{ callbacks:{ label: item => ' '+item.label+': '+Number(item.parsed).toLocaleString('en-US')+' clicks' } },
       }
     }
   });
@@ -1308,6 +1147,5 @@ function sendNewsletter(){
   msg.style.color='var(--amber)';
 }
 </script>
-<script data-goatcounter="https://yesmyip.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

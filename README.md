@@ -86,6 +86,27 @@ git push -u origin main
 
 ---
 
+## ANALYTICS & ADMIN (first-party, Sept 2026)
+
+Public pages load `/assets/track.js`, which posts one pageview per load and
+one event per affiliate-link click (NordVPN, Surfshark, ExpressVPN,
+CyberGhost) to `/api/track`. Rows land in Supabase (`page_views`,
+`affiliate_clicks`); `/admin` reads them through `/api/stats`, which calls
+`admin_dashboard_summary()` — every number is aggregated in Postgres in
+America/New_York, with no row cap. GA4 stays as a second, independent source.
+
+Setup (once):
+1. Create the Supabase project and run `supabase/001_analytics.sql`.
+2. In Vercel → Settings → Environment Variables, set everything in
+   `.env.example`: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `ADMIN_USERS`,
+   `ADMIN_SESSION_SECRET`.
+3. Admin users are NOT in the repo. Hash a password with
+   `node api/_lib/hash-password.js '<password>'` and put it in `ADMIN_USERS`.
+4. Redeploy. Until step 2 is done, `/api/track` is a silent no-op and `/admin`
+   says "Analytics unavailable" instead of showing numbers.
+
+---
+
 ## SEO — WHY THIS STRUCTURE WINS
 
 Each language has its own URL path:

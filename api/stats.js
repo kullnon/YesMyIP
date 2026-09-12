@@ -1,93 +1,46 @@
-const https = require('https');
-const fs = require('fs');
+// api/stats.js — GET, Authorization: Bearer <session token> → dashboard data.
+//
+// Replaces the GoatCounter proxy (third-party analytics, API token committed
+// in this file, running totals in a per-lambda /tmp file). Now one call to
+// admin_dashboard_summary() in Supabase (supabase/001_analytics.sql), which
+// aggregates the first-party page_views / affiliate_clicks tables in Postgres,
+// in America/New_York, with no row cap.
+//
+// Response shape (all counts are numbers, all keys NY-local):
+// {
+//   configured: true,
+//   generated_at, tz, today_key: 'YYYY-MM-DD', hour_key: 'YYYY-MM-DDTHH',
+//   first_pageview_at,
+//   ranges: { today|7d|30d|90d|all: { pageviews, visitors, clicks, revenue,
+//             clicks_by_source: {nordvpn: n, ...},
+//             top_pages: [{path, views, sessions}], top_countries: [{country, count}] } },
+//   series: { daily: [{bucket, page_views, unique_visitors, clicks, revenue}], hourly: [...] },
+//   recent_clicks: [{source, path, country, created_at}]
+// }
 
-const GC_TOKEN = '1wjeluv2hg97jls31ztzix2p2ky0yv472iokx9v3nel42ewrn';
-const GC_HOST = 'yesmyip.goatcounter.com';
-const STATS_FILE = '/tmp/ymip_cumulative_stats.json';
-
-function gcRequest(reqPath) {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: GC_HOST, path: '/api/v0' + reqPath, method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + GC_TOKEN, 'Content-Type': 'application/json' }
-    };
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => { try { resolve(JSON.parse(data)); } catch (e) { reject(e); } });
-    });
-    req.on('error', reject);
-    req.end();
-  });
-}
-
-function loadCum() {
-  try { if (fs.existsSync(STATS_FILE)) return JSON.parse(fs.readFileSync(STATS_FILE, 'utf8')); } catch (e) {}
-  return { daily: {}, pages: {}, countries: {}, allTime: 0 };
-}
-function saveCum(d) { try { fs.writeFileSync(STATS_FILE, JSON.stringify(d)); } catch (e) {} }
+const { authenticateRequest } = require('./_lib/auth');
+const { isConfigured, rpc } = require('./_lib/supabase');
 
 module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://yesmyip.com');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  if (req.method === 'OPTIONS') return res.status(200).end();
+  res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
-  const auth = req.headers.authorization;
-  if (!auth || !auth.startsWith('Bearer ')) return res.status(401).json({ error: 'Unauthorized' });
+
+  // A real check now: signature + expiry. The previous version accepted any
+  // header that started with "Bearer ".
+  const user = authenticateRequest(req);
+  if (!user) return res.status(401).json({ error: 'Unauthorized' });
+
+  if (!isConfigured()) {
+    // Deployed before the Supabase project is wired: tell the dashboard
+    // plainly instead of returning zeros that look like data.
+    return res.status(503).json({ configured: false, error: 'Analytics database not configured yet' });
+  }
 
   try {
-    const [total, hits, locations] = await Promise.all([
-      gcRequest('/stats/total'), gcRequest('/stats/hits?limit=20'), gcRequest('/stats/locations')
-    ]);
-
-    let cum = loadCum();
-
-    // Merge daily — never decrease
-    for (const day of (total.stats || [])) {
-      cum.daily[day.day] = Math.max(cum.daily[day.day] || 0, day.daily || 0);
-    }
-
-    // Merge pages — never decrease
-    for (const hit of (hits.hits || [])) {
-      cum.pages[hit.path] = Math.max(cum.pages[hit.path] || 0, hit.count || 0);
-    }
-
-    // Merge countries — never decrease
-    for (const loc of (locations.stats || [])) {
-      if (!cum.countries[loc.id]) cum.countries[loc.id] = { name: loc.name, count: 0 };
-      cum.countries[loc.id].name = loc.name;
-      cum.countries[loc.id].count = Math.max(cum.countries[loc.id].count, loc.count || 0);
-    }
-
-    // True all-time = sum of all daily history
-    const trueTotal = Object.values(cum.daily).reduce((a, b) => a + b, 0);
-    cum.allTime = Math.max(cum.allTime, trueTotal);
-    saveCum(cum);
-
-    // Date range calculations
-    const now = new Date();
-    function dayStr(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
-    function daysAgo(n) { const d = new Date(now); d.setDate(d.getDate() - n); return dayStr(d); }
-    function sumFrom(start) { let s = 0; for (const [d, c] of Object.entries(cum.daily)) { if (d >= start) s += c; } return s; }
-
-    const todayStr = dayStr(now);
-    const todayV = cum.daily[todayStr] || 0;
-
-    // Chart data — last 14 days
-    const chart = [];
-    for (let i = 13; i >= 0; i--) { const d = daysAgo(i); chart.push({ day: d, daily: cum.daily[d] || 0 }); }
-
-    // Sorted pages and countries
-    const sortedPages = Object.entries(cum.pages).map(([p, c]) => ({ path: p, count: c })).sort((a, b) => b.count - a.count).slice(0, 20);
-    const sortedCountries = Object.entries(cum.countries).map(([id, d]) => ({ id, name: d.name, count: d.count })).sort((a, b) => b.count - a.count).slice(0, 10);
-
-    return res.status(200).json({
-      total: { total: cum.allTime, today: todayV, last7: sumFrom(daysAgo(7)), last30: sumFrom(daysAgo(30)), last90: sumFrom(daysAgo(90)), stats: chart },
-      hits: { hits: sortedPages },
-      locations: { stats: sortedCountries }
-    });
+    const data = await rpc('admin_dashboard_summary', {});
+    return res.status(200).json({ configured: true, ...data });
   } catch (e) {
-    return res.status(500).json({ error: 'Failed: ' + e.message });
+    console.error('[/api/stats]', e.message);
+    return res.status(500).json({ error: 'Failed to load analytics' });
   }
 };

@@ -1,9 +1,6 @@
 {
   "cleanUrls": true,
   "trailingSlash": true,
-  "redirects": [
-    { "source": "/admin/users.json", "destination": "/", "statusCode": 404 }
-  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -1,0 +1,7 @@
+# Secrets live in Vercel environment variables, never in this repo.
+.env
+.env.*
+!.env.example
+admin/users.json
+.vercel
+.DS_Store
