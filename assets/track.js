@@ -40,7 +40,7 @@
 
   // Affiliate clicks: any link whose host contains a partner name. Capture
   // phase so a handler that navigates away cannot swallow it first.
-  var PARTNERS = ['nordvpn', 'surfshark', 'expressvpn', 'cyberghost'];
+  var PARTNERS = ['nordvpn', 'surfshark', 'expressvpn', 'cyberghost', 'privateinternetaccess'];
   document.addEventListener('click', function (e) {
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (!a) return;

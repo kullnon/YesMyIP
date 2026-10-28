@@ -10,7 +10,7 @@
 
 const { isConfigured, insert } = require('./_lib/supabase');
 
-const PARTNERS = new Set(['nordvpn', 'surfshark', 'expressvpn', 'cyberghost']);
+const PARTNERS = new Set(['nordvpn', 'surfshark', 'expressvpn', 'cyberghost', 'privateinternetaccess']);
 const BOT_UA = /bot|crawl|spider|slurp|headless|lighthouse|pagespeed|preview|monitor|curl|wget|python-requests/i;
 // eslint-disable-next-line no-control-regex
 const CONTROL_CHARS = /[\x00-\x1f\x7f]/g;
