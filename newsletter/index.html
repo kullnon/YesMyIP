@@ -263,18 +263,33 @@ footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px
 
 <script>
 function subscribe(){
-  const email = document.getElementById('emailInput').value.trim();
-  if(!email || !email.includes('@')){ document.getElementById('emailInput').style.borderColor='var(--red)'; return; }
-  // Store subscriber (in a real setup, this would POST to a backend or Mailchimp/ConvertKit API)
-  const subs = JSON.parse(localStorage.getItem('ymip_subs')||'[]');
-  if(!subs.includes(email)){
-    subs.push(email);
-    localStorage.setItem('ymip_subs', JSON.stringify(subs));
-  }
-  document.getElementById('formSection').style.display='none';
-  document.getElementById('successMsg').classList.add('show');
-  // Track in GA4
-  if(typeof gtag==='function') gtag('event','newsletter_signup',{email_domain:email.split('@')[1]});
+  const input = document.getElementById('emailInput');
+  const email = input.value.trim();
+  if(!email || !email.includes('@')){ input.style.borderColor='var(--red)'; return; }
+  const btn = document.querySelector('#formSection .nl-btn');
+  if(btn){ btn.disabled = true; }
+  // Saved server-side (api/subscribe.js -> newsletter_subscribers). Until 2026-11-02 this
+  // only wrote to localStorage, so every signup was lost.
+  fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, source: 'newsletter_page', locale: (document.documentElement.lang || 'en').slice(0,5) })
+  }).then(function(r){ return r.json().then(function(d){ return { ok: r.ok && d && d.ok, d: d }; }); })
+    .then(function(res){
+      if(btn){ btn.disabled = false; }
+      if(!res.ok){
+        input.style.borderColor='var(--red)';
+        alert(res.d && res.d.error === 'invalid_email' ? 'Please enter a valid email address.' : 'Sorry, we could not save your signup. Please try again.');
+        return;
+      }
+      document.getElementById('formSection').style.display='none';
+      document.getElementById('successMsg').classList.add('show');
+      if(typeof gtag==='function') gtag('event','newsletter_signup',{email_domain:email.split('@')[1]});
+    })
+    .catch(function(){
+      if(btn){ btn.disabled = false; }
+      alert('Sorry, we could not save your signup. Please check your connection and try again.');
+    });
 }
 function subscribe2(){
   document.getElementById('emailInput').value = document.getElementById('emailInput2').value;

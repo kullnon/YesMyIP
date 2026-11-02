@@ -34,6 +34,19 @@ async function request(path, body, extraHeaders) {
   return text ? JSON.parse(text) : null;
 }
 
+/**
+ * Insert one row; a unique-constraint conflict (HTTP 409 / 23505) counts as success.
+ * Throws on any other failure.
+ */
+async function insertIgnoreDuplicate(table, row) {
+  try {
+    await request(table, row, { Prefer: 'return=minimal' });
+  } catch (err) {
+    if (/→ 409:|23505/.test(String(err && err.message))) return;
+    throw err;
+  }
+}
+
 /** Insert one row. Returns nothing; throws on failure. */
 async function insert(table, row) {
   await request(table, row, { Prefer: 'return=minimal' });
@@ -44,4 +57,4 @@ async function rpc(fn, args) {
   return request(`rpc/${fn}`, args || {});
 }
 
-module.exports = { isConfigured, insert, rpc };
+module.exports = { isConfigured, insert, rpc, insertIgnoreDuplicate };
