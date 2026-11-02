@@ -6,7 +6,8 @@
 // `website` is a honeypot: bots that fill it get a fake success and nothing is saved.
 // A repeat address is a success, not an error (unique index on lower(email)).
 
-const { isConfigured, insertIgnoreDuplicate } = require('./_lib/supabase');
+const { isConfigured, insertIgnoreDuplicate, rest } = require('./_lib/supabase');
+const { isSynthetic } = require('./_lib/synthetic');
 
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{2,}$/;
 // eslint-disable-next-line no-control-regex
@@ -38,6 +39,24 @@ module.exports = async (req, res) => {
   if (!isConfigured()) {
     console.error('subscribe: Supabase not configured; signup NOT stored');
     return res.status(503).json({ ok: false, error: 'unavailable' });
+  }
+
+  // Flow Watchdog probe (signed x-maestro-synthetic header, _lib/synthetic.js): validated like a
+  // real signup, then the write is proven (insert, read back, delete) with a unique reserved
+  // address. Nothing else happens for it.
+  if (isSynthetic(req.headers, 'yesmyip')) {
+    try {
+      const probe = `flow-watchdog+${Date.now()}@synthetic.invalid`;
+      const rows = await rest('POST', 'newsletter_subscribers', { email: probe, source: 'flow_watchdog', is_test: true });
+      const id = rows && rows[0] && rows[0].id;
+      if (!id) throw new Error('insert returned no row');
+      const back = await rest('GET', `newsletter_subscribers?id=eq.${id}&select=id`);
+      await rest('DELETE', `newsletter_subscribers?id=eq.${id}`);
+      if (!back || !back.length) throw new Error('read-back missing');
+      return res.status(200).json({ ok: true, synthetic: { write: 'verified' } });
+    } catch (err) {
+      return res.status(503).json({ ok: false, synthetic: { write: 'failed', error: String(err && err.message).slice(0, 200) } });
+    }
   }
 
   try {

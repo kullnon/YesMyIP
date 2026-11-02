@@ -47,6 +47,20 @@ async function insertIgnoreDuplicate(table, row) {
   }
 }
 
+/** Generic PostgREST call (any method). Returns parsed JSON or null; throws on failure. */
+async function rest(method, path, body) {
+  const cfg = config();
+  if (!cfg) throw new Error('Supabase is not configured (SUPABASE_URL / SUPABASE_SERVICE_KEY)');
+  const res = await fetch(`${cfg.url}/rest/v1/${path}`, {
+    method,
+    headers: { apikey: cfg.key, Authorization: `Bearer ${cfg.key}`, 'Content-Type': 'application/json', Prefer: 'return=representation' },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`Supabase ${method} ${path} → ${res.status}: ${text.slice(0, 300)}`);
+  return text ? JSON.parse(text) : null;
+}
+
 /** Insert one row. Returns nothing; throws on failure. */
 async function insert(table, row) {
   await request(table, row, { Prefer: 'return=minimal' });
@@ -57,4 +71,4 @@ async function rpc(fn, args) {
   return request(`rpc/${fn}`, args || {});
 }
 
-module.exports = { isConfigured, insert, rpc, insertIgnoreDuplicate };
+module.exports = { isConfigured, insert, rpc, insertIgnoreDuplicate, rest };
