@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<script>(function(){var d=document.documentElement;var t;try{t=localStorage.getItem('ymi-theme');}catch(e){}d.dataset.theme=(t==='dark')?'dark':'light';window.toggleTheme=function(){var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('ymi-theme',n);}catch(e){}var b=document.getElementById('themeToggle');if(b){b.setAttribute('aria-pressed',n==='dark');}};}());</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adresse IP publique vs privée : quelle différence ? | YesMyIP.com</title>
+<meta name="description" content="Vos appareils ont une IP privée à la maison et partagent une IP publique en ligne. Comment chacune fonctionne et comment trouver la vôtre.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yesmyip.com/fr/blog/adresse-ip-publique-vs-privee/">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<style>
+:root{--bg:#f4f6fb;--s1:#ffffff;--s2:#eef1f7;--s3:#e3e8f1;--border:rgba(15,23,42,.10);--border2:rgba(15,23,42,.16);--cyan:#0277a8;--cd:rgba(2,119,168,.10);--green:#0a8f4f;--gd:rgba(10,143,79,.10);--red:#dc2640;--rd:rgba(220,38,64,.10);--orange:#c2700a;--od:rgba(194,112,10,.12);--purple:#6741d9;--pd:rgba(103,65,217,.12);--amber:#b06f00;--text:#16202e;--t2:#55617a;--t3:#6c7689;--danger-text:#c01530;--warn-text:#b45309;--ok-text:#0a8f4f;--nav-bg:rgba(255,255,255,.92);--overlay-bg:rgba(255,255,255,.97);--r:16px;--rsm:10px;color-scheme:light;}[data-theme="dark"]{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--green:#00e676;--red:#ff4757;--purple:#845ef7;--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;--danger-text:#ff8a95;--warn-text:#ffd082;--ok-text:#69f0ae;--nav-bg:rgba(7,9,15,.95);--overlay-bg:rgba(10,14,26,.97);color-scheme:dark;}.theme-toggle{background:none;border:1px solid var(--border);color:var(--text);width:34px;height:30px;border-radius:16px;cursor:pointer;font-size:15px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;padding:0;}.theme-toggle:hover{background:var(--s2);border-color:var(--border2);}.theme-toggle .ti-moon{display:none;}.theme-toggle .ti-sun{display:inline;}[data-theme="dark"] .theme-toggle .ti-sun{display:none;}[data-theme="dark"] .theme-toggle .ti-moon{display:inline;}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px;line-height:1.65;}
+nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
+.nav-link{color:var(--t2);font-size:13px;padding:6px 10px;border-radius:8px;text-decoration:none;}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.06);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
+.lang-btn{color:var(--t2);font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;text-decoration:none;}.lang-btn.active{background:var(--cyan);color:#000;}
+.shield-btn{background:var(--red);color:white;font-weight:700;font-size:10px;padding:5px 10px;border-radius:20px;text-decoration:none;white-space:nowrap;}
+.article-layout{max-width:1060px;margin:0 auto;padding:40px 20px 60px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:start;}
+.article-sidebar{position:sticky;top:80px;}
+.article-main{min-width:0;}
+@media(max-width:860px){.article-layout{grid-template-columns:1fr;}.article-sidebar{position:static;order:1;}}
+.article h1{font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px;}
+.article .meta{font-size:13px;color:var(--t3);margin-bottom:32px;}
+.article h2{font-size:22px;font-weight:700;color:var(--cyan);margin:32px 0 12px;}
+.article h3{font-size:18px;font-weight:700;margin:24px 0 8px;}
+.article p{margin-bottom:16px;color:var(--t2);line-height:1.75;}
+.article a{color:var(--cyan);}.article strong{color:var(--text);}
+.cta-box{background:linear-gradient(135deg,#120a28,#091b30);border:1px solid rgba(123,94,167,.25);border-radius:var(--r);padding:24px;margin:32px 0;text-align:center;}
+.cta-box h3{margin-bottom:8px;}.cta-box p{color:var(--t2);font-size:13px;margin-bottom:16px;}
+.cta-btn{display:inline-block;background:var(--cyan);color:#000;font-weight:700;padding:12px 28px;border-radius:10px;text-decoration:none;}
+.breadcrumb{font-size:12px;color:var(--t3);margin-bottom:20px;}.breadcrumb a{color:var(--t3);text-decoration:none;}
+footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;text-align:center;color:var(--t3);font-size:13px;}
+footer a{color:var(--t3);text-decoration:none;margin:0 8px;}
+@media(max-width:900px){nav .nav-link{display:none;}}
+
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:24px;}
+.footer-brand p{font-size:13px;color:var(--t3);line-height:1.7;}
+.footer-col h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;}.footer-col a{display:block;color:var(--t3);text-decoration:none;font-size:13px;margin-bottom:6px;transition:color .2s;}.footer-col a:hover{color:var(--cyan);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--t3);}
+.footer-legal{display:flex;gap:14px;flex-wrap:wrap;}.footer-legal a{color:var(--t3);text-decoration:none;font-size:12px;}.footer-legal a:hover{color:var(--cyan);}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr;}}
+.cmp-table{width:100%;border-collapse:collapse;margin:8px 0 24px;font-size:14px;background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.cmp-table th,.cmp-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top;}
+.cmp-table thead th{background:var(--s2);color:var(--text);font-weight:700;}
+.cmp-table th[scope=row]{color:var(--text);font-weight:600;width:30%;}
+.cmp-table td{color:var(--t2);}
+.cmp-table tbody tr:last-child th,.cmp-table tbody tr:last-child td{border-bottom:none;}
+.cmp-yes{color:var(--ok-text);font-weight:700;}
+.cmp-no{color:var(--danger-text);font-weight:700;}
+.faq-q{font-size:18px;font-weight:700;color:var(--text);margin:22px 0 6px;}
+.faq-a{margin:0 0 16px;color:var(--t2);line-height:1.75;}
+</style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6610691391899378" crossorigin="anonymous"></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3Y8679L24"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-N3Y8679L24');
+</script>
+</head>
+<body>
+<nav>
+  <a href="/"><img src="/assets/logo.png" style="height:38px;width:auto;" alt="YesMyIP.com"></a>
+  <a class="nav-link" href="/fr/#ip-result">Mon IP</a>
+  <a class="nav-link" href="/fr/#vpn-compare">VPNs</a>
+  <a class="nav-link" href="/fr/blog/">Blog</a>
+  <div class="nav-right">
+    <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Basculer entre le thème clair et sombre"><span class="ti-sun">☀️</span><span class="ti-moon">🌙</span></button>
+    <div class="lang-switcher">
+      <a href='/es/' class="lang-btn">🇪🇸 ES</a>
+      <a href="/" class="lang-btn">🇺🇸 EN</a>
+      <span class="lang-btn active">🇫🇷 FR</span>
+    </div>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored" class="shield-btn">🛡️ Masquer IP</a>
+  </div>
+</nav>
+<div class="article-layout">
+  <div class="article-sidebar"><div style="background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:16px;padding:22px;margin-top:36px;">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#dde4f2);margin-bottom:14px;">📚 Plus d'Articles</div>
+    <a href="/fr/blog/meilleurs-vpn-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">Meilleurs VPN de 2026</a>
+    <a href="/fr/blog/nordvpn-avis-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">NordVPN Avis 2026</a>
+    <a href="/fr/blog/meilleurs-vpn-netflix-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">Meilleurs VPN pour Netflix</a>
+    <a href="/fr/blog/quest-ce-quun-vpn/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">Qu'est-ce qu'un VPN ?</a>
+    <a href="/fr/blog/vpn-vs-proxy/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;">VPN vs Proxy</a>
+    <a href="/fr/blog/" style="display:block;padding:9px 12px;border-radius:8px;color:var(--cyan,#00d4ff);font-size:13px;text-decoration:none;font-weight:600;">Voir Tous →</a>
+  </div>
+  </div>
+  <div class="article-main">
+  <div class="breadcrumb"><a href="/fr/">Accueil</a> → <a href="/fr/blog/">Blog</a> → Adresse IP publique vs privée</div>
+  <h1>Adresse IP publique vs privée : quelle différence ?</h1>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:16px;background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:12px;">
+    <div>
+      <div style="font-weight:700;font-size:14px;color:var(--text,#dde4f2);">L'équipe éditoriale de YesMyIP</div>
+      <div style="font-size:11px;color:var(--t3,#3d4f6e);margin-top:2px;">17 novembre 2026 · 5 min de lecture</div>
+    </div>
+  </div>
+  
+        <p>Chaque appareil que vous connectez à internet utilise une adresse IP, mais la plupart en utilisent en réalité deux : une adresse privée à l'intérieur de votre domicile et une adresse publique que voit le reste d'internet. C'est en les confondant qu'on s'étonne qu'une adresse comme 192.168.1.5 sur son ordinateur ne corresponde jamais au numéro affiché par un site web. Voici ce qui les distingue, comment trouver chacune et laquelle compte pour votre vie privée.</p>
+
+        <h2>IP publique vs IP privée : comparaison rapide</h2>
+        <table class="cmp-table">
+          <thead><tr><th scope="col">Caractéristique</th><th scope="col">IP publique</th><th scope="col">IP privée</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Qui l'attribue</th><td>Votre fournisseur d'accès à internet</td><td>Votre routeur (box)</td></tr>
+            <tr><th scope="row">Où elle fonctionne</th><td>Sur tout internet</td><td>Uniquement dans votre propre réseau</td></tr>
+            <tr><th scope="row">Qui peut la voir</th><td>Chaque site et service auquel vous vous connectez</td><td>Uniquement les appareils du même réseau</td></tr>
+            <tr><th scope="row">Unique ?</th><td>Unique sur internet à un instant donné</td><td>Unique seulement dans votre réseau ; réutilisée dans d'autres foyers et bureaux</td></tr>
+            <tr><th scope="row">Aspect habituel</th><td>Toute adresse en dehors des plages privées réservées</td><td>Commence par 192.168, 10, ou de 172.16 à 172.31</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Qu'est-ce qu'une adresse IP publique ?</h2>
+        <p>Une adresse IP publique est l'adresse que votre fournisseur d'accès attribue à votre connexion. C'est elle qui identifie le réseau de votre domicile ou de votre bureau auprès du reste d'internet. Quand vous chargez un site web, le serveur du site doit savoir où renvoyer la page, et votre IP publique est cette adresse de retour.</p>
+        <p>Dans un foyer classique, l'adresse publique appartient au routeur, et non à un appareil en particulier. Votre téléphone, votre ordinateur et votre téléviseur passent tous par cette même adresse. Vous pouvez voir la vôtre dès maintenant sur la <a href="/fr/">page d'accueil de YesMyIP</a>, qui affiche simplement l'adresse depuis laquelle notre serveur a reçu votre requête.</p>
+
+        <h2>Qu'est-ce qu'une adresse IP privée ?</h2>
+        <p>Une adresse IP privée est celle que votre routeur distribue à chaque appareil de votre réseau local pour qu'ils puissent communiquer avec le routeur et entre eux. Votre imprimante, votre téléphone et votre ordinateur en reçoivent chacun une. Cela se fait en général automatiquement grâce à une fonction du routeur appelée DHCP, ce qui explique que vous n'ayez presque jamais à y penser.</p>
+        <p>Les adresses privées proviennent de trois blocs réservés aux réseaux locaux, qui ne sont jamais routés sur internet :</p>
+        <ul>
+          <li><strong>De 10.0.0.0 à 10.255.255.255</strong></li>
+          <li><strong>De 172.16.0.0 à 172.31.255.255</strong></li>
+          <li><strong>De 192.168.0.0 à 192.168.255.255</strong></li>
+        </ul>
+        <p>Comme ces plages n'ont de sens qu'à l'intérieur d'un réseau local, elles peuvent être réutilisées partout. Votre ordinateur peut être 192.168.1.5 chez vous, et celui d'un inconnu sur un autre réseau peut aussi être 192.168.1.5, sans aucun conflit.</p>
+
+        <h2>Comment elles fonctionnent ensemble</h2>
+        <p>Votre routeur se trouve entre les deux mondes. Il possède une adresse privée côté intérieur (souvent quelque chose comme 192.168.1.1) et l'adresse publique côté extérieur. Quand votre ordinateur demande une page web, le routeur réécrit la requête pour qu'elle semble venir de l'adresse publique, retient quel appareil l'a envoyée et transmet la réponse au bon appareil. C'est ce qu'on appelle la <strong>traduction d'adresses réseau</strong>, ou NAT.</p>
+        <p>Le NAT existe surtout parce que le système d'adressage d'origine, IPv4, ne compte pas assez d'adresses pour que chaque appareil dans le monde ait sa propre adresse publique. Partager une adresse publique entre tout un foyer résout ce problème. Certains fournisseurs vont plus loin et partagent une seule adresse publique entre plusieurs clients : c'est le NAT de classe opérateur, ou CGNAT.</p>
+        <p>Le système plus récent, IPv6, dispose d'un espace d'adressage immensément plus grand : les appareils peuvent recevoir des adresses uniques au niveau mondial, et la séparation entre public et privé y fonctionne différemment. Aujourd'hui, de nombreuses connexions utilisent IPv4 et IPv6 en parallèle.</p>
+
+        <h2>Comment trouver chaque adresse</h2>
+        <h3>Votre IP publique</h3>
+        <p>Ouvrez la <a href="/fr/">page d'accueil de YesMyIP</a> dans n'importe quel navigateur. L'adresse affichée est votre IP publique, accompagnée du fournisseur et de la zone approximative auxquels elle est associée.</p>
+        <h3>Votre IP privée</h3>
+        <ul>
+          <li><strong>Windows :</strong> ouvrez l'Invite de commandes, tapez <strong>ipconfig</strong> et appuyez sur Entrée. Repérez la ligne Adresse IPv4.</li>
+          <li><strong>Mac :</strong> ouvrez Réglages Système, choisissez Réseau, sélectionnez votre connexion puis ouvrez Détails.</li>
+          <li><strong>iPhone :</strong> ouvrez Réglages, touchez Wi-Fi, puis l'icône d'information à côté de votre réseau.</li>
+          <li><strong>Android :</strong> ouvrez Paramètres, allez dans la section Wi-Fi et ouvrez les détails du réseau auquel vous êtes connecté. Le nom des menus varie selon le fabricant.</li>
+        </ul>
+        <p>Si le numéro trouvé commence par 192.168, 10, ou de 172.16 à 172.31, il s'agit d'une adresse privée.</p>
+
+        <h2>Laquelle compte pour la vie privée ?</h2>
+        <p>L'adresse publique. Les sites web, les applications et les services en ligne ne voient jamais votre adresse privée ; ils voient l'adresse publique d'où provient votre trafic. Cette adresse peut être reliée à votre fournisseur d'accès et à une localisation approximative, en général une ville ou une région. À elle seule, elle ne révèle ni votre nom ni votre adresse postale. Notre guide sur <a href="/fr/blog/quelle-est-mon-adresse-ip/">ce que révèle votre adresse IP</a> détaille ce point.</p>
+        <p>Votre adresse privée n'est visible que par les appareils du même réseau. Savoir que l'ordinateur de quelqu'un est 192.168.1.5 n'apprend rien d'utile à une personne extérieure, car d'innombrables réseaux utilisent le même numéro.</p>
+
+        <h2>Comment masquer votre IP publique</h2>
+        <p>Si vous préférez que les sites web ne voient pas votre véritable adresse publique, la solution habituelle est un VPN. Un VPN fait passer votre trafic par un tunnel chiffré jusqu'à un serveur géré par le fournisseur de VPN, et les sites web voient l'adresse de ce serveur à la place de la vôtre. Deux options très répandues sont <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored"><strong>NordVPN</strong></a> et <a href="https://get.surfshark.net/aff_c?offer_id=2065&aff_id=46178" target="_blank" rel="nofollow noopener"><strong>Surfshark</strong></a>.</p>
+        <p>Un VPN change l'adresse publique que voient les sites web. Il ne change pas l'adresse privée que votre routeur a attribuée à votre appareil sur votre réseau domestique. Une fois connecté, rechargez la <a href="/fr/">page d'accueil</a> pour vérifier que l'adresse affichée est différente, puis suivez les étapes de <a href="/fr/blog/mon-vpn-fonctionne/">Mon VPN fonctionne-t-il ?</a> pour vérifier l'absence de fuites. Pour d'autres méthodes, consultez <a href="/fr/blog/comment-masquer-ip/">comment masquer votre adresse IP</a>.</p>
+
+        <h2>En résumé</h2>
+        <p>Votre IP privée est une étiquette locale que votre routeur donne à chaque appareil. Votre IP publique est l'unique adresse que tout votre réseau présente à internet. Seule l'adresse publique est visible par les sites que vous visitez : c'est donc elle qu'il faut garder à l'esprit quand vous pensez à votre vie privée.</p>
+
+  <div class="cta-box">
+    <h3>🛡️ Masquez votre adresse IP</h3>
+    <p>Un VPN remplace votre adresse IP publique par celle d'un serveur VPN : les sites que vous visitez voient celle-ci à la place de la vôtre.</p>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored" class="cta-btn">Obtenir NordVPN →</a>
+  </div>
+
+  <h2>Questions Fréquentes</h2>
+  <div class="faq-q">192.168.1.1 est-elle une adresse IP publique ou privée ?</div>
+  <p class="faq-a">C'est une adresse privée. Toutes les adresses qui commencent par 192.168 appartiennent à une plage réservée aux réseaux locaux, et 192.168.1.1 est couramment utilisée par les routeurs domestiques. Elle n'est pas accessible directement depuis internet.</p>
+  <div class="faq-q">Deux appareils peuvent-ils avoir la même adresse IP privée ?</div>
+  <p class="faq-a">Oui, à condition qu'ils se trouvent sur des réseaux différents. Les plages privées sont réutilisées dans les foyers et les bureaux du monde entier. Au sein d'un même réseau, chaque appareil a besoin de sa propre adresse, et deux appareils portant la même provoquent un conflit.</p>
+  <div class="faq-q">Un VPN change-t-il mon adresse IP privée ?</div>
+  <p class="faq-a">Un VPN change l'adresse publique que voient les sites web et la remplace par celle du serveur VPN. L'adresse privée que votre routeur a attribuée à votre appareil sur votre réseau domestique reste la même.</p>
+  <div class="faq-q">Peut-on me retrouver avec mon adresse IP privée ?</div>
+  <p class="faq-a">Non. Une adresse privée n'a de sens qu'à l'intérieur de votre propre réseau, et les mêmes numéros sont utilisés sur d'innombrables réseaux. L'adresse que les sites web et les autres internautes peuvent voir est votre IP publique, qui renvoie à votre fournisseur d'accès et à une zone approximative.</p>
+  </div>
+</div>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"192.168.1.1 est-elle une adresse IP publique ou privée ?","acceptedAnswer":{"@type":"Answer","text":"C'est une adresse privée. Toutes les adresses qui commencent par 192.168 appartiennent à une plage réservée aux réseaux locaux, et 192.168.1.1 est couramment utilisée par les routeurs domestiques. Elle n'est pas accessible directement depuis internet."}},
+{"@type":"Question","name":"Deux appareils peuvent-ils avoir la même adresse IP privée ?","acceptedAnswer":{"@type":"Answer","text":"Oui, à condition qu'ils se trouvent sur des réseaux différents. Les plages privées sont réutilisées dans les foyers et les bureaux du monde entier. Au sein d'un même réseau, chaque appareil a besoin de sa propre adresse, et deux appareils portant la même provoquent un conflit."}},
+{"@type":"Question","name":"Un VPN change-t-il mon adresse IP privée ?","acceptedAnswer":{"@type":"Answer","text":"Un VPN change l'adresse publique que voient les sites web et la remplace par celle du serveur VPN. L'adresse privée que votre routeur a attribuée à votre appareil sur votre réseau domestique reste la même."}},
+{"@type":"Question","name":"Peut-on me retrouver avec mon adresse IP privée ?","acceptedAnswer":{"@type":"Answer","text":"Non. Une adresse privée n'a de sens qu'à l'intérieur de votre propre réseau, et les mêmes numéros sont utilisés sur d'innombrables réseaux. L'adresse que les sites web et les autres internautes peuvent voir est votre IP publique, qui renvoie à votre fournisseur d'accès et à une zone approximative."}}
+]}
+</script>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/"><img src="/assets/logo.png" style="height:38px;width:auto;vertical-align:middle;" alt="YesMyIP.com"></a>
+        <p>The fastest way to check your IP, run security tools, and find the best VPN. This site earns affiliate commissions from VPN purchases.</p>
+        <p style="margin-top:8px;font-size:12px;opacity:.4;">© 2026 Maestro Media Group · All Rights Reserved</p>
+      </div>
+      <div class="footer-col"><h4>Tools</h4><a href="/">My IP Address</a><a href="/tools/ip-lookup/">IP Lookup</a><a href="https://fast.com" target="_blank" rel="nofollow noopener">Speed Test</a><a href="https://haveibeenpwned.com" target="_blank" rel="nofollow noopener">Breach Check</a><a href="/tools/vpn-quiz/">VPN Quiz</a></div>
+      <div class="footer-col"><h4>VPNs</h4><a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored">NordVPN</a><a href="https://expressvpn.com" target="_blank" rel="nofollow noopener">ExpressVPN</a><a href="https://get.surfshark.net/aff_c?offer_id=2065&aff_id=46178" target="_blank" rel="nofollow noopener">Surfshark</a><a href="https://cyberghostvpn.com" target="_blank" rel="nofollow noopener">CyberGhost</a><a href="/#vpn-compare">VPN Comparison</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/en/legal/privacy-policy/">Privacy Policy</a><a href="/en/legal/terms/">Terms of Use</a><a href="/en/legal/affiliate-disclosure/">Affiliate Disclosure</a><a href="/en/legal/contact/">Contact</a></div>
+    </div>
+    <div class="footer-bottom">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/es/" style="font-size:13px;color:var(--t3);text-decoration:none;">🇪🇸 Español</a>
+        <span style="font-size:13px;color:var(--cyan);">🇺🇸 English</span>
+        <a href="/fr/" style="font-size:13px;color:var(--t3);text-decoration:none;">🇫🇷 Français</a>
+      </div>
+      <div class="footer-legal"><a href="/en/legal/privacy-policy/">Privacy</a><a href="/en/legal/terms/">Terms</a><a href="/en/legal/affiliate-disclosure/">Affiliates</a><a href="/en/legal/contact/">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/track.js" defer></script>
+</body>
+</html>
