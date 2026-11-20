@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){var d=document.documentElement;var t;try{t=localStorage.getItem('ymi-theme');}catch(e){}d.dataset.theme=(t==='dark')?'dark':'light';window.toggleTheme=function(){var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('ymi-theme',n);}catch(e){}var b=document.getElementById('themeToggle');if(b){b.setAttribute('aria-pressed',n==='dark');}};}());</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPv4 vs IPv6: What Changes for You | YesMyIP.com</title>
+<meta name="description" content="IPv4 vs IPv6 in plain language: how the two address formats differ, why both exist, and what it means for your connection and privacy.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yesmyip.com/blog/ipv4-vs-ipv6/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://yesmyip.com/blog/ipv4-vs-ipv6/">
+<meta property="og:title" content="IPv4 vs IPv6: What Changes for You">
+<meta property="og:description" content="IPv4 vs IPv6 in plain language: how the two address formats differ, why both exist, and what it means for your connection and privacy.">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<style>
+:root{--bg:#f4f6fb;--s1:#ffffff;--s2:#eef1f7;--s3:#e3e8f1;--border:rgba(15,23,42,.10);--border2:rgba(15,23,42,.16);--cyan:#0277a8;--cd:rgba(2,119,168,.10);--green:#0a8f4f;--gd:rgba(10,143,79,.10);--red:#dc2640;--rd:rgba(220,38,64,.10);--orange:#c2700a;--od:rgba(194,112,10,.12);--purple:#6741d9;--pd:rgba(103,65,217,.12);--amber:#b06f00;--text:#16202e;--t2:#55617a;--t3:#6c7689;--danger-text:#c01530;--warn-text:#b45309;--ok-text:#0a8f4f;--nav-bg:rgba(255,255,255,.92);--overlay-bg:rgba(255,255,255,.97);--r:16px;--rsm:10px;color-scheme:light;}[data-theme="dark"]{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--s3:#141d2e;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--cd:rgba(0,212,255,.1);--green:#00e676;--red:#ff4757;--orange:#ff9f43;--purple:#845ef7;--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;--rsm:10px;--danger-text:#ff8a95;--warn-text:#ffd082;--ok-text:#69f0ae;--nav-bg:rgba(7,9,15,.95);--overlay-bg:rgba(10,14,26,.97);color-scheme:dark;}.theme-toggle{background:none;border:1px solid var(--border);color:var(--text);width:34px;height:30px;border-radius:16px;cursor:pointer;font-size:15px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;padding:0;}.theme-toggle:hover{background:var(--s2);border-color:var(--border2);}.theme-toggle .ti-moon{display:none;}.theme-toggle .ti-sun{display:inline;}[data-theme="dark"] .theme-toggle .ti-sun{display:none;}[data-theme="dark"] .theme-toggle .ti-moon{display:inline;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{overflow-x:hidden;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
+nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
+.nav-link{background:none;border:none;color:var(--t2);font-family:Arial,sans-serif;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;cursor:pointer;transition:all .18s;white-space:nowrap;text-decoration:none;}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.06);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
+.lang-btn{background:none;border:none;color:var(--t2);font-family:Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;cursor:pointer;transition:all .2s;text-decoration:none;}.lang-btn.active{background:var(--cyan);color:#000;}
+.shield-btn{background:var(--red);color:white;border:none;font-family:Arial,sans-serif;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer;text-decoration:none;}
+.article-layout{max-width:1060px;margin:0 auto;padding:40px 20px 60px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:start;}
+.article-sidebar{position:sticky;top:80px;}
+.article-main{min-width:0;}
+@media(max-width:860px){.article-layout{grid-template-columns:1fr;}.article-sidebar{position:static;order:1;}}
+.article h1{font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px;color:var(--text);}
+.article .meta{font-size:13px;color:var(--t3);margin-bottom:32px;}
+.article h2{font-size:22px;font-weight:700;color:var(--cyan);margin:32px 0 12px;}
+.article h3{font-size:18px;font-weight:700;color:var(--text);margin:24px 0 8px;}
+.article p{margin-bottom:16px;color:var(--t2);line-height:1.75;}
+.article a{color:var(--cyan);text-decoration:underline;}
+.article strong{color:var(--text);}
+.cta-box{background:linear-gradient(135deg,#120a28,#091b30);border:1px solid rgba(123,94,167,.25);border-radius:var(--r);padding:24px;margin:32px 0;text-align:center;}
+.cta-box h3{color:var(--text);margin-bottom:8px;}
+.cta-box p{color:var(--t2);font-size:13px;margin-bottom:16px;}
+.cta-btn{display:inline-block;background:var(--cyan);color:#000;font-weight:700;font-size:14px;padding:12px 28px;border-radius:10px;text-decoration:none;}
+.breadcrumb{font-size:12px;color:var(--t3);margin-bottom:20px;}
+.breadcrumb a{color:var(--t3);text-decoration:none;}.breadcrumb a:hover{color:var(--cyan);}
+footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;text-align:center;color:var(--t3);font-size:13px;}
+footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color:var(--cyan);}
+@media(max-width:900px){nav .nav-link{display:none;}}
+
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:24px;}
+.footer-brand p{font-size:13px;color:var(--t3);line-height:1.7;}
+.footer-col h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;}.footer-col a{display:block;color:var(--t3);text-decoration:none;font-size:13px;margin-bottom:6px;transition:color .2s;}.footer-col a:hover{color:var(--cyan);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--t3);}
+.footer-legal{display:flex;gap:14px;flex-wrap:wrap;}.footer-legal a{color:var(--t3);text-decoration:none;font-size:12px;}.footer-legal a:hover{color:var(--cyan);}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr;}}
+.cmp-table{width:100%;border-collapse:collapse;margin:8px 0 24px;font-size:14px;background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.cmp-table th,.cmp-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top;}
+.cmp-table thead th{background:var(--s2);color:var(--text);font-weight:700;}
+.cmp-table th[scope=row]{color:var(--text);font-weight:600;width:30%;}
+.cmp-table td{color:var(--t2);}
+.cmp-table tbody tr:last-child th,.cmp-table tbody tr:last-child td{border-bottom:none;}
+.cmp-yes{color:var(--ok-text);font-weight:700;}
+.cmp-no{color:var(--danger-text);font-weight:700;}
+.faq-q{font-size:18px;font-weight:700;color:var(--text);margin:22px 0 6px;}
+.faq-a{margin:0 0 16px;color:var(--t2);line-height:1.75;}
+</style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6610691391899378" crossorigin="anonymous"></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3Y8679L24"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-N3Y8679L24');
+</script>
+</head>
+<body>
+<nav>
+  <a href="/"><img src="/assets/logo.png" style="height:38px;width:auto;" alt="YesMyIP.com"></a>
+  <a class="nav-link" href="/#ip-result">My IP</a>
+  <a class="nav-link" href="/tools/ip-lookup/">IP Lookup</a>
+  <a class="nav-link" href="/#vpn-compare">VPNs</a>
+  <a class="nav-link" href="/blog/">Blog</a>
+  <div class="nav-right">
+    <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Toggle light and dark theme"><span class="ti-sun">☀️</span><span class="ti-moon">🌙</span></button>
+    <div class="lang-switcher">
+      <a href="/es/" class="lang-btn">🇪🇸 ES</a>
+      <span class="lang-btn active">🇺🇸 EN</span>
+      <a href="/fr/" class="lang-btn">🇫🇷 FR</a>
+    </div>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored" class="shield-btn" style="text-decoration:none;">🛡️ Hide My IP</a>
+  </div>
+</nav>
+
+<div class="article-layout">
+  <div class="article-sidebar"><div style="background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:16px;padding:22px;margin-top:36px;">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#dde4f2);margin-bottom:14px;">📚 More Articles</div>
+    <a href="/blog/best-vpns-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best VPNs of 2026</a>
+    <a href="/blog/nordvpn-review-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">NordVPN Review 2026</a>
+    <a href="/blog/best-vpns-for-netflix-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best VPNs for Netflix</a>
+    <a href="/blog/what-is-a-vpn/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">What Is a VPN?</a>
+    <a href="/blog/vpn-vs-proxy/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">VPN vs Proxy</a>
+    <a href="/blog/best-free-vpns-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best Free VPNs 2026</a>
+    <a href="/blog/is-my-vpn-working/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Is My VPN Working?</a>
+    <a href="/blog/" style="display:block;padding:9px 12px;border-radius:8px;color:var(--cyan,#00d4ff);font-size:13px;text-decoration:none;font-weight:600;">View All Articles →</a>
+  </div>
+  </div>
+  <div class="article-main">
+  <div class="breadcrumb"><a href="/">Home</a> → <a href="/blog/">Blog</a> → IPv4 vs IPv6</div>
+  <h1>IPv4 vs IPv6: What Changes for You</h1>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:16px;background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:12px;">
+    <div>
+      <div style="font-weight:700;font-size:14px;color:var(--text,#dde4f2);">YesMyIP Editorial Team</div>
+      <div style="font-size:11px;color:var(--t3,#3d4f6e);margin-top:2px;">November 20, 2026 · 5 min read</div>
+    </div>
+  </div>
+  
+        <p>Every device that goes online needs an IP address, and today two kinds are in use side by side: IPv4 and IPv6. You have almost certainly used both this week without noticing. This guide explains what each one is, why the internet needed a second version, and what, if anything, you need to do about it.</p>
+
+        <h2>IPv4 vs IPv6: Quick Comparison</h2>
+        <table class="cmp-table">
+          <thead><tr><th scope="col">Feature</th><th scope="col">IPv4</th><th scope="col">IPv6</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Address length</th><td>32 bits</td><td>128 bits</td></tr>
+            <tr><th scope="row">How it looks</th><td>Four numbers separated by dots, such as 203.0.113.25</td><td>Groups of letters and digits separated by colons, such as 2001:db8::1a2b</td></tr>
+            <tr><th scope="row">Number of addresses</th><td>About 4.3 billion</td><td>Vastly more, enough for every device to have its own</td></tr>
+            <tr><th scope="row">Address sharing</th><td>Common: many devices sit behind one public address</td><td>Usually not needed</td></tr>
+            <tr><th scope="row">Setup at home</th><td>Automatic</td><td>Automatic</td></tr>
+          </tbody>
+        </table>
+
+        <h2>What Is IPv4?</h2>
+        <p>IPv4 is the original addressing system of the internet, in use since the early 1980s. An IPv4 address is a 32-bit number, written as four numbers from 0 to 255 separated by dots. Thirty-two bits allow roughly 4.3 billion different addresses.</p>
+        <p>That seemed like plenty when the system was designed. Then came home computers, phones, tablets, televisions, cameras and everything else that now connects. The central pool of unassigned IPv4 addresses ran out years ago, and providers have been stretching what they hold ever since.</p>
+        <p>The main workaround is address sharing. Your router holds one public address and hands out private addresses to the devices in your home, a technique called network address translation, or NAT. Our guide to <a href="/blog/public-vs-private-ip-address/">public vs private IP addresses</a> explains how that works. Some providers go a step further and place many customers behind a single public address.</p>
+
+        <h2>What Is IPv6?</h2>
+        <p>IPv6 is the newer system, designed to solve the shortage for good. An IPv6 address is 128 bits long. It is written as eight groups of four hexadecimal characters (the digits 0 to 9 and the letters a to f) separated by colons.</p>
+        <p>To keep addresses readable, leading zeros in a group can be dropped, and one run of groups that are all zeros can be shortened to a double colon. That is why IPv6 addresses vary so much in length when you see them written down.</p>
+        <p>The number of possible IPv6 addresses is so large that there is no realistic prospect of running out. Every device can have its own globally unique address instead of sharing one.</p>
+
+        <h2>What Actually Changes for You</h2>
+        <h3>Everyday browsing</h3>
+        <p>Nothing you will notice. IPv4 and IPv6 cannot talk to each other directly, so most networks simply run both at once, an arrangement called <strong>dual stack</strong>. Your device chooses automatically for each connection and generally prefers IPv6 when both ends support it. Websites that only offer IPv4 keep working as before.</p>
+        <h3>Speed</h3>
+        <p>Neither version is inherently faster for ordinary use. The speed you get depends on your provider, your home network and the route your traffic takes. Switching versions is not a way to speed up a connection.</p>
+        <h3>Address sharing</h3>
+        <p>With IPv6 there is far less need for NAT, because there are enough addresses to go around. That can make direct connections between devices simpler. It also means the firewall in your router, rather than address sharing, is what keeps unrequested connections out.</p>
+        <h3>Privacy</h3>
+        <p>An IPv6 address reveals the same kinds of things as an IPv4 address: your internet provider and an approximate location, not your name or street address. One difference is that each device can have its own address instead of hiding behind a shared one. To limit tracking, modern operating systems commonly use temporary IPv6 addresses that change regularly. The first part of the address, the prefix your provider assigns, still identifies your connection in much the same way an IPv4 address does.</p>
+
+        <h2>How to See Which One You Are Using</h2>
+        <p>Open the <a href="/">YesMyIP homepage</a>. If the address shown is four numbers separated by dots, that connection used IPv4. If it contains colons, it used IPv6. To see the provider and approximate location tied to any address, paste it into the <a href="/tools/ip-lookup/">IP lookup tool</a>.</p>
+        <p>Seeing IPv4 does not mean something is wrong. Your provider may not offer IPv6 on your line, or your router may have it switched off. Both results are normal. For more on what the address says about you, read <a href="/blog/what-is-my-ip-address/">What Is My IP Address?</a></p>
+
+        <h2>IPv6 and VPNs</h2>
+        <p>A VPN hides your public IP address by sending your traffic through an encrypted tunnel to a server run by the VPN service. Websites then see the server's address instead of yours.</p>
+        <p>IPv6 adds one thing to watch. If a VPN app handles only IPv4 and your connection also has IPv6, the IPv6 traffic can travel outside the tunnel and expose your real IPv6 address. This is called an <strong>IPv6 leak</strong>. Well-built VPN apps prevent it in one of two ways: they carry IPv6 inside the tunnel, or they block IPv6 while you are connected.</p>
+        <p>Established services such as <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored"><strong>NordVPN</strong></a> and <a href="https://get.surfshark.net/aff_c?offer_id=2065&aff_id=46178" target="_blank" rel="nofollow noopener"><strong>Surfshark</strong></a> build leak protection into their apps, but it is still worth checking for yourself. After connecting, reload the <a href="/">homepage</a> and confirm that the address shown is not your own, then follow the steps in <a href="/blog/is-my-vpn-working/">Is My VPN Working?</a> If you are not sure which service suits you, the <a href="/tools/vpn-quiz/">VPN quiz</a> can narrow it down.</p>
+
+        <h2>Do You Need to Do Anything?</h2>
+        <ul>
+          <li><strong>You do not need to choose.</strong> Your device and router pick the right version for each connection.</li>
+          <li><strong>You do not need to switch IPv6 on by hand</strong> in most homes. If your provider offers it and your router supports it, you are probably using it already.</li>
+          <li><strong>You do not need to turn IPv6 off</strong> on a healthy connection.</li>
+          <li><strong>If you use a VPN</strong>, check that neither your IPv4 nor your IPv6 address is visible while it is connected.</li>
+        </ul>
+
+        <h2>The Bottom Line</h2>
+        <p>IPv4 is the older system with a limited supply of addresses, kept going by sharing. IPv6 is its replacement, with room for every device. The two run side by side, your equipment handles the choice, and for most people the only practical task is making sure a VPN covers both.</p>
+
+  <div class="cta-box">
+    <h3>🛡️ Hide Your IP Address</h3>
+    <p>A VPN replaces the public IP address that websites see with one of its own.</p>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored" class="cta-btn">Get NordVPN →</a>
+  </div>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-q">What is the main difference between IPv4 and IPv6?</div>
+  <p class="faq-a">The main difference is the size of the address. An IPv4 address is 32 bits long and written as four numbers separated by dots, which allows about 4.3 billion addresses. An IPv6 address is 128 bits long and written as groups of letters and digits separated by colons, which allows enough addresses for every device to have its own.</p>
+  <div class="faq-q">Is IPv6 faster than IPv4?</div>
+  <p class="faq-a">Not in a way you can count on. Neither version is inherently faster for everyday browsing, streaming or gaming. The speed you get depends on your provider, your home network and the route your traffic takes, not on which version of the address is in use.</p>
+  <div class="faq-q">Can I use IPv4 and IPv6 at the same time?</div>
+  <p class="faq-a">Yes. Most modern devices and many home connections run both side by side, an arrangement called dual stack. Your device picks the version that works for each site automatically, so you do not have to choose or change any settings.</p>
+  <div class="faq-q">Does a VPN hide my IPv6 address?</div>
+  <p class="faq-a">Only if the VPN handles IPv6. A VPN that carries IPv6 inside its tunnel, or blocks IPv6 while you are connected, keeps your real IPv6 address hidden. If it handles only IPv4, your IPv6 traffic can travel outside the tunnel, which is known as an IPv6 leak.</p>
+  </div>
+</div>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the main difference between IPv4 and IPv6?","acceptedAnswer":{"@type":"Answer","text":"The main difference is the size of the address. An IPv4 address is 32 bits long and written as four numbers separated by dots, which allows about 4.3 billion addresses. An IPv6 address is 128 bits long and written as groups of letters and digits separated by colons, which allows enough addresses for every device to have its own."}},
+{"@type":"Question","name":"Is IPv6 faster than IPv4?","acceptedAnswer":{"@type":"Answer","text":"Not in a way you can count on. Neither version is inherently faster for everyday browsing, streaming or gaming. The speed you get depends on your provider, your home network and the route your traffic takes, not on which version of the address is in use."}},
+{"@type":"Question","name":"Can I use IPv4 and IPv6 at the same time?","acceptedAnswer":{"@type":"Answer","text":"Yes. Most modern devices and many home connections run both side by side, an arrangement called dual stack. Your device picks the version that works for each site automatically, so you do not have to choose or change any settings."}},
+{"@type":"Question","name":"Does a VPN hide my IPv6 address?","acceptedAnswer":{"@type":"Answer","text":"Only if the VPN handles IPv6. A VPN that carries IPv6 inside its tunnel, or blocks IPv6 while you are connected, keeps your real IPv6 address hidden. If it handles only IPv4, your IPv6 traffic can travel outside the tunnel, which is known as an IPv6 leak."}}
+]}
+</script>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/"><img src="/assets/logo.png" style="height:38px;width:auto;vertical-align:middle;" alt="YesMyIP.com"></a>
+        <p>The fastest way to check your IP, run security tools, and find the best VPN. This site earns affiliate commissions from VPN purchases.</p>
+        <p style="margin-top:8px;font-size:12px;opacity:.4;">© 2026 Maestro Media Group · All Rights Reserved</p>
+      </div>
+      <div class="footer-col"><h4>Tools</h4><a href="/">My IP Address</a><a href="/tools/ip-lookup/">IP Lookup</a><a href="https://fast.com" target="_blank" rel="nofollow noopener">Speed Test</a><a href="https://haveibeenpwned.com" target="_blank" rel="nofollow noopener">Breach Check</a><a href="/tools/vpn-quiz/">VPN Quiz</a></div>
+      <div class="footer-col"><h4>VPNs</h4><a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored">NordVPN</a><a href="https://expressvpn.com" target="_blank" rel="nofollow noopener">ExpressVPN</a><a href="https://get.surfshark.net/aff_c?offer_id=2065&aff_id=46178" target="_blank" rel="nofollow noopener">Surfshark</a><a href="https://cyberghostvpn.com" target="_blank" rel="nofollow noopener">CyberGhost</a><a href="/#vpn-compare">VPN Comparison</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/en/legal/privacy-policy/">Privacy Policy</a><a href="/en/legal/terms/">Terms of Use</a><a href="/en/legal/affiliate-disclosure/">Affiliate Disclosure</a><a href="/en/legal/contact/">Contact</a></div>
+    </div>
+    <div class="footer-bottom">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/es/" style="font-size:13px;color:var(--t3);text-decoration:none;">🇪🇸 Español</a>
+        <span style="font-size:13px;color:var(--cyan);">🇺🇸 English</span>
+        <a href="/fr/" style="font-size:13px;color:var(--t3);text-decoration:none;">🇫🇷 Français</a>
+      </div>
+      <div class="footer-legal"><a href="/en/legal/privacy-policy/">Privacy</a><a href="/en/legal/terms/">Terms</a><a href="/en/legal/affiliate-disclosure/">Affiliates</a><a href="/en/legal/contact/">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/track.js" defer></script>
+</body>
+</html>
