@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){var d=document.documentElement;var t;try{t=localStorage.getItem('ymi-theme');}catch(e){}d.dataset.theme=(t==='dark')?'dark':'light';window.toggleTheme=function(){var n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('ymi-theme',n);}catch(e){}var b=document.getElementById('themeToggle');if(b){b.setAttribute('aria-pressed',n==='dark');}};}());</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Static vs Dynamic IP Address: Which Do You Have? | YesMyIP.com</title>
+<meta name="description" content="Static vs dynamic IP address in plain language: how each is assigned, which one you probably have, and when a fixed address is worth having.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yesmyip.com/blog/static-vs-dynamic-ip-address/">
+<meta property="og:image" content="https://yesmyip.com/assets/og-image.png">
+<meta property="og:site_name" content="YesMyIP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Static vs Dynamic IP Address: Which Do You Have?">
+<meta name="twitter:description" content="Static vs dynamic IP address in plain language: how each is assigned, which one you probably have, and when a fixed address is worth having.">
+<meta name="twitter:image" content="https://yesmyip.com/assets/og-image.png">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://yesmyip.com/blog/static-vs-dynamic-ip-address/">
+<meta property="og:title" content="Static vs Dynamic IP Address: Which Do You Have?">
+<meta property="og:description" content="Static vs dynamic IP address in plain language: how each is assigned, which one you probably have, and when a fixed address is worth having.">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<style>
+:root{--bg:#f4f6fb;--s1:#ffffff;--s2:#eef1f7;--s3:#e3e8f1;--border:rgba(15,23,42,.10);--border2:rgba(15,23,42,.16);--cyan:#0277a8;--cd:rgba(2,119,168,.10);--green:#0a8f4f;--gd:rgba(10,143,79,.10);--red:#dc2640;--rd:rgba(220,38,64,.10);--orange:#c2700a;--od:rgba(194,112,10,.12);--purple:#6741d9;--pd:rgba(103,65,217,.12);--amber:#b06f00;--text:#16202e;--t2:#55617a;--t3:#6c7689;--danger-text:#c01530;--warn-text:#b45309;--ok-text:#0a8f4f;--nav-bg:rgba(255,255,255,.92);--overlay-bg:rgba(255,255,255,.97);--r:16px;--rsm:10px;color-scheme:light;}[data-theme="dark"]{--bg:#07090f;--s1:#0b0f1c;--s2:#101828;--s3:#141d2e;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--cyan:#00d4ff;--cd:rgba(0,212,255,.1);--green:#00e676;--red:#ff4757;--orange:#ff9f43;--purple:#845ef7;--text:#dde4f2;--t2:#8292b0;--t3:#3d4f6e;--r:16px;--rsm:10px;--danger-text:#ff8a95;--warn-text:#ffd082;--ok-text:#69f0ae;--nav-bg:rgba(7,9,15,.95);--overlay-bg:rgba(10,14,26,.97);color-scheme:dark;}.theme-toggle{background:none;border:1px solid var(--border);color:var(--text);width:34px;height:30px;border-radius:16px;cursor:pointer;font-size:15px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;padding:0;}.theme-toggle:hover{background:var(--s2);border-color:var(--border2);}.theme-toggle .ti-moon{display:none;}.theme-toggle .ti-sun{display:inline;}[data-theme="dark"] .theme-toggle .ti-sun{display:none;}[data-theme="dark"] .theme-toggle .ti-moon{display:inline;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{overflow-x:hidden;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:15px;line-height:1.65;min-height:100vh;}
+nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;gap:6px;}
+.nav-link{background:none;border:none;color:var(--t2);font-family:Arial,sans-serif;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;cursor:pointer;transition:all .18s;white-space:nowrap;text-decoration:none;}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.06);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.lang-switcher{display:flex;gap:3px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px;}
+.lang-btn{background:none;border:none;color:var(--t2);font-family:Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:16px;cursor:pointer;transition:all .2s;text-decoration:none;}.lang-btn.active{background:var(--cyan);color:#000;}
+.shield-btn{background:var(--red);color:white;border:none;font-family:Arial,sans-serif;font-weight:700;font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer;text-decoration:none;}
+.article-layout{max-width:1060px;margin:0 auto;padding:40px 20px 60px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:start;}
+.article-sidebar{position:sticky;top:80px;}
+.article-main{min-width:0;}
+@media(max-width:860px){.article-layout{grid-template-columns:1fr;}.article-sidebar{position:static;order:1;}}
+.article h1{font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px;color:var(--text);}
+.article .meta{font-size:13px;color:var(--t3);margin-bottom:32px;}
+.article h2{font-size:22px;font-weight:700;color:var(--cyan);margin:32px 0 12px;}
+.article h3{font-size:18px;font-weight:700;color:var(--text);margin:24px 0 8px;}
+.article p{margin-bottom:16px;color:var(--t2);line-height:1.75;}
+.article a{color:var(--cyan);text-decoration:underline;}
+.article strong{color:var(--text);}
+.cta-box{background:linear-gradient(135deg,#120a28,#091b30);border:1px solid rgba(123,94,167,.25);border-radius:var(--r);padding:24px;margin:32px 0;text-align:center;}
+.cta-box h3{color:var(--text);margin-bottom:8px;}
+.cta-box p{color:var(--t2);font-size:13px;margin-bottom:16px;}
+.cta-btn{display:inline-block;background:var(--cyan);color:#000;font-weight:700;font-size:14px;padding:12px 28px;border-radius:10px;text-decoration:none;}
+.breadcrumb{font-size:12px;color:var(--t3);margin-bottom:20px;}
+.breadcrumb a{color:var(--t3);text-decoration:none;}.breadcrumb a:hover{color:var(--cyan);}
+footer{background:var(--s1);border-top:1px solid var(--border);padding:36px 20px 20px;text-align:center;color:var(--t3);font-size:13px;}
+footer a{color:var(--t3);text-decoration:none;margin:0 8px;}footer a:hover{color:var(--cyan);}
+@media(max-width:900px){nav .nav-link{display:none;}}
+
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:24px;}
+.footer-brand p{font-size:13px;color:var(--t3);line-height:1.7;}
+.footer-col h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;}.footer-col a{display:block;color:var(--t3);text-decoration:none;font-size:13px;margin-bottom:6px;transition:color .2s;}.footer-col a:hover{color:var(--cyan);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--t3);}
+.footer-legal{display:flex;gap:14px;flex-wrap:wrap;}.footer-legal a{color:var(--t3);text-decoration:none;font-size:12px;}.footer-legal a:hover{color:var(--cyan);}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr;}}
+.cmp-table{width:100%;border-collapse:collapse;margin:8px 0 24px;font-size:14px;background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.cmp-table th,.cmp-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top;}
+.cmp-table thead th{background:var(--s2);color:var(--text);font-weight:700;}
+.cmp-table th[scope=row]{color:var(--text);font-weight:600;width:30%;}
+.cmp-table td{color:var(--t2);}
+.cmp-table tbody tr:last-child th,.cmp-table tbody tr:last-child td{border-bottom:none;}
+.cmp-yes{color:var(--ok-text);font-weight:700;}
+.cmp-no{color:var(--danger-text);font-weight:700;}
+.faq-q{font-size:18px;font-weight:700;color:var(--text);margin:22px 0 6px;}
+.faq-a{margin:0 0 16px;color:var(--t2);line-height:1.75;}
+</style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6610691391899378" crossorigin="anonymous"></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N3Y8679L24"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-N3Y8679L24');
+</script>
+</head>
+<body>
+<nav>
+  <a href="/"><img src="/assets/logo.png" style="height:38px;width:auto;" alt="YesMyIP.com"></a>
+  <a class="nav-link" href="/#ip-result">My IP</a>
+  <a class="nav-link" href="/tools/ip-lookup/">IP Lookup</a>
+  <a class="nav-link" href="/#vpn-compare">VPNs</a>
+  <a class="nav-link" href="/blog/">Blog</a>
+  <div class="nav-right">
+    <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Toggle light and dark theme"><span class="ti-sun">☀️</span><span class="ti-moon">🌙</span></button>
+    <div class="lang-switcher">
+      <a href="/es/" class="lang-btn">🇪🇸 ES</a>
+      <span class="lang-btn active">🇺🇸 EN</span>
+      <a href="/fr/" class="lang-btn">🇫🇷 FR</a>
+    </div>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored" class="shield-btn" style="text-decoration:none;">🛡️ Hide My IP</a>
+  </div>
+</nav>
+
+<div class="article-layout">
+  <div class="article-sidebar"><div style="background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:16px;padding:22px;margin-top:36px;">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#dde4f2);margin-bottom:14px;">📚 More Articles</div>
+    <a href="/blog/best-vpns-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best VPNs of 2026</a>
+    <a href="/blog/nordvpn-review-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">NordVPN Review 2026</a>
+    <a href="/blog/best-vpns-for-netflix-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best VPNs for Netflix</a>
+    <a href="/blog/what-is-a-vpn/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">What Is a VPN?</a>
+    <a href="/blog/vpn-vs-proxy/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">VPN vs Proxy</a>
+    <a href="/blog/best-free-vpns-2026/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Best Free VPNs 2026</a>
+    <a href="/blog/is-my-vpn-working/" style="display:block;padding:9px 12px;margin-bottom:6px;border-radius:8px;background:var(--s2,#101828);color:var(--t2,#8292b0);font-size:13px;text-decoration:none;transition:all .15s;">Is My VPN Working?</a>
+    <a href="/blog/" style="display:block;padding:9px 12px;border-radius:8px;color:var(--cyan,#00d4ff);font-size:13px;text-decoration:none;font-weight:600;">View All Articles →</a>
+  </div>
+  </div>
+  <div class="article-main">
+  <div class="breadcrumb"><a href="/">Home</a> → <a href="/blog/">Blog</a> → Static vs Dynamic IP Address</div>
+  <h1>Static vs Dynamic IP Address: Which Do You Have?</h1>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:16px;background:var(--s1,#0b0f1c);border:1px solid var(--border,rgba(255,255,255,.07));border-radius:12px;">
+    <div>
+      <div style="font-weight:700;font-size:14px;color:var(--text,#dde4f2);">YesMyIP Editorial Team</div>
+      <div style="font-size:11px;color:var(--t3,#3d4f6e);margin-top:2px;">November 24, 2026 · 6 min read</div>
+    </div>
+  </div>
+
+        <p>Every internet connection has a public IP address, but not every address behaves the same way. Some stay fixed for as long as you keep the service. Others can change from time to time without you doing anything. The first kind is called static and the second dynamic. This guide explains how each one works, how to tell which you have, and when the difference matters.</p>
+
+        <h2>Static vs Dynamic IP: Quick Comparison</h2>
+        <table class="cmp-table">
+          <thead><tr><th scope="col">Feature</th><th scope="col">Static IP</th><th scope="col">Dynamic IP</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">How it is assigned</th><td>Reserved for one customer or device</td><td>Lent automatically from a pool of addresses</td></tr>
+            <tr><th scope="row">Does it change?</th><td>No, unless you or your provider change it</td><td>It can, for example after the router restarts</td></tr>
+            <tr><th scope="row">Typical use</th><td>Servers, business connections, remote access</td><td>Homes and phones</td></tr>
+            <tr><th scope="row">Setup</th><td>Usually has to be requested</td><td>Automatic</td></tr>
+            <tr><th scope="row">Reaching it from outside</th><td>Simple, the address is always the same</td><td>Needs an extra step, because the address can move</td></tr>
+          </tbody>
+        </table>
+
+        <h2>What Is a Dynamic IP Address?</h2>
+        <p>A dynamic IP address is one that is lent to you instead of given to you. Your internet provider keeps a pool of addresses and hands one to your router automatically when it connects. The system that does this is most often <strong>DHCP</strong>, short for Dynamic Host Configuration Protocol.</p>
+        <p>The loan is called a <strong>lease</strong> and it has a time limit. While your router stays online it keeps renewing the lease, so the address often stays the same for a long time. It can change when the router is switched off for a while, when the lease runs out, or when the provider reorganizes its network.</p>
+        <p>Providers work this way because it is easy to manage. Nobody has to configure anything by hand, and an address that one customer stops using can be passed to another. For browsing, streaming, video calls and games, a changing address makes no difference, because your device is the one that starts each connection.</p>
+
+        <h2>What Is a Static IP Address?</h2>
+        <p>A static IP address is reserved for you and does not change. It stays the same after a restart, a power cut or a month away from home. Because the address is predictable, other computers on the internet can always find your connection at the same place.</p>
+        <p>That is why static addresses are common for websites, mail servers and office networks. For a home connection, a static address is normally something you have to ask your provider for, and it is often tied to a business plan or offered as an add-on.</p>
+
+        <h2>Public and Private: Two Places This Applies</h2>
+        <p>The words static and dynamic are used in two different places, which causes confusion.</p>
+        <ul>
+          <li><strong>Your public address</strong> is the one your provider assigns to your connection and the one websites see. Whether it is static or dynamic is decided by your provider.</li>
+          <li><strong>Your private addresses</strong> are the ones your router gives to the phones, laptops and printers inside your home. These are dynamic by default too, and this part is under your control.</li>
+        </ul>
+        <p>Inside your home, a fixed private address can be useful for a printer or a network drive, so other devices always know where to find it. Most routers let you do this with a setting usually called a DHCP reservation. It changes nothing about how the outside world sees you. Our guide to <a href="/blog/public-vs-private-ip-address/">public vs private IP addresses</a> covers the difference in more detail.</p>
+
+        <h2>Which One Do You Have?</h2>
+        <p>If you have an ordinary home or mobile plan and never asked for a static address, you almost certainly have a dynamic one. To check for yourself:</p>
+        <ol>
+          <li>Open the <a href="/">YesMyIP homepage</a> and write down the address it shows.</li>
+          <li>Come back over the next few days or weeks, ideally after your router has been switched off for a while, and compare.</li>
+          <li>If the address has changed, it is dynamic. If it never changes, it may be static, or it may be a dynamic address with a lease that keeps being renewed.</li>
+        </ol>
+        <p>The only way to be sure is to look at your plan details or ask your provider. You can also paste the address into the <a href="/tools/ip-lookup/">IP lookup tool</a> to see which provider it belongs to and the approximate location linked to it.</p>
+
+        <h2>When a Static IP Is Worth Having</h2>
+        <p>Most people never need one. A static address helps when something on the internet has to find your connection, or recognize it, every time:</p>
+        <ul>
+          <li><strong>Hosting a server at home or at work</strong>, such as a website, a game server or a file server.</li>
+          <li><strong>Remote access</strong> to a home computer, a security camera or an office network.</li>
+          <li><strong>Allowlists.</strong> Some company systems accept connections only from approved addresses, which works only if your address stays the same.</li>
+        </ul>
+        <h3>An alternative: dynamic DNS</h3>
+        <p>If you only need to reach your home network from outside, a service called <strong>dynamic DNS</strong> can do the job without a static address. It gives you a hostname and updates it automatically whenever your address changes, so you connect to the name and never need to know the current number. Many home routers have a dynamic DNS setting built in.</p>
+
+        <h2>Static vs Dynamic IP and Privacy</h2>
+        <p>Either kind of address reveals the same things: your internet provider and an approximate location, not your name or street address. The difference is how long it stays linked to you.</p>
+        <p>A static address is a long-lasting label. Sites and advertisers that record it can recognize the same connection over months or years. A dynamic address weakens that link a little each time it changes, but it does not make you anonymous. Your provider always knows which customer holds which address, and websites have other ways to recognize a returning visitor, such as cookies and account logins.</p>
+        <p>If you want sites to stop seeing your own address, changing it is not enough; you need to replace it. A VPN sends your traffic through an encrypted tunnel to a server run by the VPN service, and websites see that server's address instead of yours. Services such as <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored"><strong>NordVPN</strong></a> and <a href="https://get.surfshark.net/aff_c?offer_id=2065&aff_id=46178" target="_blank" rel="nofollow noopener"><strong>Surfshark</strong></a> work this way. The addresses they hand out are normally shared among many users, and some services also offer a dedicated address for people who need the same one every time.</p>
+        <p>After connecting, reload the <a href="/">homepage</a> to confirm that the address shown is no longer your own, then follow the steps in <a href="/blog/is-my-vpn-working/">Is My VPN Working?</a> For other ways to keep your address private, see <a href="/blog/how-to-hide-ip-address/">how to hide your IP address</a>, and if you are unsure which service fits you, the <a href="/tools/vpn-quiz/">VPN quiz</a> can narrow it down.</p>
+
+        <h2>The Bottom Line</h2>
+        <p>A dynamic IP address is lent to you and can change; a static one is reserved and stays put. Home connections are dynamic by default, and that is fine for everyday use. A static address, or dynamic DNS, only matters when something needs to reach your network from outside. Neither kind hides who your provider is or roughly where you are, so privacy is a separate question from which type you have.</p>
+
+  <div class="cta-box">
+    <h3>🛡️ Hide Your IP Address</h3>
+    <p>A VPN replaces the public IP address that websites see with one of its own.</p>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored" class="cta-btn">Get NordVPN →</a>
+  </div>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-q">What is the difference between a static and a dynamic IP address?</div>
+  <p class="faq-a">A static IP address is reserved for one connection or device and stays the same until someone changes it. A dynamic IP address is lent automatically from a pool of addresses and can change, for example after the router has been switched off or when the lease runs out.</p>
+  <div class="faq-q">Do I have a static or a dynamic IP address?</div>
+  <p class="faq-a">If you have an ordinary home or mobile plan and never asked for a static address, you almost certainly have a dynamic one. You can note the address shown on the YesMyIP homepage and compare it over the following days or weeks, but the only way to be sure is to check your plan details or ask your provider.</p>
+  <div class="faq-q">Does restarting my router change my IP address?</div>
+  <p class="faq-a">Sometimes. With a dynamic address, your provider may hand out a new one when the router reconnects, especially if it has been off for a while. Often you get the same address back because the lease is still valid. With a static address, restarting changes nothing.</p>
+  <div class="faq-q">Is a static IP address better for privacy?</div>
+  <p class="faq-a">No. A static address stays linked to your connection for a long time, which makes it easier for sites to recognize you on later visits. A dynamic address changes now and then, but your provider still knows who holds it. To keep sites from seeing your address at all, you need a tool such as a VPN.</p>
+  </div>
+</div>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the difference between a static and a dynamic IP address?","acceptedAnswer":{"@type":"Answer","text":"A static IP address is reserved for one connection or device and stays the same until someone changes it. A dynamic IP address is lent automatically from a pool of addresses and can change, for example after the router has been switched off or when the lease runs out."}},
+{"@type":"Question","name":"Do I have a static or a dynamic IP address?","acceptedAnswer":{"@type":"Answer","text":"If you have an ordinary home or mobile plan and never asked for a static address, you almost certainly have a dynamic one. You can note the address shown on the YesMyIP homepage and compare it over the following days or weeks, but the only way to be sure is to check your plan details or ask your provider."}},
+{"@type":"Question","name":"Does restarting my router change my IP address?","acceptedAnswer":{"@type":"Answer","text":"Sometimes. With a dynamic address, your provider may hand out a new one when the router reconnects, especially if it has been off for a while. Often you get the same address back because the lease is still valid. With a static address, restarting changes nothing."}},
+{"@type":"Question","name":"Is a static IP address better for privacy?","acceptedAnswer":{"@type":"Answer","text":"No. A static address stays linked to your connection for a long time, which makes it easier for sites to recognize you on later visits. A dynamic address changes now and then, but your provider still knows who holds it. To keep sites from seeing your address at all, you need a tool such as a VPN."}}
+]}
+</script>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/"><img src="/assets/logo.png" style="height:38px;width:auto;vertical-align:middle;" alt="YesMyIP.com"></a>
+        <p>The fastest way to check your IP, run security tools, and find the best VPN. This site earns affiliate commissions from VPN purchases.</p>
+        <p style="margin-top:8px;font-size:12px;opacity:.4;">© 2026 Maestro Media Group · All Rights Reserved</p>
+      </div>
+      <div class="footer-col"><h4>Tools</h4><a href="/">My IP Address</a><a href="/tools/ip-lookup/">IP Lookup</a><a href="https://fast.com" target="_blank" rel="nofollow noopener">Speed Test</a><a href="https://haveibeenpwned.com" target="_blank" rel="nofollow noopener">Breach Check</a><a href="/tools/vpn-quiz/">VPN Quiz</a></div>
+      <div class="footer-col"><h4>VPNs</h4><a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=159663&url_id=902" target="_blank" rel="noopener sponsored">NordVPN</a><a href="https://expressvpn.com" target="_blank" rel="nofollow noopener">ExpressVPN</a><a href="https://get.surfshark.net/aff_c?offer_id=2065&aff_id=46178" target="_blank" rel="nofollow noopener">Surfshark</a><a href="https://cyberghostvpn.com" target="_blank" rel="nofollow noopener">CyberGhost</a><a href="/#vpn-compare">VPN Comparison</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/en/legal/privacy-policy/">Privacy Policy</a><a href="/en/legal/terms/">Terms of Use</a><a href="/en/legal/affiliate-disclosure/">Affiliate Disclosure</a><a href="/en/legal/contact/">Contact</a></div>
+    </div>
+    <div class="footer-bottom">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/es/" style="font-size:13px;color:var(--t3);text-decoration:none;">🇪🇸 Español</a>
+        <span style="font-size:13px;color:var(--cyan);">🇺🇸 English</span>
+        <a href="/fr/" style="font-size:13px;color:var(--t3);text-decoration:none;">🇫🇷 Français</a>
+      </div>
+      <div class="footer-legal"><a href="/en/legal/privacy-policy/">Privacy</a><a href="/en/legal/terms/">Terms</a><a href="/en/legal/affiliate-disclosure/">Affiliates</a><a href="/en/legal/contact/">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script src="/assets/track.js" defer></script>
+</body>
+</html>
